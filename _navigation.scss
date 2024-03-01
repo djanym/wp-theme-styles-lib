@@ -1,0 +1,537 @@
+@charset "UTF-8";
+
+@use "../vars";
+@use "mixins" as mx;
+@import "bootstrap-required";
+
+// Adds styles for the main navigation
+// Uses variables from the _vars.scss file
+@mixin enable-nav-bar() {
+    .navbar-nav {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        background-color: vars.$navbar-bg-color;
+
+        @include mx.breakpoint-max(vars.$navbar-mobile) {
+            //flex-direction: column;
+            //align-content: flex-start;
+            //width: 100%;
+            //@include padding(1rem);
+        }
+
+        // Main navigation menu items
+        > li {
+            white-space: nowrap;
+            @if vars.$navbar-item-bg-color {
+                background-color: vars.$navbar-item-bg-color;
+            }
+            color: vars.$navbar-item-font-color;
+
+            @include mx.breakpoint-max(vars.$navbar-mobile) {
+                white-space: normal;
+            }
+
+            &:hover {
+                @if vars.$navbar-item-font-weight-hover {
+                    font-weight: vars.$navbar-item-font-weight-hover;
+                }
+                @if vars.$navbar-item-bg-color-hover {
+                    background-color: vars.$navbar-item-bg-color-hover;
+                }
+            }
+
+            &.current-menu-parent,
+            &.current-menu-item {
+                @if vars.$navbar-item-font-weight-active {
+                    font-weight: vars.$navbar-item-font-weight-active;
+                }
+                @if vars.$navbar-item-bg-color-active {
+                    background-color: vars.$navbar-item-bg-color-active;
+                }
+                //color: #fff;
+            }
+
+            // First level sub menu <ul>
+            > .sub-menu {
+                top: 100%;
+            }
+
+            // Only main navigation menu <a> items
+            > a {
+                color: vars.$navbar-item-font-color;
+
+                @include mx.breakpoint-max(vars.$navbar-mobile) {
+                    //color: vars.$navbar-mobile-item-font-color;
+                }
+            }
+        }
+
+        // All menu items
+        .menu-item {
+            display: flex;
+            position: relative;
+            list-style: none;
+            @include font-size(vars.$navbar-font-size);
+            font-weight: normal;
+
+            @include mx.breakpoint-less-than(vars.$small-laptop) {
+                @include font-size(vars.$navbar-font-size * .9);
+            }
+
+            @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
+                &:hover > .sub-menu {
+                    display: flex;
+                    //opacity: 1;
+                }
+            }
+
+            @include mx.breakpoint-max(vars.$navbar-mobile) {
+                //display: list-item;
+                //
+                //&.active {
+                //    // Show only primary child.
+                //    > .sub-menu {
+                //        display: block;
+                //    }
+                //}
+            }
+
+            &:focus,
+            &:hover {
+                position: relative;
+            }
+
+            &.current-menu-parent,
+            &.current-menu-item {
+                font-weight: bold;
+                //background-color: vars.$navbar-item-bg-color-active;
+                //color: #fff;
+            }
+
+            // Adds arrow to the menu item if it has a dropdown.
+            @if vars.$navbar-item-dropdown-arrow == true {
+                &.menu-item-has-children > a::after {
+                    content: '';
+                    display: inline-block;
+                    position: relative;
+                    border-style: solid;
+                    border-width: 1px 1px 0 0;
+                    height: 6px;
+                    width: 6px;
+                    margin-left: 10px;
+                    top: -3px;
+                    transform: rotate(135deg);
+                }
+            }
+
+            // All menu item <a> links
+            a {
+                @if vars.$navbar-item-font-decoration {
+                    text-decoration: vars.$navbar-item-font-decoration;
+                }
+
+                @include padding(vars.$navbar-item-spacing-y vars.$navbar-item-spacing-x);
+
+                @include mx.breakpoint-max(vars.$navbar-mobile) {
+                    //display: inline-block;
+                    //@include padding(vars.$navbar-mobile-item-spacing-y vars.$navbar-item-spacing-x);
+                }
+
+                &:hover {
+                    @if vars.$navbar-item-font-decoration-hover {
+                        text-decoration: vars.$navbar-item-font-decoration-hover;
+                    }
+                }
+            }
+        }
+
+        // Sub menu <ul>
+        .sub-menu {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            overflow: visible;
+            margin: 0;
+            @include padding(vars.$navbar-submenu-container-spacing-y vars.$navbar-submenu-container-spacing-x);
+
+            background-color: vars.$navbar-submenu-bg-color;
+
+            // For non-mobile
+            @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
+                display: none;
+                position: absolute;
+                z-index: 99;
+                left: 0;
+                align-content: flex-start;
+
+                // Show sub menu on right on hover
+                li:hover > .sub-menu {
+                    top: 0;
+                    left: 100%;
+                }
+            }
+
+            @include mx.breakpoint-max(vars.$navbar-mobile) {
+                //display: none;
+                //@include padding(0 vars.$navbar-mobile-submenu-container-spacing-x);
+            }
+
+            // Only sub menu <li> items
+            li {
+                flex: 1; // makes the sub menu items equal width
+                white-space: nowrap;
+
+                background-color: vars.$navbar-submenu-item-bg-color;
+                color: vars.$navbar-submenu-item-font-color;
+
+                @include mx.breakpoint-max(vars.$navbar-mobile) {
+                    //display: list-item;
+                    //width: 100%;
+                    //white-space: normal;
+                }
+
+                &:hover {
+                    background-color: vars.$navbar-submenu-item-bg-color-hover;
+                    font-weight: 700;
+                }
+
+                a {
+                    color: vars.$navbar-submenu-item-font-color;
+
+                    @include padding(vars.$navbar-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
+
+                    @include mx.breakpoint-max(vars.$navbar-mobile) {
+                        //display: inline-block;
+                        //@include padding(vars.$navbar-mobile-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
+                        //vertical-align: top;
+                    }
+
+                    &:hover {
+                    }
+                }
+            }
+        }
+
+        .nav-item {
+            //font-family: $PrimaryFontMedium;
+            //margin: 0;
+            //@include mx.font(18px, 21px);
+
+            .nav-link {
+                color: $main-link-color;
+                text-decoration: none;
+                padding: .3rem .9rem;
+
+                &:hover {
+                    color: $hover-link-color;
+                    text-decoration: underline;
+                }
+
+                &:focus {
+                    background-color: inherit;
+                }
+
+                &.dropdown-toggle::after {
+                    margin-left: 0;
+                    border: none;
+                }
+            }
+
+            // Active nav item
+            &.current_page_item >,
+            &.current-menu-item >,
+            &.current-menu-parent > {
+                a {
+                    color: $active-link-color;
+                    text-decoration: underline;
+                }
+            }
+
+            // Drop down menu on hover styles
+            &.dropdown:hover {
+                > a {
+                    color: $hover-link-color;
+                    text-decoration: underline;
+                }
+
+                // Responsive mode
+                //@media (min-width: $xl){
+                //    .dropdown-menu{
+                //        display: flex;
+                //    }
+                //}
+            }
+
+
+        }
+
+        // Main nav item links end
+
+        // Drop down menu start here
+        > .dropdown-menu {
+            @include margin(-1px false false 13px);
+            top: 100%;
+            background-color: $dropdown-box-color;
+            min-width: 250px;
+            border-radius: 0;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            opacity: .95;
+            z-index: 10;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: auto;
+
+            li {
+                text-transform: none;
+                padding: .2rem 0;
+                list-style: disc;
+                margin-left: 7px;
+                color: white;
+
+                &::marker {
+                    color: white;
+                    font-size: 1rem;
+                }
+
+                &.current-menu-item a {
+                    text-decoration: underline;
+                    color: $active-link-color;
+                }
+
+                a {
+                    color: $main-link-color;
+                    text-decoration: none;
+                    padding: 0;
+                    white-space: normal;
+
+                    &:hover {
+                        color: $active-link-color;
+                        text-decoration: underline;
+                        background-color: inherit;
+                    }
+                }
+            }
+        }
+    }
+    // Main navigation menu end
+
+    @include mx.breakpoint-max(vars.$navbar-mobile) {
+        .navbar-mobile-active {
+            .navbar-mobile {
+                display: block;
+                left: 0;
+            }
+        }
+
+        .navbar-mobile {
+            position: fixed;
+            top: 0;
+            left: -105%;
+            height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            padding-bottom: 1rem;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            //flex-direction: column;
+            //align-items: center;
+            transition: all 0.3s ease-in-out;
+            z-index: 3000;
+            background-color: vars.$navbar-mobile-bg-color;
+
+            &.navbar-mobile-active {
+                display: block;
+                left: 0;
+                width: calc(#{vars.$navbar-mobile} * 0.7);
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                align-content: flex-start;
+                width: 100%;
+                @include padding(1rem);
+
+                // Main navigation menu items
+                > li {
+                    // Only main navigation menu <a> items
+                    > a {
+                        color: vars.$navbar-mobile-item-font-color;
+                    }
+                }
+
+                // All menu items
+                .menu-item {
+                    display: list-item;
+
+                    &.active {
+                        // Show only primary child.
+                        > .sub-menu {
+                            display: block;
+                        }
+                    }
+
+                    // All menu item <a> links
+                    a {
+                        display: inline-block;
+                        @include padding(vars.$navbar-mobile-item-spacing-y vars.$navbar-item-spacing-x);
+                    }
+                }
+
+                // Sub menu <ul>
+                .sub-menu {
+                    display: none;
+                    @include padding(0 vars.$navbar-mobile-submenu-container-spacing-x);
+
+                    // Only sub menu <li> items
+                    li {
+                        display: list-item;
+                        width: 100%;
+                        white-space: normal;
+
+                        a {
+                            display: inline-block;
+                            @include padding(vars.$navbar-mobile-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
+                            vertical-align: top;
+                        }
+                    }
+                }
+
+                // Main nav item links end
+            }
+        }
+    }
+
+    .navbar-mobile-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        @include padding(1rem);
+
+        @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
+            display: none;
+        }
+
+        .navbar-closer {
+            align-self: start;
+            @include margin-left(auto);
+        }
+
+        .site-logo img {
+            max-height: rfs-value(50px);
+        }
+    }
+
+    // Mobile nav button
+    .navbar-menu-toggler-container {
+        @include padding(vars.$navbar-mobile-toggler-padding);
+        display: none;
+        position: relative;
+
+        // Show only for the mobile.
+        @include mx.breakpoint-max(vars.$navbar-mobile) {
+            display: block;
+        }
+
+        @include mx.breakpoint-max(vars.$mobile) {
+            margin-left: auto;
+            padding-right: 0;
+        }
+
+        // Styling of the button.
+        .toggler-button {
+            $lines-width: calc(#{vars.$navbar-mobile-toggler-width} - (#{vars.$navbar-mobile-toggler-padding}));
+
+            &:hover {
+                background-color: vars.$navbar-mobile-toggler-bg-color-hover !important;
+
+                .lines {
+                    background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+
+                    &::before,
+                    &::after {
+                        background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+                    }
+                }
+            }
+
+            position: relative;
+            display: inline-block;
+            width: vars.$navbar-mobile-toggler-width;
+            height: vars.$navbar-mobile-toggler-height;
+            background-color: vars.$navbar-mobile-toggler-bg-color;
+            border: vars.$navbar-mobile-toggler-border;
+            @include border-radius(vars.$navbar-mobile-toggler-border-radius);
+            cursor: pointer;
+
+            // Styling of the lines.
+            .lines {
+                content: '';
+                position: absolute;
+                width: $lines-width;
+                height: vars.$navbar-mobile-toggler-line-height;
+                background-color: vars.$navbar-mobile-toggler-line-color;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                transition: 0.1s;
+
+                &::before,
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: vars.$navbar-mobile-toggler-line-color;
+                    transition: 0.1s;
+                }
+
+                &::before {
+                    transform: translate(-50%, -8px);
+                }
+
+                &::after {
+                    transform: translate(-50%, 8px);
+                }
+            }
+        }
+    }
+
+    .navbar-closer {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 20px;
+            background-color: #666;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+    }
+}
+
+
+

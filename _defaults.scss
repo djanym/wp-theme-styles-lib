@@ -1,0 +1,15 @@
+/**
+* Includes normalize, default variables, and default styles.
+ */
+
+@import "bootstrap-required";
+// Required includes.
+//@import "../../node_modules/bootstrap/scss/functions";
+//@import "../../node_modules/bootstrap/scss/variables";
+//@import "../../node_modules/bootstrap/scss/variables-dark";
+//@import "../../node_modules/bootstrap/scss/maps";
+//@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+
+// Normalize.
+@import '../../node_modules/bootstrap/scss/reboot';

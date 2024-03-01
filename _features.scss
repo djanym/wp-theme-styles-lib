@@ -1,0 +1,141 @@
+@use "../vars";
+@use "mixins" as mx;
+@import "bootstrap-required";
+
+// Adds styles for the main navigation
+// Uses variables from the _vars.scss file
+@mixin enable-page-cover-image() {
+    .cover-wrapper {
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: cover; // Adjust image size by smaller side.
+        background-position: center;
+        background-origin: padding-box;
+        background-clip: border-box;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+
+        @if vars.$cover-block-height {
+            height: rfs-value(vars.$cover-block-height);
+        }
+        @if vars.$cover-block-min-height {
+            min-height: rfs-value(vars.$cover-block-min-height);
+        }
+
+        .cover-image, .cover-map {
+            object-fit: cover;
+            outline: none;
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            grid-column: full-width;
+
+            &.overlayed {
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5); /* Adjust the last value for transparency */
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
+
+@mixin enable-cf7-form-styles() {
+    .wpcf7-form {
+        //    textarea{
+        //        height: 195px;
+        //    }
+
+        .wpcf7-form-control-wrap {
+            @include margin-bottom(20px);
+            display: block;
+
+            + br {
+                display: none;
+            }
+
+            .wpcf7-list-item {
+                display: block;
+                margin-bottom: 0.5rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .wpcf7-not-valid {
+            border-color: red !important;
+        }
+
+        .wpcf7-not-valid-tip {
+            margin: 0.3rem 0;
+            padding: 0;
+            font-size: 1rem;
+        }
+
+        .wpcf7-spinner {
+            vertical-align: middle;
+        }
+
+        div.wpcf7-validation-errors,
+        div.wpcf7-acceptance-missing,
+        div.wpcf7-response-output {
+            border: none;
+        }
+    }
+}
+
+@mixin enable-h-like-classes() {
+    .h1 {
+        @extend h1;
+    }
+
+    .h2 {
+        @extend h2;
+    }
+
+    .h3 {
+        @extend h3;
+    }
+
+    .h4 {
+        @extend h4;
+    }
+
+    .h5 {
+        @extend h5;
+    }
+
+    .h6 {
+        @extend h6;
+    }
+}
+
+@mixin enable-columns-layout-styles {
+    .cols {
+        display: flex;
+        flex-direction: row;
+
+        .col {
+            flex-basis: 50%;
+
+            &.left-col {
+                order: 0;
+            }
+            &.right-col {
+                order: 1;
+            }
+        }
+    }
+}
