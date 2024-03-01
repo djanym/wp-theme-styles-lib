@@ -14,7 +14,9 @@
         flex-direction: row;
         justify-content: space-evenly;
 
-        background-color: vars.$navbar-bg-color;
+        @if vars.$navbar-bg-color {
+            background-color: vars.$navbar-bg-color;
+        }
 
         @include mx.breakpoint-max(vars.$navbar-mobile) {
             //flex-direction: column;
@@ -23,13 +25,23 @@
             //@include padding(1rem);
         }
 
+        a {
+            @if vars.$navbar-item-font-color {
+                color: vars.$navbar-item-font-color;
+            }
+        }
+
         // Main navigation menu items
         > li {
             white-space: nowrap;
+
             @if vars.$navbar-item-bg-color {
                 background-color: vars.$navbar-item-bg-color;
             }
-            color: vars.$navbar-item-font-color;
+
+            @if vars.$navbar-item-font-color {
+                color: vars.$navbar-item-font-color;
+            }
 
             @include mx.breakpoint-max(vars.$navbar-mobile) {
                 white-space: normal;
@@ -157,7 +169,8 @@
             justify-content: flex-start;
             flex-wrap: wrap;
             overflow: visible;
-            margin: 0;
+            //margin: 0;
+
             @include padding(vars.$navbar-submenu-container-spacing-y vars.$navbar-submenu-container-spacing-x);
 
             background-color: vars.$navbar-submenu-bg-color;
@@ -187,8 +200,17 @@
                 flex: 1; // makes the sub menu items equal width
                 white-space: nowrap;
 
-                background-color: vars.$navbar-submenu-item-bg-color;
-                color: vars.$navbar-submenu-item-font-color;
+                @if vars.$navbar-submenu-item-bg-color {
+                    background-color: vars.$navbar-submenu-item-bg-color;
+                }
+
+                @if vars.$navbar-submenu-item-font-color {
+                    color: vars.$navbar-submenu-item-font-color;
+                }
+
+                @if vars.$navbar-submenu-item-font-weight {
+                    font-weight: vars.$navbar-submenu-item-font-weight;
+                }
 
                 @include mx.breakpoint-max(vars.$navbar-mobile) {
                     //display: list-item;
@@ -197,12 +219,19 @@
                 }
 
                 &:hover {
-                    background-color: vars.$navbar-submenu-item-bg-color-hover;
-                    font-weight: 700;
+                    @if vars.$navbar-submenu-item-bg-color-hover {
+                        background-color: vars.$navbar-submenu-item-bg-color-hover;
+                    }
+
+                    @if vars.$navbar-submenu-item-font-weight-hover {
+                        font-weight: vars.$navbar-submenu-item-font-weight-hover;
+                    }
                 }
 
                 a {
-                    color: vars.$navbar-submenu-item-font-color;
+                    @if vars.$navbar-submenu-item-font-color {
+                        color: vars.$navbar-submenu-item-font-color;
+                    }
 
                     @include padding(vars.$navbar-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
 
