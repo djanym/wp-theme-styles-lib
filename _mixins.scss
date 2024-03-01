@@ -197,13 +197,13 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 //    }
 //}
 
-@mixin margin($values) {
-    @include _directional-property(margin, null, $values);
-}
+//@mixin margin($values) {
+//    @include _directional-property(margin, null, $values);
+//}
 
-@mixin padding($values) {
-    @include _directional-property(padding, null, $values);
-}
+//@mixin padding($values) {
+//    @include _directional-property(padding, null, $values);
+//}
 //^^^
 // Usage: @include padding(1px null 3px 4px);
 // Usage: @include margin(10px 3em 20vh null);

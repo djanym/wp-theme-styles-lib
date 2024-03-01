@@ -13,6 +13,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        align-items: center;
 
         @if vars.$navbar-bg-color {
             background-color: vars.$navbar-bg-color;

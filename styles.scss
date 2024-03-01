@@ -10,6 +10,7 @@
 @use "wp-core";
 
 // @use "project-related/styles";
+@import "bootstrap-required";
 
 @if vars.$enable-wp-core-styles {
     @include wp-core.wp-main-styles();
@@ -29,6 +30,14 @@
 
 .hidden{
     @include mx.textHidden;
+}
+
+.content-block-fluid {
+    h1, h2, h3, h4, h5, h6 {
+        @if vars.$content-headings-margin-bottom {
+            @include margin-bottom(vars.$content-headings-margin-bottom);
+        }
+    }
 }
 
 @include features.enable-h-like-classes();
