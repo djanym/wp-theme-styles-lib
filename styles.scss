@@ -16,9 +16,13 @@
     @include wp-core.wp-main-styles();
 }
 
+@if vars.$theme-wp-colors {
+    @include wp-core.wp-color-pallete(vars.$theme-wp-colors);
+}
+
 :root {
     // Workaround for the full width without scrollbar. Use it instead of 100vw, 50vw.
-    --full-width: calc( 100vw - var(--scrollbar-width));
+    --full-width: calc(100vw - var(--scrollbar-width));
     --half-width: calc(var(--full-width) / 2);
     --mobile-breakpoint: #{vars.$mobile-breakpoint};
 }
@@ -28,7 +32,7 @@
     margin-top: vars.$post-content-flow-spacing;
 }
 
-.hidden{
+.hidden {
     @include mx.textHidden;
 }
 
