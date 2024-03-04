@@ -4,11 +4,6 @@
 @use "mixins" as mx;
 @import "bootstrap-required";
 
-//$sm: 576px;
-//$md: 768px;
-//$lg: 992px;
-//$xl: 1200px;
-
 $post-content-img-spacing-x: 1rem !default;
 $post-content-img-spacing-y: 0.5rem !default;
 $hr-separator-spacing-y: 2rem !default;
@@ -32,10 +27,6 @@ $hr-separator-spacing-y: 2rem !default;
             border: none;
             background-color: $hr-separator-color;
             @include margin($hr-separator-spacing-y false);
-        }
-
-        .wp-block-buttons {
-            display: flex;
         }
 
         .sticky,
@@ -151,6 +142,8 @@ $hr-separator-spacing-y: 2rem !default;
         }
 
         .wp-block-buttons {
+            display: flex;
+
             @if vars.$wp-block-buttons-gap {
                 @include margin-bottom($wp-block-buttons-gap);
             }
