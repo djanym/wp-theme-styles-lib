@@ -11,7 +11,6 @@ Examples:
 * Enable cover image styles:
 ```scss
 @include features.enable-page-cover-image();
-//@include features.enable-cf7-form-styles();
 ```
 
 * Enable CF7 styles:
@@ -25,9 +24,9 @@ Examples:
 @import "../sliders";
 ```
 
-* _:
+* Adds like headings styles (from `.h1` to `.h6`) for using non-semantic headings (like `<span class="h1">`):
 ```scss
-
+@include features.enable-h-like-classes();
 ```
 
 * _:
