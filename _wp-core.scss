@@ -141,6 +141,19 @@ $hr-separator-spacing-y: 2rem !default;
             }
         }
 
+        // Custom containers.
+        .wp-block-inner-container {
+            max-width: rfs-value(vars.$post-content-max-width);
+            margin: 0 auto;
+            padding-right: calc(#{$container-padding-x} * .5);
+            padding-left: calc(#{$container-padding-x} * .5);
+            @include clearfix();
+
+            > *:last-child {
+                margin-bottom: 0;
+            }
+        }
+
         .wp-block-buttons {
             display: flex;
 
@@ -254,7 +267,7 @@ $hr-separator-spacing-y: 2rem !default;
     }
 }
 
-@mixin wp-color-pallete($colors){
+@mixin wp-color-pallete($colors) {
     // Color pallete
     @each $name, $color in $colors {
 
