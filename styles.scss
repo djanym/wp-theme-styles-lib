@@ -16,14 +16,11 @@
     @include wp-core.wp-main-styles();
 }
 
-@if vars.$theme-wp-colors {
-    @include wp-core.wp-color-pallete(vars.$theme-wp-colors);
-}
-
 :root {
     // Workaround for the full width without scrollbar. Use it instead of 100vw, 50vw.
     --full-width: calc(100vw - var(--scrollbar-width));
     --half-width: calc(var(--full-width) / 2);
+    --breakout-max-width: #{rfs-value(vars.$breakout-content-max-width)};
     --mobile-breakpoint: #{vars.$mobile-breakpoint};
 }
 
@@ -39,7 +36,9 @@
 .content-block-fluid {
     h1, h2, h3, h4, h5, h6 {
         @if vars.$content-headings-margin-bottom {
-            @include margin-bottom(vars.$content-headings-margin-bottom);
+            @if vars.$content-headings-margin-bottom {
+                @include margin-bottom(vars.$content-headings-margin-bottom);
+            }
         }
     }
 }

@@ -267,20 +267,6 @@ $hr-separator-spacing-y: 2rem !default;
     }
 }
 
-@mixin wp-color-pallete($colors) {
-    // Color pallete
-    @each $name, $color in $colors {
-
-        .has-#{$name}-color {
-            color: $color;
-        }
-
-        .has-#{$name}-background-color {
-            background-color: $color;
-        }
-    }
-}
-
 @mixin wp-comments-styles() {
     .wp-comments {
         .comments-area {
