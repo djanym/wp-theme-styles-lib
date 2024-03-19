@@ -54,9 +54,9 @@
 .content-grid {
     --padding-inline: #{vars.$post-content-spacing-x};
     --content-max-width: #{vars.$post-content-max-width};
-    --breakout-max-width: #{vars.$breakout-content-max-width};
+    --breakout-content-max-width: #{vars.$breakout-content-max-width};
     --breakout-size: calc(
-            (var(--breakout-max-width) - var(--content-max-width)) / 2
+            (var(--breakout-content-max-width) - var(--content-max-width)) / 2
     );
 
     display: grid;

@@ -20,8 +20,10 @@
     // Workaround for the full width without scrollbar. Use it instead of 100vw, 50vw.
     --full-width: calc(100vw - var(--scrollbar-width));
     --half-width: calc(var(--full-width) / 2);
-    --breakout-max-width: #{rfs-value(vars.$breakout-content-max-width)};
+    //--breakout-content-max-width: #{rfs-value(vars.$breakout-content-max-width)};
+    --breakout-content-max-width: calc(#{rfs-value(vars.$breakout-content-max-width)} - #{rfs-value($container-padding-x)}); // Counts also paddings from the container.
     --mobile-breakpoint: #{vars.$mobile-breakpoint};
+    --post-content-max-width: #{rfs-value(vars.$post-content-max-width)};
 }
 
 // Adds spacing between elements.

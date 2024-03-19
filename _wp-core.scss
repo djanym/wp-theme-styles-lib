@@ -127,7 +127,7 @@ $hr-separator-spacing-y: 2rem !default;
                 margin: 0 auto;
                 padding-right: calc(#{$container-padding-x} * .5);
                 padding-left: calc(#{$container-padding-x} * .5);
-                @include clearfix();
+                //@include clearfix(); // Not sure if we need this? Was added before. Then removed due to additional space for .is-flex container
 
                 @if vars.$wp-block-group-items-default-gap {
                     > * {
