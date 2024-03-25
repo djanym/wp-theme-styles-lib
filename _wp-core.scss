@@ -120,6 +120,13 @@ $hr-separator-spacing-y: 2rem !default;
             }
         }
 
+        // Columns:
+        .wp-block-column {
+            > :last-child {
+                margin-bottom: 0;
+            }
+        }
+
         // Groups:
         .wp-block-group {
             &__inner-container {
