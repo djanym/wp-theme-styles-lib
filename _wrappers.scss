@@ -21,6 +21,43 @@
     }
 }
 
+// ------------ Container that wider than normal .container ------------
+.container-wider {
+    padding-right: calc(#{$container-padding-x} * .5);
+    padding-left: calc(#{$container-padding-x} * .5);
+    margin-right: auto;
+    margin-left: auto;
+    width: rfs-value(vars.$container-wider-max-width);
+    max-width: rfs-value(vars.$container-wider-max-width);
+
+    @include mx.breakpoint-max( calc( rfs-value(vars.$container-wider-max-width) + rfs-value(vars.$post-content-spacing-x * 2) ) ) {
+        width: 100%;
+    }
+}
+
+// ------------ Template with sidebar styles ------------
+.container-with-sidebar {
+    display: flex;
+    flex-direction: row;
+    gap: vars.$container-with-sidebar-gap;
+
+    padding-right: calc(#{$container-padding-x} * .5);
+    padding-left: calc(#{$container-padding-x} * .5);
+    margin-right: auto;
+    margin-left: auto;
+    width: rfs-value(vars.$container-with-sidebar-max-width);
+    max-width: rfs-value(vars.$container-with-sidebar-max-width);
+
+    @include mx.breakpoint-max( calc( rfs-value(vars.$container-with-sidebar-max-width) + rfs-value(vars.$post-content-spacing-x * 2) ) ) {
+        width: 100%;
+    }
+
+    .sidebar {
+        width: rfs-value(vars.$sidebar-content-width);
+        max-width: rfs-value(vars.$sidebar-content-width);
+    }
+}
+
 // This wrapper is to set right paddings for the content.
 // Use it inside as a final wrapper.
 .content-wrapper {
@@ -36,11 +73,18 @@
     margin-right: auto;
     margin-left: auto;
     width: rfs-value(vars.$post-content-max-width);
-    max-width    : 100vw;
+    //max-width: 100vw;
+    max-width: rfs-value(vars.$post-content-max-width);
 
     @include mx.breakpoint-max( calc( rfs-value(vars.$post-content-max-width) + rfs-value(vars.$post-content-spacing-x * 2) ) ) {
         width: 100%;
     }
+}
+
+// Standard padding for content.
+.content-padding-x-0 {
+    padding-top: rfs-value(vars.$post-content-spacing-y);
+    padding-bottom: rfs-value(vars.$post-content-spacing-y);
 }
 
 // Standard padding for content.
