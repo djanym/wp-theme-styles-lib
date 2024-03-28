@@ -11,6 +11,7 @@
 
 // @use "project-related/styles";
 @import "bootstrap-required";
+@import "helpers";
 
 @if vars.$enable-wp-core-styles {
     @include wp-core.wp-main-styles();

@@ -1,0 +1,7 @@
+@use "../vars";
+@use "mixins" as mx;
+@import "bootstrap-required";
+
+.display-none {
+    display: none !important;
+}
