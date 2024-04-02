@@ -132,8 +132,10 @@ $hr-separator-spacing-y: 2rem !default;
             &__inner-container {
                 max-width: rfs-value(vars.$post-content-max-width);
                 margin: 0 auto;
-                padding-right: calc(#{$container-padding-x} * .5);
-                padding-left: calc(#{$container-padding-x} * .5);
+                //padding-right: calc(#{$container-padding-x} * .5);
+                //padding-left: calc(#{$container-padding-x} * .5);
+                padding-right: vars.$post-content-spacing-x;
+                padding-left: vars.$post-content-spacing-x;
                 //@include clearfix(); // Not sure if we need this? Was added before. Then removed due to additional space for .is-flex container
 
                 @if vars.$wp-block-group-items-default-gap {
@@ -152,8 +154,10 @@ $hr-separator-spacing-y: 2rem !default;
         .wp-block-inner-container {
             max-width: rfs-value(vars.$post-content-max-width);
             margin: 0 auto;
-            padding-right: calc(#{$container-padding-x} * .5);
-            padding-left: calc(#{$container-padding-x} * .5);
+            //padding-right: calc(#{$container-padding-x} * .5);
+            //padding-left: calc(#{$container-padding-x} * .5);
+            padding-right: vars.$post-content-spacing-x;
+            padding-left: vars.$post-content-spacing-x;
             @include clearfix();
 
             > *:last-child {

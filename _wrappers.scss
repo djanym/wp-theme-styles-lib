@@ -27,8 +27,10 @@
     flex-direction: row;
     gap: vars.$container-with-sidebar-gap;
 
-    padding-right: calc(#{$container-padding-x} * .5);
-    padding-left: calc(#{$container-padding-x} * .5);
+    //padding-right: calc(#{$container-padding-x} * .5);
+    //padding-left: calc(#{$container-padding-x} * .5);
+    padding-right: vars.$post-content-spacing-x;
+    padding-left: vars.$post-content-spacing-x;
     margin-right: auto;
     margin-left: auto;
     width: rfs-value(vars.$container-with-sidebar-max-width);
@@ -56,8 +58,10 @@
 
 // Wrapper for the content of the post.
 .content-block-fluid {
-    padding-right: calc(#{$container-padding-x} * .5);
-    padding-left: calc(#{$container-padding-x} * .5);
+    //padding-right: calc(#{$container-padding-x} * .5);
+    //padding-left: calc(#{$container-padding-x} * .5);
+    padding-right: vars.$post-content-spacing-x;
+    padding-left: vars.$post-content-spacing-x;
     margin-right: auto;
     margin-left: auto;
     width: rfs-value(vars.$post-content-max-width);
