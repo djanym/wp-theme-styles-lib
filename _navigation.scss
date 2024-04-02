@@ -13,13 +13,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        align-items: center;
 
         @if vars.$navbar-mobile-items-gap {
             gap: vars.$navbar-mobile-items-gap;
-        }
-
-        @if vars.$navbar-mobile-items-align {
-            align-items: vars.$navbar-mobile-items-align;
         }
 
         @if vars.$navbar-bg-color {
@@ -27,8 +24,11 @@
         }
 
         @include mx.breakpoint-max(vars.$navbar-mobile) {
+            @if vars.$navbar-mobile-items-align {
+                align-items: vars.$navbar-mobile-items-align;
+            }
+
             //flex-direction: column;
-            //align-content: flex-start;
             //width: 100%;
             //@include padding(1rem);
         }
@@ -417,6 +417,7 @@
                 // All menu items
                 .menu-item {
                     display: list-item;
+                    width: 100%;
 
                     &.active {
                         // Show only primary child.
@@ -430,9 +431,39 @@
                         }
                     }
 
+                    &.dropdown {
+                        // Adds arrow to the menu item if it has a dropdown.
+                        > a {
+                            position: relative;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            &::after {
+                                content: "";
+                                display: inline-block;
+                                width: 10px;
+                                height: 10px;
+                                border: solid black;
+                                border-width: 0 2px 2px 0;
+                                transform: rotate(45deg) translateX(-100%) translateY(75%);
+                                transition: transform 0.3s ease;
+                            }
+                        }
+
+                        &.active {
+                            > a {
+                                &::after {
+                                    transform: rotate(-135deg) translateX(75%) translateY(-100%);
+                                }
+                            }
+                        }
+                    }
+
                     // All menu item <a> links
                     a {
-                        display: inline-block;
+                        display: block;
 
                         @if vars.$navbar-mobile-item-spacing-x {
                             @include padding-right(vars.$navbar-mobile-item-spacing-x);
@@ -489,6 +520,7 @@
             }
         }
     }
+    // End of mobile navigation
 
     .navbar-mobile-header {
         display: flex;

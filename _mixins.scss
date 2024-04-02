@@ -55,42 +55,6 @@
     }
 }
 
-@mixin typography($typography, $name) {
-    $props: map-get($typography, $name);
-
-    @each $property, $property-value in $props {
-        @if $property == 'font-size' or $property == 'line-height' {
-            #{$property}: rfs-value($property-value);
-        } @else if ($property == 'padding') {
-            @include padding($property-value);
-        } @else if ($property == 'padding-right') {
-            @include padding-right($property-value);
-        } @else if ($property == 'padding-left') {
-            @include padding-left($property-value);
-        } @else if ($property == 'padding-top') {
-            @include padding-top($property-value);
-        } @else if ($property == 'padding-bottom') {
-            @include padding-bottom($property-value);
-        } @else if ($property == 'margin') {
-            @include margin($property-value);
-        } @else if ($property == 'margin-right') {
-            @include margin-right($property-value);
-        } @else if ($property == 'margin-left') {
-            @include margin-left($property-value);
-        } @else if ($property == 'margin-top') {
-            @include margin-top($property-value);
-        } @else if ($property == 'margin-bottom') {
-            @include margin-bottom($property-value);
-        } @else if ($property == 'border-radius') {
-            @include border-radius($property-value);
-        } @else {
-            @if $property-value {
-                #{$property}: $property-value;
-            }
-        }
-    }
-}
-
 @mixin line-height($size, $important: false){
     @if $important{
         line-height: $size !important;
@@ -179,7 +143,8 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     @each $property, $property-value in $properties {
         @if $property-value {
             @if $property == 'typography' {
-                @extend %typography-#{$property-value};
+                @include generate-properties-from($typography, #{$property-value});
+                //@extend %typography-#{$property-value};
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
@@ -212,6 +177,12 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
             }
         }
     }
+}
+
+@mixin generate-properties-from($array, $key) {
+    $properties: map-get($array, $key);
+
+    @include generate-properties($properties);
 }
 
 //********** Truncates text and adds an ellipsis to represent overflow.
