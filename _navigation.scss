@@ -637,8 +637,8 @@
 
     .navbar-closer {
         position: relative;
-        width: 40px;
-        height: 40px;
+        width: mx.rfs-value(vars.$navbar-mobile-closer-width);
+        height: mx.rfs-value(vars.$navbar-mobile-closer-height);
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -647,9 +647,9 @@
         &::after {
             content: '';
             position: absolute;
-            width: 3px;
+            width: vars.$navbar-mobile-closer-line-height;
             height: 20px;
-            background-color: #666;
+            background-color: vars.$navbar-mobile-closer-line-color;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
