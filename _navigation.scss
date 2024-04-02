@@ -13,7 +13,14 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        align-items: center;
+
+        @if vars.$navbar-mobile-items-gap {
+            gap: vars.$navbar-mobile-items-gap;
+        }
+
+        @if vars.$navbar-mobile-items-align {
+            align-items: vars.$navbar-mobile-items-align;
+        }
 
         @if vars.$navbar-bg-color {
             background-color: vars.$navbar-bg-color;
@@ -379,14 +386,25 @@
             &.navbar-mobile-active {
                 display: block;
                 left: 0;
-                width: calc(#{vars.$navbar-mobile} * 0.7);
+                @if vars.$navbar-mobile-width {
+                    width: vars.$navbar-mobile-width;
+                }
             }
 
             .navbar-nav {
                 flex-direction: column;
                 align-content: flex-start;
                 width: 100%;
-                @include padding(1rem);
+
+                @if vars.$navbar-mobile-items-spacing-x {
+                    @include padding-right(vars.$navbar-mobile-items-spacing-x);
+                    @include padding-left(vars.$navbar-mobile-items-spacing-x);
+                }
+
+                @if vars.$navbar-mobile-items-spacing-y {
+                    @include padding-top(vars.$navbar-mobile-items-spacing-y);
+                    @include padding-bottom(vars.$navbar-mobile-items-spacing-y);
+                }
 
                 // Main navigation menu items
                 > li {
@@ -403,21 +421,45 @@
                     &.active {
                         // Show only primary child.
                         > .sub-menu {
-                            display: block;
+                            display: flex;
+                            flex-direction: column;
+
+                            @if vars.$navbar-mobile-submenu-items-gap {
+                                gap: vars.$navbar-mobile-submenu-items-gap;
+                            }
                         }
                     }
 
                     // All menu item <a> links
                     a {
                         display: inline-block;
-                        @include padding(vars.$navbar-mobile-item-spacing-y vars.$navbar-item-spacing-x);
+
+                        @if vars.$navbar-mobile-item-spacing-x {
+                            @include padding-right(vars.$navbar-mobile-item-spacing-x);
+                            @include padding-left(vars.$navbar-mobile-item-spacing-x);
+                        }
+
+                        @if vars.$navbar-mobile-item-spacing-y {
+                            @include padding-top(vars.$navbar-mobile-item-spacing-y);
+                            @include padding-bottom(vars.$navbar-mobile-item-spacing-y);
+                        }
+
                     }
                 }
 
                 // Sub menu <ul>
                 .sub-menu {
                     display: none;
-                    @include padding(0 vars.$navbar-mobile-submenu-container-spacing-x);
+
+                    @if vars.$navbar-mobile-submenu-container-spacing-y {
+                        @include mx.padding-top(vars.$navbar-mobile-submenu-container-spacing-y);
+                        @include mx.padding-bottom(vars.$navbar-mobile-submenu-container-spacing-y);
+                    }
+
+                    @if vars.$navbar-mobile-submenu-container-spacing-x {
+                        @include mx.padding-right(vars.$navbar-mobile-submenu-container-spacing-x);
+                        @include mx.padding-left(vars.$navbar-mobile-submenu-container-spacing-x);
+                    }
 
                     // Only sub menu <li> items
                     li {
@@ -427,7 +469,17 @@
 
                         a {
                             display: inline-block;
-                            @include padding(vars.$navbar-mobile-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
+
+                            @if vars.$navbar-mobile-submenu-item-spacing-y {
+                                @include mx.padding-top(vars.$navbar-mobile-submenu-item-spacing-y);
+                                @include mx.padding-bottom(vars.$navbar-mobile-submenu-item-spacing-y);
+                            }
+
+                            @if vars.$navbar-mobile-submenu-item-spacing-x {
+                                @include mx.padding-right(vars.$navbar-mobile-submenu-item-spacing-x);
+                                @include mx.padding-left(vars.$navbar-mobile-submenu-item-spacing-x);
+                            }
+
                             vertical-align: top;
                         }
                     }
@@ -478,15 +530,23 @@
         .toggler-button {
             $lines-width: calc(#{vars.$navbar-mobile-toggler-width} - (#{vars.$navbar-mobile-toggler-padding}));
 
+            vertical-align: middle;
+
             &:hover {
-                background-color: vars.$navbar-mobile-toggler-bg-color-hover !important;
+                @if vars.$navbar-mobile-toggler-bg-color-hover {
+                    background-color: vars.$navbar-mobile-toggler-bg-color-hover !important;
+                }
 
                 .lines {
-                    background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+                    @if vars.$navbar-mobile-toggler-line-color-hover {
+                        background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+                    }
 
                     &::before,
                     &::after {
-                        background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+                        @if vars.$navbar-mobile-toggler-line-color-hover {
+                            background-color: vars.$navbar-mobile-toggler-line-color-hover !important;
+                        }
                     }
                 }
             }
@@ -495,9 +555,19 @@
             display: inline-block;
             width: vars.$navbar-mobile-toggler-width;
             height: vars.$navbar-mobile-toggler-height;
-            background-color: vars.$navbar-mobile-toggler-bg-color;
-            border: vars.$navbar-mobile-toggler-border;
-            @include border-radius(vars.$navbar-mobile-toggler-border-radius);
+
+            @if vars.$navbar-mobile-toggler-bg-color {
+                background-color: vars.$navbar-mobile-toggler-bg-color;
+            }
+
+            @if vars.$navbar-mobile-toggler-border {
+                border: vars.$navbar-mobile-toggler-border;
+            }
+
+            @if vars.$navbar-mobile-toggler-border-radius {
+                @include border-radius(vars.$navbar-mobile-toggler-border-radius);
+            }
+
             cursor: pointer;
 
             // Styling of the lines.
