@@ -91,6 +91,20 @@
     }
 }
 
+// Wrapper for the content which has similar spacing as the content-block-fluid.
+.content-block {
+    padding-right: vars.$post-content-spacing-x;
+    padding-left: vars.$post-content-spacing-x;
+    margin-right: auto;
+    margin-left: auto;
+    width: rfs-value(vars.$post-content-max-width);
+    max-width: rfs-value(vars.$post-content-max-width);
+
+    @include mx.breakpoint-max(calc(rfs-value(vars.$post-content-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+        width: 100%;
+    }
+}
+
 // Standard padding for content.
 .content-padding-x-0 {
     padding-top: rfs-value(vars.$post-content-spacing-y);
