@@ -4,9 +4,12 @@
 
 @import "bootstrap-required";
 
+$rfs-unit: rem !default;
+$rfs-rem-value: 16 !default;
+
 //********** hidden text
 
-@mixin textHidden{
+@mixin textHidden {
     position: absolute;
     left: -10000px;
     top: auto;
@@ -19,14 +22,17 @@
 
 %clearfix {
     *zoom: 1;
+
     &:before, &:after {
         content: " ";
         display: table;
     }
+
     &:after {
         clear: both;
     }
 }
+
 //^^^
 // Usage: @extend %clearfix;
 //^^^
@@ -39,8 +45,7 @@
     @if unit($value) == 'px' {
         $rem: strip-unit(math.div($value, 16)); // Convert pixels to rems
         @return $rem + rem; // Convert pixels to rems
-    }
-    @else {
+    } @else {
         @return $value; // Skip conversion if the value doesn't contain "px"
     }
 }
@@ -53,54 +58,88 @@
     @return $number;
 }
 
+// Helper function to get the formatted non-responsive value
+@function nrfs-value($values) {
+    // Convert to list
+    $values: if(type-of($values) != list, ($values,), $values);
+
+    $val: "";
+
+    // Loop over each value and calculate value
+    @each $value in $values {
+        @if $value == 0 {
+            $val: $val + " 0";
+        }
+        @else {
+            // Cache $value unit
+            $unit: if(type-of($value) == "number", unit($value), false);
+
+            @if $unit == px {
+                // Convert to rem if needed
+                $val: $val + " " + if($rfs-unit == rem, #{divide($value, $value * 0 + $rfs-rem-value)}rem, $value);
+            }
+            @else if $unit == rem {
+                // Convert to px if needed
+                $val: $val + " " + if($rfs-unit == px, #{divide($value, $value * 0 + 1) * $rfs-rem-value}px, $value);
+            } @else {
+                // If $value isn't a number (like inherit) or $value has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
+                $val: $val + " " + $value;
+            }
+        }
+    }
+
+    // Remove first space
+    @return unquote(str-slice($val, 2));
+}
+
 @mixin font($size, $line-height: false, $weight: false, $style: false, $font-family: false) {
-    @if $size{
-        font-size: calculateRem($size);
+    @if $size {
+        font-size: nrfs-value($size);
     }
-    @if $line-height{
-        line-height: calculateRem($line-height);
+    @if $line-height {
+        line-height: nrfs-value($line-height);
     }
-    @if $weight{
+    @if $weight {
         font-weight: $weight;
     }
-    @if $style{
+    @if $style {
         font-style: $style;
     }
-    @if $font-family{
+    @if $font-family {
         font-family: $font-family;
     }
 }
 
 @mixin font-rfs($size, $line-height: false, $weight: false, $style: false, $font-family: false) {
-    @if $size{
+    @if $size {
         @include font-size($size);
     }
-    @if $line-height{
+    @if $line-height {
         line-height: rfs-value($line-height);
     }
-    @if $weight{
+    @if $weight {
         font-weight: $weight;
     }
-    @if $style{
+    @if $style {
         font-style: $style;
     }
-    @if $font-family{
+    @if $font-family {
         font-family: $font-family;
     }
 }
 
-@mixin line-height($size, $important: false){
-    @if $important{
+@mixin line-height($size, $important: false) {
+    @if $important {
         line-height: $size !important;
-        line-height: calculateRem($size) !important;
+        line-height: nrfs-value($size) !important;
     } @else {
         line-height: $size;
-        line-height: calculateRem($size);
+        line-height: nrfs-value($size);
     }
 }
 
 @mixin text-size($size, $height, $important: false) {
-    @if $important{
+    @if $important {
         @include font-size($size, '!important');
         @include line-height($height, '!important');
     } @else {
@@ -109,6 +148,7 @@
     }
 
 }
+
 //^^^
 // Usage: @include font-size(14px);
 //^^^
@@ -138,10 +178,10 @@ $_buttons-list: (
         "[type='submit']",
         ".btn",
 );
-$all-buttons:        _assign-inputs($_buttons-list);
+$all-buttons: _assign-inputs($_buttons-list);
 $all-buttons-active: _assign-inputs($_buttons-list, active);
-$all-buttons-focus:  _assign-inputs($_buttons-list, focus);
-$all-buttons-hover:  _assign-inputs($_buttons-list, hover);
+$all-buttons-focus: _assign-inputs($_buttons-list, focus);
+$all-buttons-hover: _assign-inputs($_buttons-list, hover);
 //^^^
 // Usage: #{$all-buttons-active} { styles }
 //^^^
@@ -164,16 +204,62 @@ $_text-inputs-list: (
         "input:not([type])",
         "textarea",
 );
-$all-text-inputs:         _assign-inputs($_text-inputs-list);
-$all-text-inputs-active:  _assign-inputs($_text-inputs-list, active);
-$all-text-inputs-focus:   _assign-inputs($_text-inputs-list, focus);
-$all-text-inputs-hover:   _assign-inputs($_text-inputs-list, hover);
+$all-text-inputs: _assign-inputs($_text-inputs-list);
+$all-text-inputs-active: _assign-inputs($_text-inputs-list, active);
+$all-text-inputs-focus: _assign-inputs($_text-inputs-list, focus);
+$all-text-inputs-hover: _assign-inputs($_text-inputs-list, hover);
 $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 //^^^
 // Usage: #{$all-text-inputs-active} { styles }
 //^^^
 
 @mixin generate-properties($properties) {
+    @each $property, $property-value in $properties {
+        @if $property-value {
+            @if $property == 'typography' {
+                @include generate-properties-from($typography, #{$property-value});
+                //@extend %typography-#{$property-value};
+                //@at-root {
+                //@extend %typography-#{$property-value}
+                //}
+            } @else if $property == 'typography-mobile' {
+                @include generate-properties-from($typography-mobile, #{$property-value});
+                //@extend %typography-#{$property-value};
+                //@at-root {
+                //@extend %typography-#{$property-value}
+                //}
+            } @else if $property == 'font-size' or $property == 'line-height' {
+                #{$property}: nrfs-value($property-value);
+            } @else if ($property == 'padding') {
+                padding: nrfs-value($property-value);
+            } @else if ($property == 'padding-right') {
+                padding-right: nrfs-value($property-value);
+            } @else if ($property == 'padding-left') {
+                padding-left: nrfs-value($property-value);
+            } @else if ($property == 'padding-top') {
+                padding-top: nrfs-value($property-value);
+            } @else if ($property == 'padding-bottom') {
+                padding-bottom: nrfs-value($property-value);
+            } @else if ($property == 'margin') {
+                margin: nrfs-value($property-value);
+            } @else if ($property == 'margin-right') {
+                margin-right: nrfs-value($property-value);
+            } @else if ($property == 'margin-left') {
+                margin-left: nrfs-value($property-value);
+            } @else if ($property == 'margin-top') {
+                margin-top: nrfs-value($property-value);
+            } @else if ($property == 'margin-bottom') {
+                margin-bottom: nrfs-value($property-value);
+            } @else if ($property == 'border-radius') {
+                border-radius: nrfs-value($property-value);
+            } @else {
+                #{$property}: $property-value;
+            }
+        }
+    }
+}
+
+@mixin generate-rfs-properties($properties) {
     @each $property, $property-value in $properties {
         @if $property-value {
             @if $property == 'typography' {
@@ -225,6 +311,12 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     @include generate-properties($properties);
 }
 
+@mixin generate-rfs-properties-from($array, $key) {
+    $properties: map-get($array, $key);
+
+    @include generate-rfs-properties($properties);
+}
+
 //********** Truncates text and adds an ellipsis to represent overflow.
 
 @mixin ellipsis(
@@ -238,6 +330,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     white-space: nowrap;
     word-wrap: normal;
 }
+
 //^^^
 // Usage: @include ellipsis;
 //^^^
@@ -306,6 +399,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         #{$property}: #{$value};
     }
 }
+
 //^^^
 // Usage: @include prefix('box-sizing', 'border-box', moz webkit);
 //^^^
@@ -316,7 +410,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 @mixin absolute(
     $top: 0,
     $index: 1000
-){
+) {
     position: absolute;
     top: $top;
     z-index: $index;
@@ -325,7 +419,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 @mixin fixed(
     $top: 0,
     $index: 1000
-){
+) {
     position: fixed;
     top: $top;
     z-index: $index;
@@ -334,11 +428,12 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 @mixin sticky(
     $top: 0,
     $index: 1000
-){
+) {
     position: sticky;
     top: $top;
     z-index: $index;
 }
+
 //^^^
 // Usage: @include fixed(0, 100);
 // Usage: @include absolute(0, 100);
@@ -356,6 +451,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     object-fit: cover;
     color: #ffffff;
 }
+
 //^^^
 // Usage: @include img-cover;
 //^^^
@@ -368,7 +464,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     $positions: false,
     $attachment: false,
     $size: false
-){
+) {
     background: {
         @if $url {
             image: url($url);
@@ -391,6 +487,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         }
     }
 }
+
 //^^^
 // Usage: @include bg-cover('../images/cover.jpg', top center, scroll, 100% auto);
 //^^^
@@ -402,7 +499,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     $icon,
     $size,
     $direction
-){
+) {
     @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
     position: relative;
 
@@ -410,24 +507,22 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         @if $size {
             padding-left: $size + 5;
         }
-        &::after{
-            left:0;
+        &::after {
+            left: 0;
         }
-    }
-    @else if $direction == right {
+    } @else if $direction == right {
         @if $size {
             padding-right: $size + 7;
         }
-        &::after{
-            right:0;
+        &::after {
+            right: 0;
         }
-    }
-    @else if $direction { /*..*/ }
-    @else {
+    } @else if $direction { /*..*/
+    } @else {
         @error "Unknown direction #{$direction}." use direction left / right / none;
     }
 
-    &::after{
+    &::after {
         content: '#{$icon}';
         font-family: FontAwesome;
         font-style: normal;
@@ -439,6 +534,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         }
     }
 }
+
 //^^^
 // Usage: @include fa_icon("\f004", 70px, left/right/none);
 //^^^
@@ -451,6 +547,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     top: 50%;
     @include prefix(transform, translateY(-50%), 'webkit' 'ms' 'moz');
 }
+
 //^^^
 // Usage: @include vertical_align;
 //^^^
@@ -469,13 +566,13 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     height: 100%;
     width: 100%;
     z-index: 1;
-    @if $color{
+    @if $color {
         background-color: #{$color};
     }
-    @if $opacity{
+    @if $opacity {
         opacity: #{$opacity};
         $opacity-ie: $opacity * 100;
-        filter: alpha(opacity = $opacity-ie); //IE8
+        filter: alpha(opacity=$opacity-ie); //IE8
     }
     @if $next {
         ~ #{$next} {
@@ -484,20 +581,21 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         }
     }
 }
+
 //^^^
 // Usage: @include overlay-bg(white, .5, '.next-div');
 //^^^
 
 //********** triangle mixin
 
-%triangle{
+%triangle {
     position: absolute;
     top: 100%;
     width: 100%;
     text-align: center;
     line-height: 21px;
 
-    &::before{
+    &::before {
         content: '';
         position: relative;
         z-index: 1;
@@ -508,10 +606,10 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     $color: false,
     $size: false
 ) {
-    .triangle{
+    .triangle {
         @extend %triangle;
 
-        &::before{
+        &::before {
             border-left: $size solid transparent;
             border-right: $size solid transparent;
             border-top: $size solid $color;
@@ -519,6 +617,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         }
     }
 }
+
 //^^^
 // Usage: @include triangle(white, 15px);
 //^^^
@@ -530,26 +629,27 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     $top-color,
     $bottom-color,
     $opacity: false
-){
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+) {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=0); /* IE6-9 */
     background: -moz-linear-gradient(top, rgba($top-color, $opacity) 0%, rgba($bottom-color, $opacity) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba($top-color, $opacity) 0%, rgba($bottom-color, $opacity) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba($top-color, $opacity) 0%, rgba($bottom-color, $opacity) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{ie-hex-str(rgba($top-color, $opacity))}', endColorstr='#{ie-hex-str(rgba($bottom-color, $opacity))}',GradientType=0 ); /* IE6-9 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str(rgba($top-color, $opacity))}', endColorstr='#{ie-hex-str(rgba($bottom-color, $opacity))}', GradientType=0); /* IE6-9 */
 }
+
 //^^^
 // Usage: @include linear-gradient(#000, #fff);
 //^^^
 
 
 //********** linear gradient mixin Text shadow mixin
-@mixin text-shadow( $color, $darken: false ){
-    @if $darken{
+@mixin text-shadow( $color, $darken: false ) {
+    @if $darken {
         $darken: $darken;
-    } @else{
+    } @else {
         $darken: 20%;
     }
-    text-shadow: 0 0 7px darken( $color, $darken);
+    text-shadow: 0 0 7px darken($color, $darken);
 }
 
 // =============================================================================
