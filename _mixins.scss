@@ -182,6 +182,12 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
+            } @else if $property == 'typography-mobile' {
+                @include generate-properties-from($typography-mobile, #{$property-value});
+                //@extend %typography-#{$property-value};
+                //@at-root {
+                //@extend %typography-#{$property-value}
+                //}
             } @else if $property == 'font-size' or $property == 'line-height' {
                 #{$property}: rfs-value($property-value);
             } @else if ($property == 'padding') {
