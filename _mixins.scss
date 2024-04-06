@@ -69,16 +69,14 @@ $rfs-rem-value: 16 !default;
     @each $value in $values {
         @if $value == 0 {
             $val: $val + " 0";
-        }
-        @else {
+        } @else {
             // Cache $value unit
             $unit: if(type-of($value) == "number", unit($value), false);
 
             @if $unit == px {
                 // Convert to rem if needed
                 $val: $val + " " + if($rfs-unit == rem, #{divide($value, $value * 0 + $rfs-rem-value)}rem, $value);
-            }
-            @else if $unit == rem {
+            } @else if $unit == rem {
                 // Convert to px if needed
                 $val: $val + " " + if($rfs-unit == px, #{divide($value, $value * 0 + 1) * $rfs-rem-value}px, $value);
             } @else {
@@ -213,69 +211,73 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 // Usage: #{$all-text-inputs-active} { styles }
 //^^^
 
-@mixin generate-properties($properties) {
+@mixin generate-properties($properties, $important: false) {
+    $_important: if($important, !important, null);
+
     @each $property, $property-value in $properties {
         @if $property-value {
             @if $property == 'typography' {
-                @include generate-properties-from($typography, #{$property-value});
+                @include generate-properties-from($typography, #{$property-value}, $important);
                 //@extend %typography-#{$property-value};
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
             } @else if $property == 'typography-mobile' {
-                @include generate-properties-from($typography-mobile, #{$property-value});
+                @include generate-properties-from($typography-mobile, #{$property-value}, $important);
                 //@extend %typography-#{$property-value};
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
             } @else if $property == 'font-size' or $property == 'line-height' {
-                #{$property}: nrfs-value($property-value);
+                #{$property}: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding') {
-                padding: nrfs-value($property-value);
+                padding: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding-right') {
-                padding-right: nrfs-value($property-value);
+                padding-right: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding-left') {
-                padding-left: nrfs-value($property-value);
+                padding-left: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding-top') {
-                padding-top: nrfs-value($property-value);
+                padding-top: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding-bottom') {
-                padding-bottom: nrfs-value($property-value);
+                padding-bottom: nrfs-value($property-value) $_important;
             } @else if ($property == 'margin') {
-                margin: nrfs-value($property-value);
+                margin: nrfs-value($property-value) $_important;
             } @else if ($property == 'margin-right') {
-                margin-right: nrfs-value($property-value);
+                margin-right: nrfs-value($property-value) $_important;
             } @else if ($property == 'margin-left') {
-                margin-left: nrfs-value($property-value);
+                margin-left: nrfs-value($property-value) $_important;
             } @else if ($property == 'margin-top') {
-                margin-top: nrfs-value($property-value);
+                margin-top: nrfs-value($property-value) $_important;
             } @else if ($property == 'margin-bottom') {
-                margin-bottom: nrfs-value($property-value);
+                margin-bottom: nrfs-value($property-value) $_important;
             } @else if ($property == 'border-radius') {
-                border-radius: nrfs-value($property-value);
+                border-radius: nrfs-value($property-value) $_important;
             } @else {
-                #{$property}: $property-value;
+                #{$property}: $property-value $_important;
             }
         }
     }
 }
 
-@mixin generate-rfs-properties($properties) {
+@mixin generate-rfs-properties($properties, $important: false) {
+    $_important: if($important, !important, null);
+
     @each $property, $property-value in $properties {
         @if $property-value {
             @if $property == 'typography' {
-                @include generate-properties-from($typography, #{$property-value});
+                @include generate-rfs-properties-from($typography, #{$property-value}, $important);
                 //@extend %typography-#{$property-value};
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
             } @else if $property == 'typography-mobile' {
-                @include generate-properties-from($typography-mobile, #{$property-value});
+                @include generate-rfs-properties-from($typography-mobile, #{$property-value}, $important);
                 //@extend %typography-#{$property-value};
                 //@at-root {
                 //@extend %typography-#{$property-value}
                 //}
             } @else if $property == 'font-size' or $property == 'line-height' {
-                #{$property}: rfs-value($property-value);
+                #{$property}: rfs-value($property-value) $_important;
             } @else if ($property == 'padding') {
                 @include padding($property-value);
             } @else if ($property == 'padding-right') {
@@ -299,22 +301,22 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
             } @else if ($property == 'border-radius') {
                 @include border-radius($property-value);
             } @else {
-                #{$property}: $property-value;
+                #{$property}: $property-value $_important;
             }
         }
     }
 }
 
-@mixin generate-properties-from($array, $key) {
+@mixin generate-properties-from($array, $key, $important: false) {
     $properties: map-get($array, $key);
 
-    @include generate-properties($properties);
+    @include generate-properties($properties, $important);
 }
 
-@mixin generate-rfs-properties-from($array, $key) {
+@mixin generate-rfs-properties-from($array, $key, $important) {
     $properties: map-get($array, $key);
 
-    @include generate-rfs-properties($properties);
+    @include generate-rfs-properties($properties, $important);
 }
 
 //********** Truncates text and adds an ellipsis to represent overflow.
