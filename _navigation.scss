@@ -4,6 +4,20 @@
 @use "mixins" as mx;
 @import "bootstrap-required";
 
+$item-dropdown-arrow: if(vars.$navbar-item-dropdown-arrow, vars.$navbar-item-dropdown-arrow, false); // Adds arrow to the menu item if it has a dropdown.
+$top-link-spacing-x: if(vars.$navbar-top-link-spacing-x, vars.$navbar-top-link-spacing-x, 1px); // Horizontal spacing around the top <a> links.
+$top-link-spacing-y: if(vars.$navbar-top-link-spacing-y, vars.$navbar-top-link-spacing-y, 1px); // Vertical spacing around the top <a> links.
+$top-items-gap: if(vars.$navbar-top-items-gap, vars.$navbar-top-items-gap, false); // Gap between the top <li> items.
+
+// Background color of the <li> item on hover.
+$top-li-bg-color: if(vars.$navbar-top-li-bg-color, vars.$navbar-top-li-bg-color, false);
+// Background color of the <li> item on hover.
+$top-li-bg-color-hover: if(vars.$navbar-top-li-bg-color-hover, vars.$navbar-top-li-bg-color-hover, false);
+// Background color of the <li> item on active.
+$top-li-bg-color-active: if(vars.$navbar-top-li-bg-color-active, vars.$navbar-top-li-bg-color-active, false);
+// Background color of the current (active) item or its parent.
+$top-li-bg-color-current: if(vars.$navbar-top-li-bg-color-current, vars.$navbar-top-li-bg-color-current, false);
+
 // checks from vars, then from bootstrap, then default.
 $link-color: if(vars.$navbar-item-link-color, vars.$navbar-item-link-color, #0022AA);
 $link-hover-color: if(vars.$navbar-item-link-hover-color, vars.$navbar-item-link-hover-color, #000088);
@@ -81,8 +95,8 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
         justify-content: space-evenly;
         align-items: center;
 
-        @if vars.$navbar-mobile-items-gap {
-            gap: vars.$navbar-mobile-items-gap;
+        @if $top-items-gap {
+            gap: $top-items-gap;
         }
 
         @if vars.$navbar-bg-color {
@@ -103,25 +117,36 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             @extend %link;
         }
 
-        // Main navigation menu items
+        // (Top level) Main navigation menu items
         > li {
-            white-space: nowrap;
-
-            @if vars.$navbar-item-bg-color {
-                background-color: vars.$navbar-item-bg-color;
+            @if $top-li-bg-color {
+                background-color: $top-li-bg-color;
             }
+
+            white-space: nowrap;
 
             @include mx.breakpoint-max(vars.$navbar-mobile) {
                 white-space: normal;
             }
 
             &:hover {
-                @extend %link-hover;
+                @if $top-li-bg-color-hover {
+                    background-color: $top-li-bg-color-hover;
+                }
+            }
+
+            &:active {
+                @if $top-li-bg-color-active {
+                    background-color: $top-li-bg-color-active;
+                }
             }
 
             &.current-menu-parent,
             &.current-menu-item {
-                @extend %link-current;
+                //@extend %link-current;
+                @if $top-li-bg-color-current {
+                    background-color: $top-li-bg-color-current;
+                }
             }
 
             // First level sub menu <ul>
@@ -135,7 +160,7 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             }
         }
 
-        // All menu items
+        // All menu <li> items.
         .menu-item {
             display: flex;
             position: relative;
@@ -164,7 +189,7 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             }
 
             // Adds arrow to the menu item if it has a dropdown.
-            @if vars.$navbar-item-dropdown-arrow == true {
+            @if $item-dropdown-arrow == true {
                 &.menu-item-has-children > a::after {
                     content: '';
                     display: inline-block;
@@ -179,11 +204,10 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 }
             }
 
-            // All menu item <a> links
+            // All menu item <a> links.
             a {
+                @include padding($top-link-spacing-y $top-link-spacing-x);
                 @extend %link;
-
-                @include padding(vars.$navbar-item-spacing-y vars.$navbar-item-spacing-x);
 
                 &:hover {
                     @extend %link-hover;
@@ -195,7 +219,7 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             }
         }
 
-        // Sub menu <ul>
+        // Sub menu <ul>.
         .sub-menu {
             display: flex;
             flex-direction: column;
@@ -368,6 +392,7 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
     }
     // Main navigation menu end
 
+    // Everything related to mobile navigation.
     @include mx.breakpoint-max(vars.$navbar-mobile) {
         .navbar-mobile-active {
             .navbar-mobile {
@@ -404,6 +429,10 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 flex-direction: column;
                 align-content: flex-start;
                 width: 100%;
+
+                @if vars.$navbar-mobile-items-gap {
+                    gap: vars.$navbar-mobile-items-gap;
+                }
 
                 @if vars.$navbar-mobile-items-spacing-x {
                     @include padding-right(vars.$navbar-mobile-items-spacing-x);
