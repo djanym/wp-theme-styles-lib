@@ -412,3 +412,26 @@ $hr-separator-spacing-y: 2rem !default;
         }
     }
 }
+
+@mixin wp-color-pallete($colors) {
+    // Color pallete
+    @each $name, $color in $colors {
+
+        .has-#{$name}-color {
+            color: $color !important;
+        }
+
+        .has-#{$name}-background-color {
+            background-color: $color !important;
+        }
+    }
+}
+
+@mixin wp-font-sizes($typography) {
+    @each $key, $value in $typography {
+
+        .has-#{$key}-font-size {
+            @include mx.generate-properties-from(vars.$typography-mobile, $key, true);
+        }
+    }
+}

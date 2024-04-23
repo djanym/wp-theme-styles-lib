@@ -4,6 +4,72 @@
 @use "mixins" as mx;
 @import "bootstrap-required";
 
+// checks from vars, then from bootstrap, then default.
+$link-color: if(vars.$navbar-item-link-color, vars.$navbar-item-link-color, #0022AA);
+$link-hover-color: if(vars.$navbar-item-link-hover-color, vars.$navbar-item-link-hover-color, #000088);
+$link-active-color: if(vars.$navbar-item-link-active-color, vars.$navbar-item-link-active-color, #0055AA);
+$link-current-color: if(vars.$navbar-item-link-current-color, vars.$navbar-item-link-current-color, #0055AA);
+
+$link-decoration: if(vars.$navbar-item-link-decoration, vars.$navbar-item-link-decoration, none);
+$link-hover-decoration: if(vars.$navbar-item-link-hover-decoration, vars.$navbar-item-link-hover-decoration, false);
+$link-active-decoration: if(vars.$navbar-item-link-active-decoration, vars.$navbar-item-link-active-decoration, false);
+$link-current-decoration: if(vars.$navbar-item-link-current-decoration, vars.$navbar-item-link-current-decoration, false);
+
+$link-weight: if(vars.$navbar-item-link-weight, vars.$navbar-item-link-weight, normal);
+$link-hover-weight: if(vars.$navbar-item-link-hover-weight, vars.$navbar-item-link-hover-weight, false);
+$link-active-weight: if(vars.$navbar-item-link-active-weight, vars.$navbar-item-link-active-weight, false);
+$link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-item-link-current-weight, false);
+
+$submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-color, false);
+
+%link {
+    @if $link-color {
+        color: $link-color;
+    }
+    @if $link-decoration {
+        text-decoration: $link-decoration;
+    }
+    @if $link-weight {
+        text-decoration: $link-weight;
+    }
+}
+
+%link-hover {
+    @if $link-hover-color {
+        color: $link-hover-color;
+    }
+    @if $link-hover-decoration {
+        text-decoration: $link-hover-decoration;
+    }
+    @if $link-hover-weight {
+        text-decoration: $link-hover-weight;
+    }
+}
+
+%link-active {
+    @if $link-active-color {
+        color: $link-active-color;
+    }
+    @if $link-active-decoration {
+        text-decoration: $link-active-decoration;
+    }
+    @if $link-active-weight {
+        text-decoration: $link-active-weight;
+    }
+}
+
+%link-current {
+    @if $link-current-color {
+        color: $link-current-color;
+    }
+    @if $link-current-decoration {
+        text-decoration: $link-current-decoration;
+    }
+    @if $link-current-weight {
+        text-decoration: $link-current-weight;
+    }
+}
+
 // Adds styles for the main navigation
 // Uses variables from the _vars.scss file
 @mixin enable-nav-bar() {
@@ -34,9 +100,7 @@
         }
 
         a {
-            @if vars.$navbar-item-font-color {
-                color: vars.$navbar-item-font-color;
-            }
+            @extend %link;
         }
 
         // Main navigation menu items
@@ -47,32 +111,17 @@
                 background-color: vars.$navbar-item-bg-color;
             }
 
-            @if vars.$navbar-item-font-color {
-                color: vars.$navbar-item-font-color;
-            }
-
             @include mx.breakpoint-max(vars.$navbar-mobile) {
                 white-space: normal;
             }
 
             &:hover {
-                @if vars.$navbar-item-font-weight-hover {
-                    font-weight: vars.$navbar-item-font-weight-hover;
-                }
-                @if vars.$navbar-item-bg-color-hover {
-                    background-color: vars.$navbar-item-bg-color-hover;
-                }
+                @extend %link-hover;
             }
 
             &.current-menu-parent,
             &.current-menu-item {
-                @if vars.$navbar-item-font-weight-active {
-                    font-weight: vars.$navbar-item-font-weight-active;
-                }
-                @if vars.$navbar-item-bg-color-active {
-                    background-color: vars.$navbar-item-bg-color-active;
-                }
-                //color: #fff;
+                @extend %link-current;
             }
 
             // First level sub menu <ul>
@@ -82,11 +131,7 @@
 
             // Only main navigation menu <a> items
             > a {
-                color: vars.$navbar-item-font-color;
-
-                @include mx.breakpoint-max(vars.$navbar-mobile) {
-                    //color: vars.$navbar-mobile-item-font-color;
-                }
+                @extend %link;
             }
         }
 
@@ -105,19 +150,7 @@
             @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
                 &:hover > .sub-menu {
                     display: flex;
-                    //opacity: 1;
                 }
-            }
-
-            @include mx.breakpoint-max(vars.$navbar-mobile) {
-                //display: list-item;
-                //
-                //&.active {
-                //    // Show only primary child.
-                //    > .sub-menu {
-                //        display: block;
-                //    }
-                //}
             }
 
             &:focus,
@@ -127,9 +160,7 @@
 
             &.current-menu-parent,
             &.current-menu-item {
-                font-weight: bold;
-                //background-color: vars.$navbar-item-bg-color-active;
-                //color: #fff;
+                @extend %link-current;
             }
 
             // Adds arrow to the menu item if it has a dropdown.
@@ -150,21 +181,16 @@
 
             // All menu item <a> links
             a {
-                @if vars.$navbar-item-font-decoration {
-                    text-decoration: vars.$navbar-item-font-decoration;
-                }
+                @extend %link;
 
                 @include padding(vars.$navbar-item-spacing-y vars.$navbar-item-spacing-x);
 
-                @include mx.breakpoint-max(vars.$navbar-mobile) {
-                    //display: inline-block;
-                    //@include padding(vars.$navbar-mobile-item-spacing-y vars.$navbar-item-spacing-x);
+                &:hover {
+                    @extend %link-hover;
                 }
 
-                &:hover {
-                    @if vars.$navbar-item-font-decoration-hover {
-                        text-decoration: vars.$navbar-item-font-decoration-hover;
-                    }
+                &:active {
+                    @extend %link-active;
                 }
             }
         }
@@ -198,11 +224,6 @@
                 }
             }
 
-            @include mx.breakpoint-max(vars.$navbar-mobile) {
-                //display: none;
-                //@include padding(0 vars.$navbar-mobile-submenu-container-spacing-x);
-            }
-
             // Only sub menu <li> items
             li {
                 flex: 1; // makes the sub menu items equal width
@@ -218,12 +239,6 @@
 
                 @if vars.$navbar-submenu-item-font-weight {
                     font-weight: vars.$navbar-submenu-item-font-weight;
-                }
-
-                @include mx.breakpoint-max(vars.$navbar-mobile) {
-                    //display: list-item;
-                    //width: 100%;
-                    //white-space: normal;
                 }
 
                 &:hover {
@@ -256,18 +271,18 @@
         }
 
         .nav-item {
-            //font-family: $PrimaryFontMedium;
-            //margin: 0;
-            //@include mx.font(18px, 21px);
 
             .nav-link {
-                color: $main-link-color;
-                text-decoration: none;
+                @extend %link;
+
                 padding: .3rem .9rem;
 
                 &:hover {
-                    color: $hover-link-color;
-                    text-decoration: underline;
+                    @extend %link-hover;
+                }
+
+                &:hover {
+                    @extend %link-active;
                 }
 
                 &:focus {
@@ -285,36 +300,29 @@
             &.current-menu-item >,
             &.current-menu-parent > {
                 a {
-                    color: $active-link-color;
-                    text-decoration: underline;
+                    @extend %link-current;
                 }
             }
 
             // Drop down menu on hover styles
             &.dropdown:hover {
                 > a {
-                    color: $hover-link-color;
-                    text-decoration: underline;
+                    @extend %link-hover;
                 }
-
-                // Responsive mode
-                //@media (min-width: $xl){
-                //    .dropdown-menu{
-                //        display: flex;
-                //    }
-                //}
             }
-
-
         }
 
         // Main nav item links end
 
         // Drop down menu start here
         > .dropdown-menu {
+            @if $submenu-bg-color {
+                background-color: $submenu-bg-color;
+            }
+
             @include margin(-1px false false 13px);
             top: 100%;
-            background-color: $dropdown-box-color;
+
             min-width: 250px;
             border-radius: 0;
             border: none;
@@ -338,20 +346,21 @@
                 }
 
                 &.current-menu-item a {
-                    text-decoration: underline;
-                    color: $active-link-color;
+                    @extend %link-current;
                 }
 
                 a {
-                    color: $main-link-color;
-                    text-decoration: none;
+                    @extend %link;
+
                     padding: 0;
                     white-space: normal;
 
                     &:hover {
-                        color: $active-link-color;
-                        text-decoration: underline;
-                        background-color: inherit;
+                        @extend %link-hover;
+                    }
+
+                    &:active {
+                        @extend %link-active;
                     }
                 }
             }
