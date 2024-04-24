@@ -143,9 +143,12 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
 
             &.current-menu-parent,
             &.current-menu-item {
-                //@extend %link-current;
                 @if $top-li-bg-color-current {
                     background-color: $top-li-bg-color-current;
+                }
+
+                > a {
+                    @extend %link-current;
                 }
             }
 
@@ -185,7 +188,9 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
 
             &.current-menu-parent,
             &.current-menu-item {
-                @extend %link-current;
+                > a {
+                    @extend %link-current;
+                }
             }
 
             // Adds arrow to the menu item if it has a dropdown.
@@ -287,13 +292,11 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                         //@include padding(vars.$navbar-mobile-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
                         //vertical-align: top;
                     }
-
-                    &:hover {
-                    }
                 }
             }
         }
 
+        // Seems like this is not used. NavWalker is not using this class name anymore.
         .nav-item {
 
             .nav-link {
@@ -319,11 +322,11 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 }
             }
 
-            // Active nav item
-            &.current_page_item >,
-            &.current-menu-item >,
-            &.current-menu-parent > {
-                a {
+            // Actual active nav item.
+            &.current_page_item,
+            &.current-menu-item,
+            &.current-menu-parent {
+                > a {
                     @extend %link-current;
                 }
             }
