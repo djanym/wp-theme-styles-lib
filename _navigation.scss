@@ -9,7 +9,7 @@ $top-link-spacing-x: if(vars.$navbar-top-link-spacing-x, vars.$navbar-top-link-s
 $top-link-spacing-y: if(vars.$navbar-top-link-spacing-y, vars.$navbar-top-link-spacing-y, 1px); // Vertical spacing around the top <a> links.
 $top-items-gap: if(vars.$navbar-top-items-gap, vars.$navbar-top-items-gap, false); // Gap between the top <li> items.
 
-// Background color of the <li> item on hover.
+// Background color of the <li> item.
 $top-li-bg-color: if(vars.$navbar-top-li-bg-color, vars.$navbar-top-li-bg-color, false);
 // Background color of the <li> item on hover.
 $top-li-bg-color-hover: if(vars.$navbar-top-li-bg-color-hover, vars.$navbar-top-li-bg-color-hover, false);
@@ -17,6 +17,21 @@ $top-li-bg-color-hover: if(vars.$navbar-top-li-bg-color-hover, vars.$navbar-top-
 $top-li-bg-color-active: if(vars.$navbar-top-li-bg-color-active, vars.$navbar-top-li-bg-color-active, false);
 // Background color of the current (active) item or its parent.
 $top-li-bg-color-current: if(vars.$navbar-top-li-bg-color-current, vars.$navbar-top-li-bg-color-current, false);
+
+// Background color of the submenu <li> item.
+$submenu-li-bg-color: if(vars.$navbar-submenu-li-bg-color, vars.$navbar-submenu-li-bg-color, false);
+// Background color of the submenu <li> item on hover.
+$submenu-li-bg-color-hover: if(vars.$navbar-submenu-li-bg-color-hover, vars.$navbar-submenu-li-bg-color-hover, false);
+// Background color of the submenu <li> item on active.
+$submenu-li-bg-color-active: if(vars.$navbar-submenu-li-bg-color-active, vars.$navbar-submenu-li-bg-color-active, false);
+// Background color of the current (active) submenu item.
+$submenu-li-bg-color-current: if(vars.$navbar-submenu-li-bg-color-current, vars.$navbar-submenu-li-bg-color-current, false);
+
+$submenu-link-color: if(vars.$navbar-submenu-link-color, vars.$navbar-submenu-link-color, false); // Color of the submenu <a> links.
+$submenu-link-weight: if(vars.$navbar-submenu-link-weight, vars.$navbar-submenu-link-weight, false); // Font weight of the submenu <a> links.
+$submenu-link-weight-hover: if(vars.$navbar-submenu-link-weight-hover, vars.$navbar-submenu-link-weight-hover, false); // Font weight of the submenu <a> links on hover.
+$submenu-link-spacing-x: if(vars.$navbar-submenu-link-spacing-x, vars.$navbar-submenu-link-spacing-x, false); // Horizontal spacing for the submenu <a> links.
+$submenu-link-spacing-y: if(vars.$navbar-submenu-link-spacing-y, vars.$navbar-submenu-link-spacing-y, false); // Vertical spacing for the submenu <a> links.
 
 // checks from vars, then from bootstrap, then default.
 $link-color: if(vars.$navbar-item-link-color, vars.$navbar-item-link-color, #0022AA);
@@ -133,12 +148,20 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 @if $top-li-bg-color-hover {
                     background-color: $top-li-bg-color-hover;
                 }
+
+                //> a {
+                //    @extend %link-hover;
+                //}
             }
 
             &:active {
                 @if $top-li-bg-color-active {
                     background-color: $top-li-bg-color-active;
                 }
+
+                //> a {
+                //    @extend %link-active;
+                //}
             }
 
             &.current-menu-parent,
@@ -184,12 +207,41 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             &:focus,
             &:hover {
                 position: relative;
+
+                > a {
+                    @extend %link-hover;
+                }
+            }
+
+            &:active {
+                > a {
+                    @extend %link-active;
+                }
             }
 
             &.current-menu-parent,
             &.current-menu-item {
+                &:hover {
+                    > a {
+                        @extend %link-hover;
+                    }
+                }
+                &:active {
+                    > a {
+                        @extend %link-active;
+                    }
+                }
+
                 > a {
                     @extend %link-current;
+
+                    //&:hover {
+                    //    @extend %link-hover;
+                    //}
+                    //
+                    //&:active {
+                    //    @extend %link-active;
+                    //}
                 }
             }
 
@@ -209,18 +261,18 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 }
             }
 
-            // All menu item <a> links.
-            a {
+            // All .menu-item > <a> links.
+            > a {
                 @include padding($top-link-spacing-y $top-link-spacing-x);
                 @extend %link;
 
-                &:hover {
-                    @extend %link-hover;
-                }
-
-                &:active {
-                    @extend %link-active;
-                }
+                //&:hover {
+                //    @extend %link-hover;
+                //}
+                //
+                //&:active {
+                //    @extend %link-active;
+                //}
             }
         }
 
@@ -258,34 +310,46 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                 flex: 1; // makes the sub menu items equal width
                 white-space: nowrap;
 
-                @if vars.$navbar-submenu-item-bg-color {
-                    background-color: vars.$navbar-submenu-item-bg-color;
+                @if $submenu-li-bg-color {
+                    background-color: $submenu-li-bg-color;
                 }
 
-                @if vars.$navbar-submenu-item-font-color {
-                    color: vars.$navbar-submenu-item-font-color;
-                }
+                //@if $submenu-link-color {
+                //    color: $submenu-link-color;
+                //}
 
-                @if vars.$navbar-submenu-item-font-weight {
-                    font-weight: vars.$navbar-submenu-item-font-weight;
+                @if $submenu-link-weight {
+                    font-weight: $submenu-link-weight;
                 }
 
                 &:hover {
-                    @if vars.$navbar-submenu-item-bg-color-hover {
-                        background-color: vars.$navbar-submenu-item-bg-color-hover;
+                    @if $submenu-li-bg-color-hover {
+                        background-color: $submenu-li-bg-color-hover;
                     }
 
-                    @if vars.$navbar-submenu-item-font-weight-hover {
-                        font-weight: vars.$navbar-submenu-item-font-weight-hover;
+                    @if $submenu-link-weight-hover {
+                        font-weight: $submenu-link-weight-hover;
+                    }
+                }
+
+                &:active {
+                    @if $submenu-li-bg-color-active {
+                        background-color: $submenu-li-bg-color-active;
+                    }
+                }
+
+                &.current-menu-item {
+                    @if $submenu-li-bg-color-current {
+                        background-color: $submenu-li-bg-color-current;
                     }
                 }
 
                 a {
-                    @if vars.$navbar-submenu-item-font-color {
-                        color: vars.$navbar-submenu-item-font-color;
+                    @if $submenu-link-color {
+                        color: $submenu-link-color;
                     }
 
-                    @include padding(vars.$navbar-submenu-item-spacing-y vars.$navbar-submenu-item-spacing-x);
+                    @include padding($submenu-link-spacing-y $submenu-link-spacing-x);
 
                     @include mx.breakpoint-max(vars.$navbar-mobile) {
                         //display: inline-block;
