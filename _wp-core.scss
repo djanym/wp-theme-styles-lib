@@ -435,3 +435,15 @@ $hr-separator-spacing-y: 2rem !default;
         }
     }
 }
+
+@mixin wp-headings($typography, $rfs: false) {
+    @for $i from 1 through 6 {
+        h#{$i}.wp-block {
+            @if $rfs {
+                @include mx.generate-rfs-properties-from($typography, h-#{$i});
+            } @else {
+                @include mx.generate-properties-from($typography, h-#{$i});
+            }
+        }
+    }
+}

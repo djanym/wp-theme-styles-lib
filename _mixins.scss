@@ -218,16 +218,8 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         @if $property-value {
             @if $property == 'typography' {
                 @include generate-properties-from($typography, #{$property-value}, $important);
-                //@extend %typography-#{$property-value};
-                //@at-root {
-                //@extend %typography-#{$property-value}
-                //}
             } @else if $property == 'typography-mobile' {
                 @include generate-properties-from($typography-mobile, #{$property-value}, $important);
-                //@extend %typography-#{$property-value};
-                //@at-root {
-                //@extend %typography-#{$property-value}
-                //}
             } @else if $property == 'font-size' or $property == 'line-height' {
                 #{$property}: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding') {
@@ -266,16 +258,8 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         @if $property-value {
             @if $property == 'typography' {
                 @include generate-rfs-properties-from($typography, #{$property-value}, $important);
-                //@extend %typography-#{$property-value};
-                //@at-root {
-                //@extend %typography-#{$property-value}
-                //}
             } @else if $property == 'typography-mobile' {
                 @include generate-rfs-properties-from($typography-mobile, #{$property-value}, $important);
-                //@extend %typography-#{$property-value};
-                //@at-root {
-                //@extend %typography-#{$property-value}
-                //}
             } @else if $property == 'font-size' or $property == 'line-height' {
                 #{$property}: rfs-value($property-value) $_important;
             } @else if ($property == 'padding') {
@@ -313,7 +297,7 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
     @include generate-properties($properties, $important);
 }
 
-@mixin generate-rfs-properties-from($array, $key, $important) {
+@mixin generate-rfs-properties-from($array, $key, $important: false) {
     $properties: map-get($array, $key);
 
     @include generate-rfs-properties($properties, $important);
@@ -696,6 +680,22 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
         font-style: $style;
         font-weight: $weight;
         src: $src;
+    }
+}
+
+// =============================================================================
+// Reusable
+// =============================================================================
+
+@mixin headings-typography($typography, $rfs: false) {
+    @for $i from 1 through 6 {
+        h#{$i} {
+            @if $rfs {
+                @include generate-rfs-properties-from($typography, h-#{$i});
+            } @else {
+                @include generate-properties-from($typography, h-#{$i});
+            }
+        }
     }
 }
 

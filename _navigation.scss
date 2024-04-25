@@ -128,6 +128,11 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
             //@include padding(1rem);
         }
 
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
         a {
             @extend %link;
         }
@@ -188,6 +193,7 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
 
         // All menu <li> items.
         .menu-item {
+            margin: 0;
             display: flex;
             position: relative;
             list-style: none;
