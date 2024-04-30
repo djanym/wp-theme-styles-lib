@@ -35,13 +35,3 @@
 .hidden {
     @include mx.textHidden;
 }
-
-.content-block-fluid {
-    h1, h2, h3, h4, h5, h6 {
-        @if vars.$content-headings-margin-bottom {
-            @if vars.$content-headings-margin-bottom {
-                @include margin-bottom(vars.$content-headings-margin-bottom);
-            }
-        }
-    }
-}

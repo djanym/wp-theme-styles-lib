@@ -4,6 +4,15 @@
 @use "mixins" as mx;
 @import "bootstrap-required";
 
+$post-content-max-width: if(vars.$post-content-max-width, vars.$post-content-max-width, 50rem);
+$container-with-sidebar-max-width: if(vars.$container-with-sidebar-max-width, vars.$container-with-sidebar-max-width, $post-content-max-width);
+$container-with-sidebar-gap: if(vars.$container-with-sidebar-gap, vars.$container-with-sidebar-gap, 1.5rem);
+$post-content-spacing-x: if(vars.$post-content-spacing-x, vars.$post-content-spacing-x, 0);
+$post-content-spacing-y: if(vars.$post-content-spacing-y, vars.$post-content-spacing-y, false);
+$post-content-spacing-bottom: if(vars.$post-content-spacing-bottom, vars.$post-content-spacing-bottom, false);
+$container-wider-max-width: if(vars.$container-wider-max-width, vars.$container-wider-max-width, 55rem);
+$container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$container-narrow-max-width, 40rem);
+
 // A container is for styling the entire width of a section. A wrapper is for styling and centering the max-width content inside it.
 
 // This is a helper. Used to create a full width block as wrapper to actual container/div/content.
@@ -22,21 +31,23 @@
 }
 
 // ------------ Template with sidebar styles ------------
+
+
 .container-with-sidebar {
     display: flex;
     flex-direction: row;
-    gap: vars.$container-with-sidebar-gap;
+    gap: $container-with-sidebar-gap;
 
     //padding-right: calc(#{$container-padding-x} * .5);
     //padding-left: calc(#{$container-padding-x} * .5);
-    padding-right: vars.$post-content-spacing-x;
-    padding-left: vars.$post-content-spacing-x;
+    padding-right: $post-content-spacing-x;
+    padding-left: $post-content-spacing-x;
     margin-right: auto;
     margin-left: auto;
-    width: rfs-value(vars.$container-with-sidebar-max-width);
-    max-width: rfs-value(vars.$container-with-sidebar-max-width);
+    width: rfs-value($container-with-sidebar-max-width);
+    max-width: rfs-value($container-with-sidebar-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value(vars.$container-with-sidebar-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(rfs-value($container-with-sidebar-max-width) + rfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
 
@@ -60,32 +71,42 @@
 .content-block-fluid {
     //padding-right: calc(#{$container-padding-x} * .5);
     //padding-left: calc(#{$container-padding-x} * .5);
-    padding-right: vars.$post-content-spacing-x;
-    padding-left: vars.$post-content-spacing-x;
+    padding-right: $post-content-spacing-x;
+    padding-left: $post-content-spacing-x;
+
+    @if $post-content-spacing-y {
+        padding-top: $post-content-spacing-y;
+        padding-bottom: $post-content-spacing-y;
+    }
+
+    @if $post-content-spacing-bottom {
+        padding-bottom: $post-content-spacing-bottom;
+    }
+
     margin-right: auto;
     margin-left: auto;
-    width: rfs-value(vars.$post-content-max-width);
+    width: rfs-value($post-content-max-width);
     //max-width: 100vw;
-    max-width: rfs-value(vars.$post-content-max-width);
+    max-width: rfs-value($post-content-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value(vars.$post-content-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(rfs-value($post-content-max-width) + rfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
 
     &.content-width-wider {
-        width: rfs-value(vars.$container-wider-max-width);
-        max-width: rfs-value(vars.$container-wider-max-width);
+        width: $container-wider-max-width;
+        max-width: $container-wider-max-width;
 
-        @include mx.breakpoint-max(calc(rfs-value(vars.$container-wider-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+        @include mx.breakpoint-max(calc($container-wider-max-width + calc($post-content-spacing-x * 2))) {
             width: 100%;
         }
     }
 
     &.content-width-narrow {
-        width: rfs-value(vars.$container-narrow-max-width);
-        max-width: rfs-value(vars.$container-narrow-max-width);
+        width: $container-narrow-max-width;
+        max-width: $container-narrow-max-width;
 
-        @include mx.breakpoint-max(calc(rfs-value(vars.$container-narrow-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+        @include mx.breakpoint-max(calc($container-narrow-max-width + calc($post-content-spacing-x * 2))) {
             width: 100%;
         }
     }
@@ -93,35 +114,23 @@
 
 // Wrapper for the content which has similar spacing as the content-block-fluid.
 .content-block {
-    padding-right: vars.$post-content-spacing-x;
-    padding-left: vars.$post-content-spacing-x;
+    padding-right: $post-content-spacing-x;
+    padding-left: $post-content-spacing-x;
     margin-right: auto;
     margin-left: auto;
-    width: rfs-value(vars.$post-content-max-width);
-    max-width: rfs-value(vars.$post-content-max-width);
+    width: rfs-value($post-content-max-width);
+    max-width: rfs-value($post-content-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value(vars.$post-content-max-width) + rfs-value(vars.$post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(rfs-value($post-content-max-width) + rfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
-}
-
-// Standard padding for content.
-.content-padding-x-0 {
-    padding-top: rfs-value(vars.$post-content-spacing-y);
-    padding-bottom: rfs-value(vars.$post-content-spacing-y);
-}
-
-// Standard padding for content.
-.content-padding-y {
-    padding-top: rfs-value(vars.$post-content-spacing-y);
-    padding-bottom: rfs-value(vars.$post-content-spacing-y);
 }
 
 // This wrapper is for main content in the page: blog post, page, etc.
 // Does not work for the Gutenberg blocks. Use .content-wrapper instead.
 .content-grid {
-    --padding-inline: #{vars.$post-content-spacing-x};
-    --content-max-width: #{vars.$post-content-max-width};
+    --padding-inline: #{$post-content-spacing-x};
+    --content-max-width: #{$post-content-max-width};
     --breakout-content-max-width: #{vars.$breakout-content-max-width};
     --breakout-size: calc(
             (var(--breakout-content-max-width) - var(--content-max-width)) / 2
