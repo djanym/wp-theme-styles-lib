@@ -151,66 +151,6 @@ $rfs-rem-value: 16 !default;
 // Usage: @include font-size(14px);
 //^^^
 
-
-//********** A list of all HTML button elements.
-
-@function _assign-inputs(
-    $inputs,
-    $pseudo: null
-) {
-    $list: ();
-
-    @each $input in $inputs {
-        $input: unquote($input);
-        $input: if($pseudo, $input + ":" + $pseudo, $input);
-        $list: append($list, $input, comma);
-    }
-
-    @return $list;
-}
-
-$_buttons-list: (
-        "button",
-        "[type='button']",
-        "[type='reset']",
-        "[type='submit']",
-        ".btn",
-);
-$all-buttons: _assign-inputs($_buttons-list);
-$all-buttons-active: _assign-inputs($_buttons-list, active);
-$all-buttons-focus: _assign-inputs($_buttons-list, focus);
-$all-buttons-hover: _assign-inputs($_buttons-list, hover);
-//^^^
-// Usage: #{$all-buttons-active} { styles }
-//^^^
-
-$_text-inputs-list: (
-        "[type='color']",
-        "[type='date']",
-        "[type='datetime']",
-        "[type='datetime-local']",
-        "[type='email']",
-        "[type='month']",
-        "[type='number']",
-        "[type='password']",
-        "[type='search']",
-        "[type='tel']",
-        "[type='text']",
-        "[type='time']",
-        "[type='url']",
-        "[type='week']",
-        "input:not([type])",
-        "textarea",
-);
-$all-text-inputs: _assign-inputs($_text-inputs-list);
-$all-text-inputs-active: _assign-inputs($_text-inputs-list, active);
-$all-text-inputs-focus: _assign-inputs($_text-inputs-list, focus);
-$all-text-inputs-hover: _assign-inputs($_text-inputs-list, hover);
-$all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
-//^^^
-// Usage: #{$all-text-inputs-active} { styles }
-//^^^
-
 @mixin generate-properties($properties, $important: false) {
     $_important: if($important, !important, null);
 
@@ -302,6 +242,68 @@ $all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
 
     @include generate-rfs-properties($properties, $important);
 }
+
+
+//********** A list of all HTML button elements.
+
+@function _assign-inputs(
+    $inputs,
+    $pseudo: null
+) {
+    $list: ();
+
+    @each $input in $inputs {
+        $input: unquote($input);
+        $input: if($pseudo, $input + ":" + $pseudo, $input);
+        $list: append($list, $input, comma);
+    }
+
+    @return $list;
+}
+
+// Helpful variables with lists.
+
+$_buttons-list: (
+        "button",
+        "[type='button']",
+        "[type='reset']",
+        "[type='submit']",
+        ".button",
+);
+$all-buttons: _assign-inputs($_buttons-list);
+$all-buttons-active: _assign-inputs($_buttons-list, active);
+$all-buttons-focus: _assign-inputs($_buttons-list, focus);
+$all-buttons-hover: _assign-inputs($_buttons-list, hover);
+//^^^
+// Usage: #{$all-buttons-active} { styles }
+//^^^
+
+$_text-inputs-list: (
+        "[type='color']",
+        "[type='date']",
+        "[type='datetime']",
+        "[type='datetime-local']",
+        "[type='email']",
+        "[type='month']",
+        "[type='number']",
+        "[type='password']",
+        "[type='search']",
+        "[type='tel']",
+        "[type='text']",
+        "[type='time']",
+        "[type='url']",
+        "[type='week']",
+        "input:not([type])",
+        "textarea",
+);
+$all-text-inputs: _assign-inputs($_text-inputs-list);
+$all-text-inputs-active: _assign-inputs($_text-inputs-list, active);
+$all-text-inputs-focus: _assign-inputs($_text-inputs-list, focus);
+$all-text-inputs-hover: _assign-inputs($_text-inputs-list, hover);
+$all-text-inputs-invalid: _assign-inputs($_text-inputs-list, invalid);
+//^^^
+// Usage: #{$all-text-inputs-active} { styles }
+//^^^
 
 //********** Truncates text and adds an ellipsis to represent overflow.
 
