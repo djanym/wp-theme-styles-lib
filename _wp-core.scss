@@ -463,14 +463,14 @@ $mobile-breakpoint: vars.$mobile;
             }
 
             &:hover, &:focus {
-                @if $button-default-hover-key {
-                    @include mx.generate-properties-from($buttons, $button-default-hover-key);
+                @if ($button-default-key and $buttons-hover) {
+                    @include mx.generate-properties-from($buttons-hover, $button-default-key);
                 }
             }
 
             &:active {
-                @if $button-default-active-key {
-                    @include mx.generate-properties-from($buttons, $button-default-active-key);
+                @if ($button-default-key and $buttons-active) {
+                    @include mx.generate-properties-from($buttons-active, $button-default-key);
                 }
             }
         }
@@ -478,14 +478,18 @@ $mobile-breakpoint: vars.$mobile;
         @each $key, $value in $buttons {
             &.is-style-#{$key} {
                 .wp-block-button__link {
-                    @extend %button-#{$key};
+                    @include mx.generate-properties-from($buttons, $key);
 
                     &:hover, &:focus {
-                        @extend %button-hover-#{$key};
+                        @if ($buttons-hover) {
+                            @include mx.generate-properties-from($buttons-hover, $key);
+                        }
                     }
 
                     &:active {
-                        @extend %button-active-#{$key};
+                        @if ($buttons-active) {
+                            @include mx.generate-properties-from($buttons-active, $key);
+                        }
                     }
                 }
             }
