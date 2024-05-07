@@ -140,6 +140,25 @@
     }
 }
 
-@mixin enable-buttons-classes($buttons) {
+@mixin enable-buttons-classes(
+    $buttons,
+    $buttons-hover: false,
+    $buttons-active: false) {
+    @each $key, $value in vars.$buttons {
+        .button-#{$key} {
+            @include mx.generate-properties-from($buttons, $key);
 
+            &:hover, &:focus {
+                @if $buttons-hover {
+                    @include mx.generate-properties-from($buttons-hover, $key);
+                }
+            }
+
+            &:active {
+                @if $buttons-active {
+                    @include mx.generate-properties-from($buttons-active, $key);
+                }
+            }
+        }
+    }
 }
