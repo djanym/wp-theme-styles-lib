@@ -124,6 +124,10 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
     @include mx.breakpoint-max(calc(rfs-value($post-content-max-width) + rfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
 }
 
 // This wrapper is for main content in the page: blog post, page, etc.
