@@ -23,11 +23,12 @@ $mobile-breakpoint: vars.$mobile;
 
         hr.wp-block-separator {
             //display: inline-block;
-            width: 100%;
-            height: 2px;
-            border: none;
-            background-color: $hr-separator-color;
-            @include margin($hr-separator-spacing-y false);
+            //width: 100%;
+            //height: 2px;
+            //border: none;
+            //background-color: $hr-separator-color;
+            //@include margin-top($hr-separator-spacing-y);
+            //@include margin-bottom($hr-separator-spacing-y);
         }
 
         .sticky,
