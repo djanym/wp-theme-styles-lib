@@ -133,8 +133,26 @@
             &.left-col {
                 order: 0;
             }
+
             &.right-col {
                 order: 1;
+            }
+        }
+    }
+}
+
+@mixin enable-list-columns-layout-styles {
+    @for $i from 2 through 4 {
+        .is-style-list-cols-#{$i} {
+            columns: $i;
+            column-gap: 2rem;
+
+            @include mx.breakpoint-max(vars.$mobile) {
+                columns: 1;
+            }
+
+            li {
+                break-inside: avoid;
             }
         }
     }
