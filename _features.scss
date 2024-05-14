@@ -180,3 +180,19 @@
         }
     }
 }
+
+@mixin enable-masonry-listing($columns, $item-spacing-x, $item-spacing-y) {
+    .masonry {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+
+        > .post {
+            padding: 0 $item-spacing-x;
+            margin-bottom: $item-spacing-y;
+            width: calc(100% / $columns);
+            display: inline-flex;
+            flex-direction: column;
+        }
+    }
+}
