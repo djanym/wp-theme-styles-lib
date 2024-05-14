@@ -181,6 +181,7 @@
     }
 }
 
+// Works with Masonry JS library
 @mixin enable-masonry-listing($columns, $item-spacing-x, $item-spacing-y) {
     .masonry {
         display: flex;
