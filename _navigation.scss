@@ -28,6 +28,9 @@ $submenu-li-bg-color-active: if(vars.$navbar-submenu-li-bg-color-active, vars.$n
 $submenu-li-bg-color-current: if(vars.$navbar-submenu-li-bg-color-current, vars.$navbar-submenu-li-bg-color-current, false);
 
 $submenu-link-color: if(vars.$navbar-submenu-link-color, vars.$navbar-submenu-link-color, false); // Color of the submenu <a> links.
+$submenu-link-color-hover: if(vars.$navbar-submenu-link-color-hover, vars.$navbar-submenu-link-color-hover, false);
+$submenu-link-color-active: if(vars.$navbar-submenu-link-color-active, vars.$navbar-submenu-link-color-active, false);
+$submenu-link-color-current: if(vars.$navbar-submenu-link-color-current, vars.$navbar-submenu-link-color-current, false);
 $submenu-link-weight: if(vars.$navbar-submenu-link-weight, vars.$navbar-submenu-link-weight, false); // Font weight of the submenu <a> links.
 $submenu-link-weight-hover: if(vars.$navbar-submenu-link-weight-hover, vars.$navbar-submenu-link-weight-hover, false); // Font weight of the submenu <a> links on hover.
 $submenu-link-spacing-x: if(vars.$navbar-submenu-link-spacing-x, vars.$navbar-submenu-link-spacing-x, false); // Horizontal spacing for the submenu <a> links.
@@ -336,11 +339,23 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                     @if $submenu-link-weight-hover {
                         font-weight: $submenu-link-weight-hover;
                     }
+
+                    a {
+                        @if $submenu-link-color-hover {
+                            color: $submenu-link-color-hover;
+                        }
+                    }
                 }
 
                 &:active {
                     @if $submenu-li-bg-color-active {
                         background-color: $submenu-li-bg-color-active;
+                    }
+
+                    a {
+                        @if $submenu-link-color-active {
+                            color: $submenu-link-color-active;
+                        }
                     }
                 }
 
@@ -348,11 +363,37 @@ $submenu-bg-color: if(vars.$navbar-submenu-bg-color, vars.$navbar-submenu-bg-col
                     @if $submenu-li-bg-color-current {
                         background-color: $submenu-li-bg-color-current;
                     }
+
+                    > a {
+                        @if $submenu-link-color-current {
+                            color: $submenu-link-color-current;
+                        }
+                    }
+
+                    &:hover {
+                        > a {
+                            @if $submenu-link-color-hover {
+                                color: $submenu-link-color-hover;
+                            }
+                        }
+                    }
                 }
 
                 a {
                     @if $submenu-link-color {
                         color: $submenu-link-color;
+                    }
+
+                    &:hover {
+                        @if $submenu-link-color-hover {
+                            color: $submenu-link-color-hover;
+                        }
+                    }
+
+                    &:active {
+                        @if $submenu-link-color-active {
+                            color: $submenu-link-color-active;
+                        }
                     }
 
                     @include padding($submenu-link-spacing-y $submenu-link-spacing-x);

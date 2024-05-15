@@ -416,12 +416,12 @@ $mobile-breakpoint: vars.$mobile;
 }
 
 @mixin enable-wp-editor-align-full() {
-    .alignwide {
+    > .alignwide {
         @include margin-left(calc((rfs-value(vars.$post-content-max-width) - rfs-value(vars.$breakout-content-max-width)) / 2));
         @include margin-right(calc((rfs-value(vars.$post-content-max-width) - rfs-value(vars.$breakout-content-max-width)) / 2));
     }
 
-    .alignfull {
+    > .alignfull {
         margin-left: calc((var(--half-editor-width) - 50%) * -1);
         margin-right: calc((var(--half-editor-width) - 50%) * -1);
 
