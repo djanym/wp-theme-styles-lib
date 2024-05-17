@@ -286,10 +286,6 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             @include mx.font(vars.$navbar-font-size);
             font-weight: normal;
 
-            @include mx.breakpoint-less-than(vars.$small-laptop) {
-                //@include font-size(vars.$navbar-font-size * .9);
-            }
-
             @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
                 &:hover > .sub-menu {
                     display: flex;
@@ -384,12 +380,12 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             }
 
             @if $subm-ul-spacing-y {
-                @include padding-top($subm-ul-spacing-y);
-                @include padding-bottom($subm-ul-spacing-y);
+                padding-top: $subm-ul-spacing-y;
+                padding-bottom: $subm-ul-spacing-y;
             }
             @if $subm-ul-spacing-x {
-                @include padding-right($subm-ul-spacing-x);
-                @include padding-left($subm-ul-spacing-x);
+                padding-right: $subm-ul-spacing-x;
+                padding-left: $subm-ul-spacing-x;
             }
 
             @if $subm-bg-color {
@@ -402,12 +398,12 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
 
                 @if $mbl-subm-ul-spacing-y {
-                    @include padding-top($mbl-subm-ul-spacing-y);
-                    @include padding-bottom($mbl-subm-ul-spacing-y);
+                    padding-top: $mbl-subm-ul-spacing-y;
+                    padding-bottom: $mbl-subm-ul-spacing-y;
                 }
                 @if $mbl-subm-ul-spacing-x {
-                    @include padding-right($mbl-subm-ul-spacing-x);
-                    @include padding-left($mbl-subm-ul-spacing-x);
+                    padding-right: $mbl-subm-ul-spacing-x;
+                    padding-left: $mbl-subm-ul-spacing-x;
                 }
 
                 @if $mbl-subm-bg-color {
@@ -546,12 +542,12 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 a {
                     //@include padding($submenu-link-spacing-y $submenu-link-spacing-x);
                     @if $subm-link-spacing-y {
-                        @include padding-top($subm-link-spacing-y);
-                        @include padding-bottom($subm-link-spacing-y);
+                        padding-top: $subm-link-spacing-y;
+                        padding-bottom: $subm-link-spacing-y;
                     }
                     @if $subm-link-spacing-x {
-                        @include padding-right($subm-link-spacing-x);
-                        @include padding-left($subm-link-spacing-x);
+                        padding-right: $subm-link-spacing-x;
+                        padding-left: $subm-link-spacing-x;
                     }
 
                     @if $subm-link-color {
@@ -563,12 +559,12 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         //vertical-align: top;
 
                         @if $mbl-subm-link-spacing-y {
-                            @include padding-top($mbl-subm-link-spacing-y);
-                            @include padding-bottom($mbl-subm-link-spacing-y);
+                            padding-top: $mbl-subm-link-spacing-y;
+                            padding-bottom: $mbl-subm-link-spacing-y;
                         }
                         @if $mbl-subm-link-spacing-x {
-                            @include padding-right($mbl-subm-link-spacing-x);
-                            @include padding-left($mbl-subm-link-spacing-x);
+                            padding-right: $mbl-subm-link-spacing-x;
+                            padding-left: $mbl-subm-link-spacing-x;
                         }
 
                         @if $mbl-subm-link-color {
@@ -745,13 +741,13 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
 
                 @if vars.$navbar-mobile-items-spacing-x {
-                    @include padding-right(vars.$navbar-mobile-items-spacing-x);
-                    @include padding-left(vars.$navbar-mobile-items-spacing-x);
+                    padding-right: vars.$navbar-mobile-items-spacing-x;
+                    padding-left: vars.$navbar-mobile-items-spacing-x;
                 }
 
                 @if vars.$navbar-mobile-items-spacing-y {
-                    @include padding-top(vars.$navbar-mobile-items-spacing-y);
-                    @include padding-bottom(vars.$navbar-mobile-items-spacing-y);
+                    padding-top: vars.$navbar-mobile-items-spacing-y;
+                    padding-bottom: vars.$navbar-mobile-items-spacing-y;
                 }
 
                 // Main navigation menu items
@@ -814,13 +810,13 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         display: block;
 
                         @if vars.$navbar-mobile-item-spacing-x {
-                            @include padding-right(vars.$navbar-mobile-item-spacing-x);
-                            @include padding-left(vars.$navbar-mobile-item-spacing-x);
+                            padding-right: vars.$navbar-mobile-item-spacing-x;
+                            padding-left: vars.$navbar-mobile-item-spacing-x;
                         }
 
                         @if vars.$navbar-mobile-item-spacing-y {
-                            @include padding-top(vars.$navbar-mobile-item-spacing-y);
-                            @include padding-bottom(vars.$navbar-mobile-item-spacing-y);
+                            padding-top: vars.$navbar-mobile-item-spacing-y;
+                            padding-bottom: vars.$navbar-mobile-item-spacing-y;
                         }
 
                     }
