@@ -385,12 +385,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
             @if $subm-ul-spacing-x and $subm-ul-spacing-y {
                 @include mx.padding($subm-ul-spacing-y $subm-ul-spacing-x);
-            }
-            @else if($subm-ul-spacing-x) {
+            } @else if ($subm-ul-spacing-x) {
                 padding-right: $subm-ul-spacing-x;
                 padding-left: $subm-ul-spacing-x;
-            }
-            @else if($subm-ul-spacing-y) {
+            } @else if ($subm-ul-spacing-y) {
                 padding-top: $subm-ul-spacing-y;
                 padding-bottom: $subm-ul-spacing-y;
             }
@@ -554,12 +552,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     //@include padding($submenu-link-spacing-y $submenu-link-spacing-x);
                     @if $subm-link-spacing-y and $subm-link-spacing-x {
                         @include padding($subm-link-spacing-y $subm-link-spacing-x);
-                    }
-                    @else if $subm-link-spacing-y {
+                    } @else if $subm-link-spacing-y {
                         padding-top: $subm-link-spacing-y;
                         padding-bottom: $subm-link-spacing-y;
-                    }
-                    @else if $subm-link-spacing-x {
+                    } @else if $subm-link-spacing-x {
                         padding-right: $subm-link-spacing-x;
                         padding-left: $subm-link-spacing-x;
                     }
@@ -573,14 +569,12 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         //display: inline-block;
                         //vertical-align: top;
 
-                        @if  $mbl-subm-link-spacing-y and $mbl-subm-link-spacing-x {
+                        @if $mbl-subm-link-spacing-y and $mbl-subm-link-spacing-x {
                             @include padding($mbl-subm-link-spacing-y $mbl-subm-link-spacing-x);
-                        }
-                        @else if $mbl-subm-link-spacing-y {
+                        } @else if $mbl-subm-link-spacing-y {
                             padding-top: $mbl-subm-link-spacing-y;
                             padding-bottom: $mbl-subm-link-spacing-y;
-                        }
-                        @else if $mbl-subm-link-spacing-x {
+                        } @else if $mbl-subm-link-spacing-x {
                             padding-right: $mbl-subm-link-spacing-x;
                             padding-left: $mbl-subm-link-spacing-x;
                         }

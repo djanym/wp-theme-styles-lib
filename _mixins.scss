@@ -68,7 +68,7 @@ $all-text-inputs: join($_text-inputs-list, ', ');
 //********** Clearfix mixin.
 
 %clearfix {
-    *zoom: 1;
+    zoom: 1;
 
     &:before, &:after {
         content: " ";

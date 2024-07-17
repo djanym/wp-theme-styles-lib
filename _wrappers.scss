@@ -32,7 +32,6 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
 
 // ------------ Template with sidebar styles ------------
 
-
 .container-with-sidebar {
     display: flex;
     flex-direction: row;
@@ -81,6 +80,8 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
 
     @if $post-content-spacing-bottom {
         padding-bottom: $post-content-spacing-bottom;
+    } @else if $post-content-spacing-y {
+        padding-bottom: $post-content-spacing-y;
     }
 
     margin-right: auto;
@@ -191,15 +192,3 @@ img.full-width {
     background-origin: padding-box;
     background-clip: border-box;
 }
-
-//.container {
-//    @include make-container();
-//}
-//
-//.row {
-//    @include make-row();
-//}
-//
-//.col {
-//    @include make-col();
-//}
