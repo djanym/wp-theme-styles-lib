@@ -4,10 +4,14 @@
 @use "mixins" as mx;
 @import "bootstrap-required";
 
-$item-dropdown-arrow: if(vars.$navbar-item-dropdown-arrow, vars.$navbar-item-dropdown-arrow, false); // Adds arrow to the menu item if it has a dropdown.
-$top-link-spacing-x: if(vars.$navbar-top-link-spacing-x, vars.$navbar-top-link-spacing-x, 1px); // Horizontal spacing around the top <a> links.
-$top-link-spacing-y: if(vars.$navbar-top-link-spacing-y, vars.$navbar-top-link-spacing-y, 1px); // Vertical spacing around the top <a> links.
-$top-items-gap: if(vars.$navbar-top-items-gap, vars.$navbar-top-items-gap, false); // Gap between the top <li> items.
+// Adds arrow to the menu item if it has a dropdown.
+$item-dropdown-arrow: if(vars.$navbar-item-dropdown-arrow, vars.$navbar-item-dropdown-arrow, false);
+// Horizontal inner spacing of the top <a> links.
+$top-link-spacing-x: if(vars.$navbar-top-link-spacing-x, vars.$navbar-top-link-spacing-x, 1px);
+// Vertical inner spacing of the top <a> links.
+$top-link-spacing-y: if(vars.$navbar-top-link-spacing-y, vars.$navbar-top-link-spacing-y, 1px);
+// Gap between the top <li> items.
+$top-items-gap: if(vars.$navbar-top-items-gap, vars.$navbar-top-items-gap, false);
 
 // Background color of the <li> item.
 $top-li-bg-color: if(vars.$navbar-top-li-bg-color, vars.$navbar-top-li-bg-color, false);
@@ -17,22 +21,6 @@ $top-li-bg-color-hover: if(vars.$navbar-top-li-bg-color-hover, vars.$navbar-top-
 $top-li-bg-color-active: if(vars.$navbar-top-li-bg-color-active, vars.$navbar-top-li-bg-color-active, false);
 // Background color of the current (active) item or its parent.
 $top-li-bg-color-current: if(vars.$navbar-top-li-bg-color-current, vars.$navbar-top-li-bg-color-current, false);
-
-// Background color of the submenu <li> item.
-//$submenu-li-bg-color: if(vars.$navbar-submenu-li-bg-color, vars.$navbar-submenu-li-bg-color, false);
-// Background color of the submenu <li> item on hover.
-//$submenu-li-bg-color-hover: if(vars.$navbar-submenu-li-bg-color-hover, vars.$navbar-submenu-li-bg-color-hover, false);
-// Background color of the submenu <li> item on active.
-//$submenu-li-bg-color-active: if(vars.$navbar-submenu-li-bg-color-active, vars.$navbar-submenu-li-bg-color-active, false);
-// Background color of the current (active) submenu item.
-//$submenu-li-bg-color-current: if(vars.$navbar-submenu-li-bg-color-current, vars.$navbar-submenu-li-bg-color-current, false);
-
-//$submenu-link-color: if(vars.$navbar-submenu-link-color, vars.$navbar-submenu-link-color, false); // Color of the submenu <a> links.
-//$submenu-link-color-hover: if(vars.$navbar-submenu-link-color-hover, vars.$navbar-submenu-link-color-hover, false);
-//$submenu-link-color-active: if(vars.$navbar-submenu-link-color-active, vars.$navbar-submenu-link-color-active, false);
-//$submenu-link-color-current: if(vars.$navbar-submenu-link-color-current, vars.$navbar-submenu-link-color-current, false);
-$submenu-link-weight: if(vars.$navbar-submenu-link-weight, vars.$navbar-submenu-link-weight, false); // Font weight of the submenu <a> links.
-$submenu-link-weight-hover: if(vars.$navbar-submenu-link-weight-hover, vars.$navbar-submenu-link-weight-hover, false); // Font weight of the submenu <a> links on hover.
 
 // checks from vars, then from bootstrap, then default.
 $link-color: if(vars.$navbar-item-link-color, vars.$navbar-item-link-color, #0022AA);
@@ -58,7 +46,7 @@ $link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-ite
         text-decoration: $link-decoration;
     }
     @if $link-weight {
-        text-decoration: $link-weight;
+        font-weight: $link-weight;
     }
 }
 
@@ -98,83 +86,99 @@ $link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-ite
     }
 }
 
+%subm-link {
+    @if vars.$navbar-subm-link-color {
+        color: vars.$navbar-subm-link-color;
+    }
+    @if vars.$navbar-subm-link-decoration {
+        text-decoration: vars.$navbar-subm-link-decoration;
+    }
+    @if vars.$navbar-subm-link-weight {
+        font-weight: vars.$navbar-subm-link-weight;
+    }
+}
+
+%subm-link-hover {
+    @if vars.$navbar-subm-link-color-hover {
+        color: vars.$navbar-subm-link-color-hover;
+    }
+    @if vars.$navbar-subm-link-decoration-hover {
+        text-decoration: vars.$navbar-subm-link-decoration-hover;
+    }
+    @if vars.$navbar-subm-link-weight-hover {
+        font-weight: vars.$navbar-subm-link-weight-hover;
+    }
+}
+
+%subm-link-active {
+    @if vars.$navbar-subm-link-color-active {
+        color: vars.$navbar-subm-link-color-active;
+    }
+    @if vars.$navbar-subm-link-decoration-active {
+        text-decoration: vars.$navbar-subm-link-decoration-active;
+    }
+    @if vars.$navbar-subm-link-weight-active {
+        font-weight: vars.$navbar-subm-link-weight-active;
+    }
+}
+
+%subm-link-current {
+    @if vars.$navbar-subm-link-color-current {
+        color: vars.$navbar-subm-link-color-current;
+    }
+    @if vars.$navbar-subm-link-decoration-current {
+        text-decoration: vars.$navbar-subm-link-decoration-current;
+    }
+    @if vars.$navbar-subm-link-weight-current {
+        font-weight: vars.$navbar-subm-link-weight-current;
+    }
+}
+
+// Font weight of the submenu <a> links.
+//$submenu-link-weight: if(vars.$navbar-subm-link-weight, vars.$navbar-subm-link-weight, false);
+// Font weight of the submenu <a> links on hover.
+//$submenu-link-weight-hover: if(vars.$navbar-subm-link-weight-hover, vars.$navbar-subm-link-weight-hover, false);
+
 // All vars from the _vars.scss file.
 
 //$navbar-mobile: $mobile-breakpoint; // Breakpoint at which the mobile menu is displayed
-//$navbar-item-dropdown-arrow: false; // Adds arrow to the menu item if it has a dropdown. Values: true/false // ?
-//$navbar-font-size: 1rem;
-//$navbar-item-spacing-x: 1px; // Horizontal spacing around the items
-//$navbar-item-spacing-y: 1px; // Vertical spacing around the items
-//$navbar-top-items-gap: 2rem; // Gap between the top <li> items.
-//$navbar-bg-color: $color-4; // Background color of the navigation bar.
-//$navbar-top-li-bg-color: false; // Background color of the top <li> item.
-//$navbar-top-li-bg-color-hover: false; // Background color of the top <li> item on hover.
-//$navbar-top-li-bg-color-active: false; // Background color of the top <li> item on active.
-//$navbar-top-li-bg-color-current: false; // Background color of the current (active) item or its parent.
+$navbar-bg-color: if(vars.$navbar-bg-color, vars.$navbar-bg-color, false); // Background color of the navigation bar.
 //$navbar-top-link-spacing-x: 0; // Horizontal spacing around the top <a> links.
 //$navbar-top-link-spacing-y: 0; // Vertical spacing around the top <a> links.
-//$navbar-item-link-color: $color-2;
-//$navbar-item-link-decoration: none;
-//$navbar-item-link-weight: normal;
-//$navbar-item-link-hover-color: $color-5;
-//$navbar-item-link-hover-decoration: false; // ?
-//$navbar-item-link-hover-weight: false; // ?
-//$navbar-item-link-active-color: $color-5; // ?
-//$navbar-item-link-active-decoration: false; // ?
-//$navbar-item-link-active-weight: false; // ?
-//$navbar-item-link-current-color: $color-5; // ?
-//$navbar-item-link-current-decoration: false; // ?
-//$navbar-item-link-current-weight: false; // ?
 
-//$navbar-submenu-bg-color: #FFFFFF; // Background color of the submenu container.
+// Background color of the submenu container.
 $subm-bg-color: if(vars.$navbar-subm-bg-color, vars.$navbar-subm-bg-color, false);
 $mbl-subm-bg-color: if(vars.$navbar-mbl-subm-bg-color, vars.$navbar-mbl-subm-bg-color, false);
 
 $subm-items-gap: if(vars.$navbar-subm-items-gap, vars.$navbar-mbl-subm-items-gap, false);
 $mbl-subm-items-gap: if(vars.$navbar-mbl-subm-items-gap, vars.$navbar-mbl-subm-items-gap, false);
 
-//$navbar-submenu-container-spacing-x: false; // Horizontal spacing for the submenu container.
+// Horizontal and Vertical spacing for the submenu container.
 $subm-ul-spacing-y: if(vars.$navbar-subm-ul-spacing-y, vars.$navbar-subm-ul-spacing-y, false);
 $mbl-subm-ul-spacing-y: if(vars.$navbar-mbl-subm-ul-spacing-y, vars.$navbar-mbl-subm-ul-spacing-y, false);
 $subm-ul-spacing-x: if(vars.$navbar-subm-ul-spacing-x, vars.$navbar-subm-ul-spacing-x, false);
 $mbl-subm-ul-spacing-x: if(vars.$navbar-mbl-subm-ul-spacing-x, vars.$navbar-mbl-subm-ul-spacing-x, false);
-////$navbar-submenu-item-bg-color: false; //
-////$navbar-submenu-item-bg-color-hover: false; //
 
-//$navbar-submenu-li-bg-color: false; // Background color of the submenu <li> item.
+// Background color of the submenu <li> item.
 $subm-li-bg-color: if(vars.$navbar-subm-li-bg-color, vars.$navbar-subm-li-bg-color, false);
 $mbl-subm-li-bg-color: if(vars.$navbar-mbl-subm-li-bg-color, vars.$navbar-mbl-subm-li-bg-color, false);
-
-//$navbar-submenu-li-bg-color-hover: $color-5; // Background color of the submenu <li> item on hover.
 $subm-li-bg-color-hover: if(vars.$navbar-subm-li-bg-color-hover, vars.$navbar-subm-li-bg-color-hover, false);
 $mbl-subm-li-bg-color-hover: if(vars.$navbar-mbl-subm-li-bg-color-hover, vars.$navbar-mbl-subm-li-bg-color-hover, false);
-
-//$navbar-submenu-li-bg-color-active: $color-5; // Background color of the submenu <li> item on active.
 $subm-li-bg-color-active: if(vars.$navbar-subm-li-bg-color-active, vars.$navbar-subm-li-bg-color-active, false);
 $mbl-subm-li-bg-color-active: if(vars.$navbar-mbl-subm-li-bg-color-active, vars.$navbar-mbl-subm-li-bg-color-active, false);
-
-//$navbar-submenu-li-bg-color-current: $color-5; // Background color of the current (active) submenu item.
 $subm-li-bg-color-current: if(vars.$navbar-subm-li-bg-color-current, vars.$navbar-subm-li-bg-color-current, false);
 $mbl-subm-li-bg-color-current: if(vars.$navbar-mbl-subm-li-bg-color-current, vars.$navbar-mbl-subm-li-bg-color-current, false);
 
-//$navbar-submenu-link-color: $color-4; // Color of the submenu <a> links.
-$subm-link-color: if(vars.$navbar-subm-link-color, vars.$navbar-subm-link-color, false);
+// Color of the submenu <a> links.
+//$subm-link-color: if(vars.$navbar-subm-link-color, vars.$navbar-subm-link-color, false);
 $mbl-subm-link-color: if(vars.$navbar-mbl-subm-link-color, vars.$navbar-mbl-subm-link-color, false);
-
-//$navbar-submenu-link-color-hover: $color-1; // Color of the submenu <a> links.
-$subm-link-color-hover: if(vars.$navbar-subm-link-color-hover, vars.$navbar-subm-link-color-hover, false);
+//$subm-link-color-hover: if(vars.$navbar-subm-link-color-hover, vars.$navbar-subm-link-color-hover, false);
 $mbl-subm-link-color-hover: if(vars.$navbar-mbl-subm-link-color-hover, vars.$navbar-mbl-subm-link-color-hover, false);
-
-//$navbar-submenu-link-color-active: $color-1; // Color of the submenu <a> links.
-$subm-link-color-active: if(vars.$navbar-subm-link-color-active, vars.$navbar-subm-link-color-active, false);
+//$subm-link-color-active: if(vars.$navbar-subm-link-color-active, vars.$navbar-subm-link-color-active, false);
 $mbl-subm-link-color-active: if(vars.$navbar-mbl-subm-link-color-active, vars.$navbar-mbl-subm-link-color-active, false);
-
-//$navbar-submenu-link-color-current: $color-1; // Color of the submenu <a> links.
-$subm-link-color-current: if(vars.$navbar-subm-link-color-current, vars.$navbar-subm-link-color-current, false);
+//$subm-link-color-current: if(vars.$navbar-subm-link-color-current, vars.$navbar-subm-link-color-current, false);
 $mbl-subm-link-color-current: if(vars.$navbar-mbl-subm-link-color-current, vars.$navbar-mbl-subm-link-color-current, false);
 
-//$navbar-submenu-link-weight: false; // Font weight of the submenu <a> links.
-//$navbar-submenu-link-weight-hover: false; // Font weight of the submenu <a> links on hover.
 $subm-link-spacing-y: if(vars.$navbar-subm-link-spacing-y, vars.$navbar-subm-link-spacing-y, false);
 $mbl-subm-link-spacing-y: if(vars.$navbar-mbl-subm-link-spacing-y, vars.$navbar-mbl-subm-link-spacing-y, false);
 $subm-link-spacing-x: if(vars.$navbar-subm-link-spacing-x, vars.$navbar-subm-link-spacing-x, false);
@@ -199,8 +203,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             gap: $top-items-gap;
         }
 
-        @if vars.$navbar-bg-color {
-            background-color: vars.$navbar-bg-color;
+        @if $navbar-bg-color {
+            background-color: $navbar-bg-color;
         }
 
         @include mx.breakpoint-max(vars.$navbar-mobile) {
@@ -379,13 +383,16 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 gap: $subm-items-gap;
             }
 
-            @if $subm-ul-spacing-y {
-                padding-top: $subm-ul-spacing-y;
-                padding-bottom: $subm-ul-spacing-y;
+            @if $subm-ul-spacing-x and $subm-ul-spacing-y {
+                @include mx.padding($subm-ul-spacing-y $subm-ul-spacing-x);
             }
-            @if $subm-ul-spacing-x {
+            @else if($subm-ul-spacing-x) {
                 padding-right: $subm-ul-spacing-x;
                 padding-left: $subm-ul-spacing-x;
+            }
+            @else if($subm-ul-spacing-y) {
+                padding-top: $subm-ul-spacing-y;
+                padding-bottom: $subm-ul-spacing-y;
             }
 
             @if $subm-bg-color {
@@ -439,9 +446,9 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 //    color: $submenu-link-color;
                 //}
 
-                @if $submenu-link-weight {
-                    font-weight: $submenu-link-weight;
-                }
+                //@if $submenu-link-weight {
+                //    font-weight: $submenu-link-weight;
+                //}
 
                 @include mx.breakpoint-max(vars.$navbar-mobile) {
                     @if $mbl-subm-li-bg-color {
@@ -454,9 +461,9 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         background-color: $subm-li-bg-color-hover;
                     }
 
-                    @if $submenu-link-weight-hover {
-                        font-weight: $submenu-link-weight-hover;
-                    }
+                    //@if $submenu-link-weight-hover {
+                    //    font-weight: $submenu-link-weight-hover;
+                    //}
 
                     @include mx.breakpoint-max(vars.$navbar-mobile) {
                         @if $mbl-subm-li-bg-color-hover {
@@ -465,9 +472,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     a {
-                        @if $subm-link-color-hover {
-                            color: $subm-link-color-hover;
-                        }
+                        //@if $subm-link-color-hover {
+                        //    color: $subm-link-color-hover;
+                        //}
+                        @extend %subm-link-hover;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
                             @if $mbl-subm-link-color-hover {
@@ -489,9 +497,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     a {
-                        @if $subm-link-color-active {
-                            color: $subm-link-color-active;
-                        }
+                        //@if $subm-link-color-active {
+                        //    color: $subm-link-color-active;
+                        //}
+                        @extend %subm-link-active;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
                             @if $mbl-subm-link-color-active {
@@ -513,9 +522,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     > a {
-                        @if $subm-link-color-current {
-                            color: $subm-link-color-current;
-                        }
+                        //@if $subm-link-color-current {
+                        //    color: $subm-link-color-current;
+                        //}
+                        @extend %subm-link-current;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
                             @if $mbl-subm-link-color-current {
@@ -526,9 +536,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
                     &:hover {
                         > a {
-                            @if $subm-link-color-hover {
-                                color: $subm-link-color-hover;
-                            }
+                            //@if $subm-link-color-hover {
+                            //    color: $subm-link-color-hover;
+                            //}
+                            @extend %subm-link-hover;
 
                             @include mx.breakpoint-max(vars.$navbar-mobile) {
                                 @if $mbl-subm-link-color-hover {
@@ -541,28 +552,35 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
                 a {
                     //@include padding($submenu-link-spacing-y $submenu-link-spacing-x);
-                    @if $subm-link-spacing-y {
+                    @if $subm-link-spacing-y and $subm-link-spacing-x {
+                        @include padding($subm-link-spacing-y $subm-link-spacing-x);
+                    }
+                    @else if $subm-link-spacing-y {
                         padding-top: $subm-link-spacing-y;
                         padding-bottom: $subm-link-spacing-y;
                     }
-                    @if $subm-link-spacing-x {
+                    @else if $subm-link-spacing-x {
                         padding-right: $subm-link-spacing-x;
                         padding-left: $subm-link-spacing-x;
                     }
 
-                    @if $subm-link-color {
-                        color: $subm-link-color;
-                    }
+                    //@if $subm-link-color {
+                    //    color: $subm-link-color;
+                    //}
+                    @extend %subm-link;
 
                     @include mx.breakpoint-max(vars.$navbar-mobile) {
                         //display: inline-block;
                         //vertical-align: top;
 
-                        @if $mbl-subm-link-spacing-y {
+                        @if  $mbl-subm-link-spacing-y and $mbl-subm-link-spacing-x {
+                            @include padding($mbl-subm-link-spacing-y $mbl-subm-link-spacing-x);
+                        }
+                        @else if $mbl-subm-link-spacing-y {
                             padding-top: $mbl-subm-link-spacing-y;
                             padding-bottom: $mbl-subm-link-spacing-y;
                         }
-                        @if $mbl-subm-link-spacing-x {
+                        @else if $mbl-subm-link-spacing-x {
                             padding-right: $mbl-subm-link-spacing-x;
                             padding-left: $mbl-subm-link-spacing-x;
                         }
@@ -573,9 +591,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     &:hover {
-                        @if $subm-link-color-hover {
-                            color: $subm-link-color-hover;
-                        }
+                        //@if $subm-link-color-hover {
+                        //    color: $subm-link-color-hover;
+                        //}
+                        @extend %subm-link-hover;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
                             @if $mbl-subm-link-color-hover {
@@ -585,9 +604,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     &:active {
-                        @if $subm-link-color-active {
-                            color: $subm-link-color-active;
-                        }
+                        //@if $subm-link-color-active {
+                        //    color: $subm-link-color-active;
+                        //}
+                        @extend %subm-link-active;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
                             @if $mbl-subm-link-color-active {

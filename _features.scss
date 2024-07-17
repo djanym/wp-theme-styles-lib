@@ -50,6 +50,36 @@
     }
 }
 
+@mixin enable-wp-adminbar-spacing() {
+    // Adds spacing to the top of the page when the admin bar is visible. Use px as it is defined in the admin bar CSS.
+    .admin-bar {
+        .site-header {
+            padding-top: 32px;
+
+            @include mx.breakpoint-less-than(782px) {
+                padding-top: 46px;
+            }
+
+            @include mx.breakpoint-max(vars.$navbar-mobile) {
+                .navbar-mobile {
+                    padding-top: 32px;
+
+                    @include mx.breakpoint-max(782px) {
+                        padding-top: 46px;
+                    }
+                }
+            }
+        }
+    }
+
+    // Overwrite the admin bar CSS to make it fixed on mobile.
+    @media screen and (max-width: 600px) {
+        #wpadminbar {
+            position: fixed;
+        }
+    }
+}
+
 @mixin enable-cf7-form-styles() {
     .wpcf7-form {
         //    textarea{

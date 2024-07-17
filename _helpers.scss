@@ -20,3 +20,13 @@
 .align-center {
     text-align: center;
 }
+
+.page-scrolled {
+    .site-header {
+        transition: background-color 0.2s ease-in-out;
+
+        @if vars.$top-nav-row-bg-color-scrolled {
+            background-color: vars.$top-nav-row-bg-color-scrolled;
+        }
+    }
+}

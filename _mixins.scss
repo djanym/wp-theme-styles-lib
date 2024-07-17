@@ -667,7 +667,7 @@ $all-text-inputs: join($_text-inputs-list, ', ');
 // Font Face
 // =============================================================================
 
-@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg, $display: swap) {
     $src: null;
 
     $extmods: (
@@ -690,6 +690,7 @@ $all-text-inputs: join($_text-inputs-list, ', ');
         font-family: quote($name);
         font-style: $style;
         font-weight: $weight;
+        font-display: $display;
         src: $src;
     }
 }
