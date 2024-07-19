@@ -271,9 +271,6 @@ hr {
 //    @include font-size($h6-font-size);
 //}
 
-@include mx.headings-typography(vars.$typography, $use-rfs-typography);
-
-
 // Reset margins on paragraphs
 //
 // Similarly, the top margin on `<p>`s get reset. However, we also reset the
