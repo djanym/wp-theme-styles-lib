@@ -212,6 +212,85 @@
 }
 
 // Works with Masonry JS library
+@mixin grid-list-container($grid-columns, $grid-gap, $item-spacing-x: 0, $content-gap: 0, $item-content-spacing: 0) {
+    .grid-list-container {
+        display: grid;
+        grid-template-columns: repeat($grid-columns, 1fr);
+        gap: $grid-gap;
+
+        .list-item {
+            &__wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &__thumbnail {
+                width: 100%;
+                height: auto;
+            }
+
+            &__content {
+                display: flex;
+                    flex-direction: column;
+                    gap: $content-gap;
+                padding: $item-content-spacing;
+            }
+
+            //.entry-content {
+            //
+            //    padding: $_content-spacing-y $_content-spacing-x;
+            //
+            //    .entry-title {
+            //        @include mx.generate-properties-from(vars.$typography, h-5);
+            //        margin: 0;
+            //
+            //        a {
+            //            color: vars.$color-4;
+            //            text-decoration: none;
+            //
+            //            &:hover {
+            //                text-decoration: underline;
+            //            }
+            //        }
+            //    }
+            //
+            //    .entry-meta {
+            //        font-style: italic;
+            //    }
+            //
+            //    .entry-excerpt {
+            //        a {
+            //            color: vars.$color-4;
+            //            text-decoration: none;
+            //
+            //            &:hover {
+            //                text-decoration: underline;
+            //            }
+            //        }
+            //
+            //        > :last-child {
+            //            margin-bottom: 0;
+            //        }
+            //    }
+            //}
+            //
+            //@include mx.breakpoint-max(vars.$narrow) {
+            //    > .post {
+            //        width: calc(100% / 2);
+            //    }
+            //}
+            //
+            //@include mx.breakpoint-max(vars.$mobile) {
+            //    > .post {
+            //        width: calc(100% / 1);
+            //        padding: 0;
+            //    }
+            //}
+        }
+    }
+}
+
+// Works with Masonry JS library
 @mixin masonry-listing-styles($columns, $item-spacing-x, $item-spacing-y) {
     display: flex;
     flex-wrap: wrap;
@@ -246,5 +325,55 @@
 
     .facebook-icon {
         background-image: url('../images/icon-facebook.svg');
+    }
+}
+
+@mixin enable-pagination-styles ($items-gap: 0.5rem, $item-link-padding: 0.25rem 0.5rem) {
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+
+        > ul {
+            display: flex;
+            flex-direction: row;
+            gap: $items-gap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+            }
+
+            .page-link,
+            .current {
+                display: inline-block;
+                padding: $item-link-padding;
+                text-decoration: none;
+            }
+
+            .page-link {
+                &.prev {
+                    &::before {
+                        content: '«';
+                        margin: 0 0.25rem 0 0;
+                    }
+                }
+                &.next {
+                    &::after {
+                        content: '»';
+                        margin: 0 0 0 0.25rem;
+                    }
+                }
+
+                &:hover,
+                &:focus,
+                &:active {
+                    border: 1px solid #888888;
+                    background-color: #f9f9f9;
+                }
+            }
+        }
     }
 }
