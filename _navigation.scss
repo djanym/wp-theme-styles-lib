@@ -258,8 +258,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 //}
             }
 
-            &.current-menu-parent,
-            &.current-menu-item {
+            &.current_page_item,
+            &.current_page_parent,
+            &.current-menu-item,
+            &.current-menu-parent {
                 @if $top-li-bg-color-current {
                     background-color: $top-li-bg-color-current;
                 }
@@ -311,8 +313,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
             }
 
-            &.current-menu-parent,
-            &.current-menu-item {
+            &.current_page_item,
+            &.current_page_parent,
+            &.current-menu-item,
+            &.current-menu-parent {
                 &:hover {
                     > a {
                         @extend %link-hover;
@@ -641,6 +645,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
             // Actual active nav item.
             &.current_page_item,
+            &.current_page_parent,
             &.current-menu-item,
             &.current-menu-parent {
                 > a {
@@ -689,8 +694,13 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     font-size: 1rem;
                 }
 
-                &.current-menu-item a {
-                    @extend %link-current;
+                &.current_page_item,
+                &.current_page_parent,
+                &.current-menu-item,
+                &.current-menu-parent {
+                    a {
+                        @extend %link-current;
+                    }
                 }
 
                 a {
