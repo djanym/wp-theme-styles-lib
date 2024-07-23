@@ -2,9 +2,8 @@
 
 @use "../vars";
 @use "mixins" as mx;
-//@use "wrappers";
 
-@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../../node_modules/bootstrap/scss/carousel";
 
 .hero-slider {
     @if vars.$slider-hero-max-height {
@@ -44,6 +43,15 @@
 
         @if vars.$slider-hero-content-font-color {
             color: vars.$slider-hero-content-font-color;
+        }
+    }
+}
+
+.carousel {
+    .carousel-item {
+        img {
+            width: 100%;
+            display: block;
         }
     }
 }

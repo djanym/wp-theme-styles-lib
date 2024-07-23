@@ -6,6 +6,10 @@
     display: none !important;
 }
 
+.pt-0 {
+    padding-top: 0 !important;
+}
+
 .clearfix:after {
     visibility: hidden;
     display: block;
@@ -29,4 +33,9 @@
             background-color: vars.$top-nav-row-bg-color-scrolled;
         }
     }
+}
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+    @include visually-hidden();
 }
