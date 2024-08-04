@@ -169,6 +169,26 @@
             }
         }
     }
+
+    .half {
+        flex-basis: 50%;
+    }
+
+    .third {
+        flex-basis: 33.333%;
+    }
+
+    .two-thirds {
+        flex-basis: 66.666%;
+    }
+
+    .quarter {
+        flex-basis: 25%;
+    }
+
+    .three-quarters {
+        flex-basis: 75%;
+    }
 }
 
 @mixin enable-list-columns-layout-styles {
@@ -328,12 +348,12 @@
     }
 }
 
-@mixin enable-pagination-styles ($items-gap: 0.5rem, $item-link-padding: 0.25rem 0.5rem) {
+@mixin enable-pagination-styles ($items-gap: 0.5rem, $item-link-padding: 0.25rem 0.5rem, $margin-top: 2rem) {
     .pagination {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 2rem;
+        margin-top: $margin-top;
 
         > ul {
             display: flex;

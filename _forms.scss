@@ -1,0 +1,125 @@
+@use "../vars";
+@use "mixins" as mx;
+
+.form-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$form-fields-gap;
+
+    label {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    #{mx.$all-text-inputs} {
+        width: 100%;
+    }
+}
+
+#{mx.$all-text-inputs} {
+    padding: vars.$input-padding-y vars.$input-padding-x;
+    border: vars.$input-border;
+    @include mx.border-radius(vars.$input-border-radius);
+    background: vars.$input-bg;
+    transition: all 0.2s ease-in-out 0s;
+
+    color: vars.$input-color;
+    font-size: vars.$input-font-size;
+    line-height: vars.$input-line-height;
+
+    &::placeholder {
+        color: vars.$input-placeholder-color;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        background: vars.$input-hover-bg;
+        border: vars.$input-hover-border;
+    }
+
+    &:focus,
+    &:active {
+        box-shadow: vars.$input-focus-box-shadow;
+        outline: none;
+    }
+
+    &[disabled] {
+        background-color: vars.$input-disabled-bg;
+        color: vars.$input-disabled-color;
+        border: vars.$input-disabled-border;
+
+        &::placeholder {
+            color: vars.$input-disabled-color;
+        }
+    }
+
+    &::selection {
+        background-color: #EBF7FF;
+    }
+
+    &[aria-invalid="true"] {
+        border: vars.$input-not-valid-border;
+        background: vars.$input-not-valid-bg;
+    }
+}
+
+#{mx.$all-buttons} {
+    @include mx.generate-properties-from(vars.$buttons, vars.$form-button-key);
+
+    &:hover,
+    &:focus {
+        @include mx.generate-properties-from(vars.$buttons-hover-state, vars.$form-button-key);
+    }
+
+    &:active {
+        @include mx.generate-properties-from(vars.$buttons-active-state, vars.$form-button-key);
+    }
+}
+
+.wpcf7 {
+    .wpcf7-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .wpcf7-response-output {
+            margin: 0;
+        }
+
+        .wpcf7-form-control-wrap {
+            //display: block;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wpcf7-response-output {
+            margin: 1rem 0.5em;
+            padding: 0;
+            border: none;
+        }
+
+        &.sent .wpcf7-response-output {
+            color: #2b8032;
+        }
+
+        &.invalid .wpcf7-response-output {
+            color: vars.$not-valid-tip-color;
+        }
+
+        .wpcf7-not-valid {
+            border: vars.$input-not-valid-border;
+            background: vars.$input-not-valid-bg;
+        }
+
+        .wpcf7-not-valid-tip {
+            font-size: vars.$not-valid-tip-font-size;
+            color: vars.$not-valid-tip-color;
+        }
+
+        .wpcf7-spinner {
+            vertical-align: middle;
+            margin: 0 -24px 0 24px;
+        }
+    }
+}

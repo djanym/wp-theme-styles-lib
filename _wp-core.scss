@@ -485,6 +485,7 @@ $mobile-breakpoint: vars.$mobile;
     }
 }
 
+// Generate button styles.
 @mixin wp-block-button-styles(
     $buttons,
     $buttons-hover: false,

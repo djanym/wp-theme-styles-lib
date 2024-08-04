@@ -31,7 +31,3 @@
 .flow > * + * {
     margin-top: vars.$post-content-flow-spacing;
 }
-
-.hidden {
-    @include mx.textHidden;
-}

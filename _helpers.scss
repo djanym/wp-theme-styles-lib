@@ -1,9 +1,13 @@
 @use "../vars";
 @use "mixins" as mx;
-@import "bootstrap-required";
+//@import "bootstrap-required";
 
 .display-none {
     display: none !important;
+}
+
+.hidden {
+    @include mx.textHidden;
 }
 
 .pt-0 {
@@ -23,6 +27,10 @@
 
 .align-center {
     text-align: center;
+}
+
+.align-right {
+    text-align: right;
 }
 
 .page-scrolled {
