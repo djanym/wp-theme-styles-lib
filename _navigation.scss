@@ -58,7 +58,7 @@ $link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-ite
         text-decoration: $link-hover-decoration;
     }
     @if $link-hover-weight {
-        text-decoration: $link-hover-weight;
+        font-weight: $link-hover-weight;
     }
 }
 
@@ -70,7 +70,7 @@ $link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-ite
         text-decoration: $link-active-decoration;
     }
     @if $link-active-weight {
-        text-decoration: $link-active-weight;
+        font-weight: $link-active-weight;
     }
 }
 
@@ -82,7 +82,55 @@ $link-current-weight: if(vars.$navbar-item-link-current-weight, vars.$navbar-ite
         text-decoration: $link-current-decoration;
     }
     @if $link-current-weight {
-        text-decoration: $link-current-weight;
+        font-weight: $link-current-weight;
+    }
+}
+
+%mbl-link {
+    //@if $link-color {
+    //    color: $link-color;
+    //}
+    //@if $link-decoration {
+    //    text-decoration: $link-decoration;
+    //}
+    //@if $link-weight {
+    //    font-weight: $link-weight;
+    //}
+}
+
+%mbl-link-hover {
+    @if vars.$navbar-mbl-item-link-hover-color {
+        color: vars.$navbar-mbl-item-link-hover-color;
+    }
+    @if vars.$navbar-mbl-item-link-hover-decoration {
+        text-decoration: vars.$navbar-mbl-item-link-hover-decoration;
+    }
+    @if vars.$navbar-mbl-item-link-hover-weight {
+        font-weight: vars.$navbar-mbl-item-link-hover-weight;
+    }
+}
+
+%mbl-link-active {
+    //@if $link-active-color {
+    //    color: $link-active-color;
+    //}
+    //@if $link-active-decoration {
+    //    text-decoration: $link-active-decoration;
+    //}
+    //@if $link-active-weight {
+    //    font-weight: $link-active-weight;
+    //}
+}
+
+%mbl-link-current {
+    @if $link-current-color {
+        color: $link-current-color;
+    }
+    @if $link-current-decoration {
+        text-decoration: $link-current-decoration;
+    }
+    @if $link-current-weight {
+        font-weight: $link-current-weight;
     }
 }
 
@@ -304,6 +352,18 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
                 > a {
                     @extend %link-hover;
+
+                    @include mx.breakpoint-max(vars.$navbar-mobile) {
+                        @if vars.$navbar-mbl-item-link-hover-color {
+                            color: vars.$navbar-mbl-item-link-hover-color;
+                        }
+                        @if vars.$navbar-mbl-item-link-hover-decoration {
+                            text-decoration: vars.$navbar-mbl-item-link-hover-decoration;
+                        }
+                        @if vars.$navbar-mbl-item-link-hover-weight {
+                            font-weight: vars.$navbar-mbl-item-link-hover-weight;
+                        }
+                    }
                 }
             }
 

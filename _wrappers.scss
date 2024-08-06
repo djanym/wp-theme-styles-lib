@@ -50,6 +50,12 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
         width: 100%;
     }
 
+    .main-container {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
     .sidebar {
         flex-shrink: 0;
         flex-basis: rfs-value(vars.$sidebar-content-width);

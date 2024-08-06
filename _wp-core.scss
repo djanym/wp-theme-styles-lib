@@ -80,7 +80,8 @@ $mobile-breakpoint: vars.$mobile;
             @include margin-right(calc((rfs-value($post-content-max-width) - rfs-value($breakout-content-max-width)) / 2));
 
             $_actual-margin-x: calc($breakout-content-spacing-x * -1);
-            $_screen_width_bp: calc($breakout-content-max-width + #{$_actual-margin-x});
+            //$_screen_width_bp: calc($breakout-content-max-width + #{$_actual-margin-x});
+            $_screen_width_bp: calc($breakout-content-max-width + $breakout-content-spacing-x);
 
             @include mx.breakpoint-max($_screen_width_bp) { // When screen width is less than the breakout-content-max-width + margins.
                 @include mx.margin-left(calc(($post-content-max-width - var(--full-width)) / 2 + $_actual-margin-x));
@@ -100,6 +101,25 @@ $mobile-breakpoint: vars.$mobile;
             img {
                 //width: 100vw;
                 width: var(--full-width);
+            }
+        }
+
+        .is-layout-constrained {
+            .alignwide {
+                $_screen_width_bp: calc($breakout-content-max-width + $breakout-content-spacing-x);
+
+                @include mx.breakpoint-max($_screen_width_bp) { // When screen width is less than the breakout-content-max-width + margins.
+                    // Because $post-content-max-width is the max-width of the content, we need
+                    // to calculate a value to increase the width of the container by negative value of the margins.
+                    $_margin: calc(((var(--full-width) - $post-content-max-width) / 2 - $breakout-content-spacing-x) * -1);
+                    margin-left: $_margin;
+                    margin-right: $_margin;
+                }
+
+                @include mx.breakpoint-max($post-content-max-width) { /* Adjust based on the parent container's width */
+                    margin-left: $post-content-spacing-x;
+                    margin-right: $post-content-spacing-x;
+                }
             }
         }
 

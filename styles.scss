@@ -25,6 +25,7 @@
     --breakout-content-max-width: calc(#{rfs-value(vars.$breakout-content-max-width)} - #{rfs-value($container-padding-x)}); // Counts also paddings from the container.
     --mobile-breakpoint: #{vars.$mobile-breakpoint};
     --post-content-max-width: #{rfs-value(vars.$post-content-max-width)};
+    --nav-padding: #{vars.$top-nav-row-min-height};
 }
 
 // Adds spacing between elements.
