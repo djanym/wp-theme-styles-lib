@@ -572,7 +572,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
                 }
 
-                &.current-menu-item {
+                &.current_page_item,
+                &.current_page_parent,
+                &.current-menu-item,
+                &.current-menu-parent {
                     @if $subm-li-bg-color-current {
                         background-color: $subm-li-bg-color-current;
                     }
@@ -722,63 +725,6 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
         }
 
         // Main nav item links end
-
-        // Drop down menu start here
-        > .dropdown-menu {
-            //@if $submenu-bg-color {
-            //    background-color: $submenu-bg-color;
-            //}
-
-            @include margin(-1px false false 13px);
-            top: 100%;
-
-            min-width: 250px;
-            border-radius: 0;
-            border: none;
-            padding: 0.7rem 1.3rem;
-            opacity: .95;
-            z-index: 10;
-            flex-direction: column;
-            flex-wrap: wrap;
-            width: auto;
-
-            li {
-                text-transform: none;
-                padding: .2rem 0;
-                list-style: disc;
-                margin-left: 7px;
-                color: white;
-
-                &::marker {
-                    color: white;
-                    font-size: 1rem;
-                }
-
-                &.current_page_item,
-                &.current_page_parent,
-                &.current-menu-item,
-                &.current-menu-parent {
-                    a {
-                        @extend %link-current;
-                    }
-                }
-
-                a {
-                    @extend %link;
-
-                    padding: 0;
-                    white-space: normal;
-
-                    &:hover {
-                        @extend %link-hover;
-                    }
-
-                    &:active {
-                        @extend %link-active;
-                    }
-                }
-            }
-        }
     }
     // Main navigation menu end
 
