@@ -34,12 +34,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-
-        //@extend .content-grid;
         align-content: center;
-
-        @include padding-top(3rem);
-        @include padding-bottom(3rem);
+        padding-top: 3rem;
+        padding-bottom: 3rem;
 
         @if vars.$slider-hero-content-font-color {
             color: vars.$slider-hero-content-font-color;

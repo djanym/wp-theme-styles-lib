@@ -936,9 +936,24 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
         // Styling of the button.
         .toggler-button {
-            $lines-width: calc(#{vars.$navbar-mobile-toggler-width} - (#{vars.$navbar-mobile-toggler-padding}));
-
             vertical-align: middle;
+            position: relative;
+            display: inline-block;
+            width: vars.$navbar-mobile-toggler-width;
+            height: vars.$navbar-mobile-toggler-height;
+            cursor: pointer;
+
+            @if vars.$navbar-mobile-toggler-bg-color {
+                background-color: vars.$navbar-mobile-toggler-bg-color;
+            }
+
+            @if vars.$navbar-mobile-toggler-border {
+                border: vars.$navbar-mobile-toggler-border;
+            }
+
+            @if vars.$navbar-mobile-toggler-border-radius {
+                @include border-radius(vars.$navbar-mobile-toggler-border-radius);
+            }
 
             &:hover {
                 @if vars.$navbar-mobile-toggler-bg-color-hover {
@@ -959,25 +974,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
             }
 
-            position: relative;
-            display: inline-block;
-            width: vars.$navbar-mobile-toggler-width;
-            height: vars.$navbar-mobile-toggler-height;
-
-            @if vars.$navbar-mobile-toggler-bg-color {
-                background-color: vars.$navbar-mobile-toggler-bg-color;
-            }
-
-            @if vars.$navbar-mobile-toggler-border {
-                border: vars.$navbar-mobile-toggler-border;
-            }
-
-            @if vars.$navbar-mobile-toggler-border-radius {
-                @include border-radius(vars.$navbar-mobile-toggler-border-radius);
-            }
-
-            cursor: pointer;
-
+            $lines-width: calc(#{vars.$navbar-mobile-toggler-width} - (#{vars.$navbar-mobile-toggler-padding}));
             // Styling of the lines.
             .lines {
                 content: '';

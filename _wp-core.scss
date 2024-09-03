@@ -230,8 +230,8 @@ $mobile-breakpoint: vars.$mobile;
 
         .posts-navigation {
             clear: both;
-            @include margin(1.5rem 0);
             text-align: center;
+            @include margin(1.5rem 0);
 
             .nav-links > div {
                 display: inline-block;

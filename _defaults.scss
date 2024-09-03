@@ -67,7 +67,9 @@ $use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true
         --#{$prefix}root-font-size: #{$font-size-root};
     }
     //--#{$prefix}body-font-family: #{inspect($font-family-base)};
-    @include rfs($font-size-base, --#{$prefix}body-font-size);
+
+    //@include rfs($font-size-base, --#{$prefix}body-font-size);
+
     --#{$prefix}body-font-weight: #{$font-weight-base};
     --#{$prefix}body-line-height: #{$line-height-base};
     @if $body-text-align != null {
@@ -651,9 +653,9 @@ legend {
     width: 100%;
     padding: 0;
     margin-bottom: $legend-margin-bottom;
-    @include font-size($legend-font-size);
     font-weight: $legend-font-weight;
     line-height: inherit;
+    @include font-size($legend-font-size);
 
     + * {
         clear: left; // 2
