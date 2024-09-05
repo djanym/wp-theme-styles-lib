@@ -395,5 +395,30 @@
                 }
             }
         }
+
+        // TODO: add vars array.
+        > ul {
+            .page-link,
+            .current {
+                border: 1px solid #aaaaaa;
+                border-radius: 3px;
+                color: vars.$clr-dark-1;
+            }
+
+            .page-link {
+                &:hover,
+                &:focus,
+                &:active {
+                    border: 1px solid #888888;
+                    background-color: #f9f9f9;
+                }
+            }
+
+            .current {
+                background-color: vars.$clr-light-2;
+                //border-color: vars.$cl;
+                //color: #fff;
+            }
+        }
     }
 }

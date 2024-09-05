@@ -1038,5 +1038,14 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
     }
 }
 
+@mixin enable-mega-menu() {
+    .nav-columns {
+        .nav-column {
+
+        }
+    }
+
+}
+
 
 
