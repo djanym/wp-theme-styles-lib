@@ -1058,7 +1058,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
             > ul.sub-menu {
                 display: grid;
-                gap: 1rem;
+                gap: vars.$navbar-subm-items-gap;
 
                 .dropdown {
                     display: flex;
