@@ -309,7 +309,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             &.current_page_item,
             &.current_page_parent,
             &.current-menu-item,
-            &.current-menu-parent {
+            &.current-menu-parent,
+            &.current-menu-ancestor {
                 @if $top-li-bg-color-current {
                     background-color: $top-li-bg-color-current;
                 }
@@ -376,7 +377,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             &.current_page_item,
             &.current_page_parent,
             &.current-menu-item,
-            &.current-menu-parent {
+            &.current-menu-parent,
+            &.current-menu-ancestor {
                 &:hover {
                     > a {
                         @extend %link-hover;
@@ -533,7 +535,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         }
                     }
 
-                    a {
+                    // Selects only the link inside the <li>
+                    > a {
                         //@if $subm-link-color-hover {
                         //    color: $subm-link-color-hover;
                         //}
@@ -575,7 +578,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 &.current_page_item,
                 &.current_page_parent,
                 &.current-menu-item,
-                &.current-menu-parent {
+                &.current-menu-parent,
+                &.current-menu-ancestor {
                     @if $subm-li-bg-color-current {
                         background-color: $subm-li-bg-color-current;
                     }
@@ -710,7 +714,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             &.current_page_item,
             &.current_page_parent,
             &.current-menu-item,
-            &.current-menu-parent {
+            &.current-menu-parent,
+            &.current-menu-ancestor {
                 > a {
                     @extend %link-current;
                 }
@@ -1039,9 +1044,40 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 }
 
 @mixin enable-mega-menu() {
-    .nav-columns {
-        .nav-column {
+    .navbar-nav { // For rule weight.
+        .has-mega-menu.menu-item:hover {
+        //.has-mega-menu {
 
+            @for $i from 1 through 6 {
+                &.columns-#{$i} {
+                    > ul {
+                        grid-template-columns: repeat(#{$i}, 1fr);
+                    }
+                }
+            }
+
+            > ul.sub-menu {
+                display: grid;
+                gap: 1rem;
+
+                .dropdown {
+                    display: flex;
+                    flex-direction: column;
+
+                    > a {
+                        text-decoration: none;
+                    }
+                }
+
+                .sub-menu {
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    top: unset;
+                    left: unset;
+                    padding: 0;
+                }
+            }
         }
     }
 
