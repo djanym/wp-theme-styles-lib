@@ -6,12 +6,20 @@
     display: none !important;
 }
 
+.d-flex {
+    display: flex !important;
+}
+
 .hidden {
     @include mx.textHidden;
 }
 
 .pt-0 {
     padding-top: 0 !important;
+}
+
+.pb-0 {
+    padding-bottom: 0 !important;
 }
 
 .clearfix:after {

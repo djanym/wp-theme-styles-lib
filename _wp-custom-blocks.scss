@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+@use "../vars";
+@use "mixins" as mx;
+
+@mixin wp-custom-block-media-text() {
+    .custom-media-text {
+        @include mx.breakpoint-max(vars.$narrow) {
+            grid-template-columns: 40% auto !important;
+            > :nth-child(1) {
+                padding-right: 1rem;
+            }
+
+            &.has-media-on-the-right {
+                grid-template-columns: auto 40% !important;
+            }
+        }
+    }
+}
