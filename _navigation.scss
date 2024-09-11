@@ -354,25 +354,30 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 position: relative;
 
                 > a {
-                    @extend %link-hover;
-
-                    @include mx.breakpoint-max(vars.$navbar-mobile) {
-                        @if vars.$navbar-mbl-item-link-hover-color {
-                            color: vars.$navbar-mbl-item-link-hover-color;
-                        }
-                        @if vars.$navbar-mbl-item-link-hover-decoration {
-                            text-decoration: vars.$navbar-mbl-item-link-hover-decoration;
-                        }
-                        @if vars.$navbar-mbl-item-link-hover-weight {
-                            font-weight: vars.$navbar-mbl-item-link-hover-weight;
-                        }
-                    }
+                    // @TODO: create an option for this. Because sometimes the li item is bigger and we don't need to change on li hover.
+                    //@extend %link-hover;
+                    //
+                    //@include mx.breakpoint-max(vars.$navbar-mobile) {
+                    //    @extend %mbl-link-hover;
+                    //
+                    //    // Old.
+                    //    @if vars.$navbar-mbl-item-link-hover-color {
+                    //        color: vars.$navbar-mbl-item-link-hover-color;
+                    //    }
+                    //    @if vars.$navbar-mbl-item-link-hover-decoration {
+                    //        text-decoration: vars.$navbar-mbl-item-link-hover-decoration;
+                    //    }
+                    //    @if vars.$navbar-mbl-item-link-hover-weight {
+                    //        font-weight: vars.$navbar-mbl-item-link-hover-weight;
+                    //    }
+                    //}
                 }
             }
 
             &:active {
                 > a {
-                    @extend %link-active;
+                    // @TODO: create an option for this. Because sometimes the li item is bigger and we don't need to change on li hover.
+                    //@extend %link-active;
                 }
             }
 
