@@ -9,7 +9,8 @@
     @if vars.$slider-hero-max-height {
         max-height: vars.$slider-hero-max-height;
     }
-    height: 100vh;
+
+    height: vars.$slider-hero-height;
     display: flex;
 
     .carousel-item {
