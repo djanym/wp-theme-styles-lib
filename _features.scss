@@ -213,7 +213,7 @@
     $buttons-hover: false,
     $buttons-active: false) {
     @each $key, $value in vars.$buttons {
-        .button-#{$key} {
+        .button-#{"" + $key} {
             @include mx.generate-properties-from($buttons, $key);
 
             &:hover, &:focus {

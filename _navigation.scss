@@ -206,6 +206,7 @@ $subm-ul-spacing-y: if(vars.$navbar-subm-ul-spacing-y, vars.$navbar-subm-ul-spac
 $mbl-subm-ul-spacing-y: if(vars.$navbar-mbl-subm-ul-spacing-y, vars.$navbar-mbl-subm-ul-spacing-y, false);
 $subm-ul-spacing-x: if(vars.$navbar-subm-ul-spacing-x, vars.$navbar-subm-ul-spacing-x, false);
 $mbl-subm-ul-spacing-x: if(vars.$navbar-mbl-subm-ul-spacing-x, vars.$navbar-mbl-subm-ul-spacing-x, false);
+$mbl-subm-ul-spacing-right: if(vars.$navbar-mbl-subm-ul-spacing-right, vars.$navbar-mbl-subm-ul-spacing-right, false);
 
 // Background color of the submenu <li> item.
 $subm-li-bg-color: if(vars.$navbar-subm-li-bg-color, vars.$navbar-subm-li-bg-color, false);
@@ -341,6 +342,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             @include mx.font(vars.$navbar-font-size);
             font-weight: normal;
 
+            // Show sub menu on hover. For non-mobile.
             @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
                 &:hover > .sub-menu {
                     display: flex;
@@ -468,13 +470,18 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     gap: $mbl-subm-items-gap;
                 }
 
-                @if $mbl-subm-ul-spacing-y {
+                @if $mbl-subm-ul-spacing-x and $mbl-subm-ul-spacing-y {
+                    @include mx.padding($mbl-subm-ul-spacing-y $mbl-subm-ul-spacing-x);
+                } @else if ($mbl-subm-ul-spacing-x) {
+                    padding-right: $mbl-subm-ul-spacing-x;
+                    padding-left: $mbl-subm-ul-spacing-x;
+                } @else if ($mbl-subm-ul-spacing-y) {
                     padding-top: $mbl-subm-ul-spacing-y;
                     padding-bottom: $mbl-subm-ul-spacing-y;
                 }
-                @if $mbl-subm-ul-spacing-x {
-                    padding-right: $mbl-subm-ul-spacing-x;
-                    padding-left: $mbl-subm-ul-spacing-x;
+
+                @if ($mbl-subm-ul-spacing-right) {
+                    padding-right: $mbl-subm-ul-spacing-right;
                 }
 
                 @if $mbl-subm-bg-color {
@@ -537,16 +544,14 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
                     // Selects only the link inside the <li>
                     > a {
-                        //@if $subm-link-color-hover {
-                        //    color: $subm-link-color-hover;
+                        // @TODO: create an option for this. Because sometimes the li item is bigger and we don't need to change on li hover.
+                        //@extend %subm-link-hover;
+                        //
+                        //@include mx.breakpoint-max(vars.$navbar-mobile) {
+                        //    @if $mbl-subm-link-color-hover {
+                        //        color: $mbl-subm-link-color-hover;
+                        //    }
                         //}
-                        @extend %subm-link-hover;
-
-                        @include mx.breakpoint-max(vars.$navbar-mobile) {
-                            @if $mbl-subm-link-color-hover {
-                                color: $mbl-subm-link-color-hover;
-                            }
-                        }
                     }
                 }
 
@@ -562,16 +567,14 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     a {
-                        //@if $subm-link-color-active {
-                        //    color: $subm-link-color-active;
+                        // @TODO: create an option for this. Because sometimes the li item is bigger and we don't need to change on li hover.
+                        //@extend %subm-link-active;
+                        //
+                        //@include mx.breakpoint-max(vars.$navbar-mobile) {
+                        //    @if $mbl-subm-link-color-active {
+                        //        color: $mbl-subm-link-color-active;
+                        //    }
                         //}
-                        @extend %subm-link-active;
-
-                        @include mx.breakpoint-max(vars.$navbar-mobile) {
-                            @if $mbl-subm-link-color-active {
-                                color: $mbl-subm-link-color-active;
-                            }
-                        }
                     }
                 }
 
@@ -669,9 +672,6 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     }
 
                     &:active {
-                        //@if $subm-link-color-active {
-                        //    color: $subm-link-color-active;
-                        //}
                         @extend %subm-link-active;
 
                         @include mx.breakpoint-max(vars.$navbar-mobile) {
@@ -801,6 +801,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     &.active {
                         // Show only primary child.
                         > .sub-menu {
+                            width: 100%; // Makes the sub menu full width.
                             display: flex;
                             //flex-direction: column;
                         }
@@ -945,6 +946,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             position: relative;
             display: inline-block;
             width: vars.$navbar-mobile-toggler-width;
+            min-width: unset;
             height: vars.$navbar-mobile-toggler-height;
             cursor: pointer;
 
@@ -1045,8 +1047,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
 @mixin enable-mega-menu() {
     .navbar-nav { // For rule weight.
-        .has-mega-menu.menu-item:hover {
-        //.has-mega-menu {
+        //.has-mega-menu.menu-item:hover {
+        .has-mega-menu.menu-item {
 
             @for $i from 1 through 6 {
                 &.columns-#{$i} {
@@ -1056,8 +1058,15 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
             }
 
+            // Show sub menu on hover. For non-mobile.
+            @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
+                &:hover > ul.sub-menu {
+                    display: grid;
+                }
+            }
+
             > ul.sub-menu {
-                display: grid;
+                //display: grid;
                 gap: vars.$navbar-subm-items-gap;
 
                 .dropdown {
@@ -1066,6 +1075,10 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
                     > a {
                         text-decoration: none;
+
+                        &:after {
+                            display: none;
+                        }
                     }
                 }
 

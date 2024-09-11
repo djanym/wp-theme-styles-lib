@@ -533,7 +533,7 @@ $mobile-breakpoint: vars.$mobile;
         }
 
         @each $key, $value in $buttons {
-            &.is-style-#{$key} {
+            &.is-style-#{"" + $key} {
                 .wp-block-button__link {
                     @include mx.generate-properties-from($buttons, $key);
 
