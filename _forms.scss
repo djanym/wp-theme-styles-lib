@@ -19,7 +19,7 @@
 #{mx.$all-text-inputs} {
     padding: vars.$input-padding-y vars.$input-padding-x;
     border: vars.$input-border;
-    @include mx.border-radius(vars.$input-border-radius);
+    border-radius: vars.$input-border-radius;
     background: vars.$input-bg;
     transition: all 0.2s ease-in-out 0s;
 

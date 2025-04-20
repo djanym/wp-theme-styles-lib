@@ -1,6 +1,7 @@
 @use "../vars";
 @use "mixins" as mx;
-@import "bootstrap-required";
+@use "bootstrap-required";
+//@import "bootstrap-required";
 
 // Adds styles for the main navigation
 // Uses variables from the _vars.scss file
@@ -17,10 +18,10 @@
         position: relative;
 
         @if vars.$cover-block-height {
-            height: rfs-value(vars.$cover-block-height);
+            height: mx.nrfs-value(vars.$cover-block-height);
         }
         @if vars.$cover-block-min-height {
-            min-height: rfs-value(vars.$cover-block-min-height);
+            min-height: mx.nrfs-value(vars.$cover-block-min-height);
         }
 
         .cover-image, .cover-map {

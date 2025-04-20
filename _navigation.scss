@@ -2,7 +2,9 @@
 
 @use "../vars";
 @use "mixins" as mx;
-@import "bootstrap-required";
+
+@use "bootstrap-required";
+//@import "bootstrap-required";
 
 // Adds arrow to the menu item if it has a dropdown.
 $item-dropdown-arrow: if(vars.$navbar-item-dropdown-arrow, vars.$navbar-item-dropdown-arrow, false);
@@ -429,7 +431,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
             // All .menu-item > <a> links.
             > a {
-                @include padding($top-link-spacing-y $top-link-spacing-x);
+                padding: $top-link-spacing-y $top-link-spacing-x;
                 @extend %link;
 
                 //&:hover {
@@ -457,7 +459,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             }
 
             @if $subm-ul-spacing-x and $subm-ul-spacing-y {
-                @include mx.padding($subm-ul-spacing-y $subm-ul-spacing-x);
+                padding: $subm-ul-spacing-y $subm-ul-spacing-x;
             } @else if ($subm-ul-spacing-x) {
                 padding-right: $subm-ul-spacing-x;
                 padding-left: $subm-ul-spacing-x;
@@ -476,7 +478,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 }
 
                 @if $mbl-subm-ul-spacing-x and $mbl-subm-ul-spacing-y {
-                    @include mx.padding($mbl-subm-ul-spacing-y $mbl-subm-ul-spacing-x);
+                    padding: $mbl-subm-ul-spacing-y $mbl-subm-ul-spacing-x;
                 } @else if ($mbl-subm-ul-spacing-x) {
                     padding-right: $mbl-subm-ul-spacing-x;
                     padding-left: $mbl-subm-ul-spacing-x;
@@ -630,7 +632,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 a {
                     //@include padding($submenu-link-spacing-y $submenu-link-spacing-x);
                     @if $subm-link-spacing-y and $subm-link-spacing-x {
-                        @include padding($subm-link-spacing-y $subm-link-spacing-x);
+                        padding: $subm-link-spacing-y $subm-link-spacing-x;
                     } @else if $subm-link-spacing-y {
                         padding-top: $subm-link-spacing-y;
                         padding-bottom: $subm-link-spacing-y;
@@ -649,7 +651,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                         //vertical-align: top;
 
                         @if $mbl-subm-link-spacing-y and $mbl-subm-link-spacing-x {
-                            @include padding($mbl-subm-link-spacing-y $mbl-subm-link-spacing-x);
+                            padding: $mbl-subm-link-spacing-y $mbl-subm-link-spacing-x;
                         } @else if $mbl-subm-link-spacing-y {
                             padding-top: $mbl-subm-link-spacing-y;
                             padding-bottom: $mbl-subm-link-spacing-y;
@@ -913,7 +915,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
         display: flex;
         flex-direction: row;
         align-items: center;
-        @include padding(1rem);
+        padding: 1rem;
 
         @include mx.breakpoint-greater-than(vars.$navbar-mobile) {
             display: none;
@@ -921,17 +923,17 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
         .navbar-closer {
             align-self: start;
-            @include margin-left(auto);
+            margin-left: auto;
         }
 
         .site-logo img {
-            max-height: rfs-value(50px);
+            max-height: mx.nrfs-value(50px);
         }
     }
 
     // Mobile nav button
     .navbar-menu-toggler-container {
-        @include padding(vars.$navbar-mobile-toggler-padding);
+        padding: vars.$navbar-mobile-toggler-padding;
         display: none;
         position: relative;
 
@@ -964,7 +966,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
             }
 
             @if vars.$navbar-mobile-toggler-border-radius {
-                @include border-radius(vars.$navbar-mobile-toggler-border-radius);
+                border-radius: vars.$navbar-mobile-toggler-border-radius;
             }
 
             &:hover {
@@ -1022,8 +1024,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
 
     .navbar-closer {
         position: relative;
-        width: mx.rfs-value(vars.$navbar-mobile-closer-width);
-        height: mx.rfs-value(vars.$navbar-mobile-closer-height);
+        width: mx.nrfs-value(vars.$navbar-mobile-closer-width);
+        height: mx.nrfs-value(vars.$navbar-mobile-closer-height);
         background-color: transparent;
         border: none;
         cursor: pointer;

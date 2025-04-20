@@ -3,6 +3,7 @@
 @use "../vars";
 @use "defaults";
 @use "mixins" as mx;
+@use "functions" as fn;
 
 @use "wrappers";
 
@@ -10,8 +11,10 @@
 @use "wp-core";
 @use "wp-custom-blocks";
 
-@import "bootstrap-required";
-@import "helpers";
+//@use "bootstrap-required";
+//@import "bootstrap-required";
+@use "helpers";
+//@import "helpers";
 
 @if vars.$enable-wp-core-styles {
     @include wp-core.wp-main-styles();
@@ -22,9 +25,9 @@
     --full-width: calc(100vw - var(--scrollbar-width));
     --half-width: calc(var(--full-width) / 2);
     //--breakout-content-max-width: #{rfs-value(vars.$breakout-content-max-width)};
-    --breakout-content-max-width: calc(#{rfs-value(vars.$breakout-content-max-width)} - #{rfs-value($container-padding-x)}); // Counts also paddings from the container.
+    --breakout-content-max-width: calc(#{mx.nrfs-value(vars.$breakout-content-max-width)} - #{mx.nrfs-value(vars.$container-padding-x)}); // Counts also paddings from the container.
     --mobile-breakpoint: #{vars.$mobile-breakpoint};
-    --post-content-max-width: #{rfs-value(vars.$post-content-max-width)};
+    --post-content-max-width: #{mx.nrfs-value(vars.$post-content-max-width)};
     --nav-padding: #{vars.$top-nav-row-min-height};
 }
 

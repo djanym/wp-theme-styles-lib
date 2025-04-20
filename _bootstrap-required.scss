@@ -1,9 +1,9 @@
 // Override Bootstrap variables here.
-@import "../vars";
+@use "../vars";
 
 // Required includes.
-@import "../../../node_modules/bootstrap/scss/functions";
-@import "../../../node_modules/bootstrap/scss/variables";
-@import "../../../node_modules/bootstrap/scss/variables-dark";
-@import "../../../node_modules/bootstrap/scss/maps";
-@import "../../../node_modules/bootstrap/scss/mixins";
+@forward "../../../node_modules/bootstrap/scss/functions";
+//@forward "../../../node_modules/bootstrap/scss/variables";
+//@forward "../../../node_modules/bootstrap/scss/variables-dark";
+//@forward "../../../node_modules/bootstrap/scss/maps";
+//@forward "../../../node_modules/bootstrap/scss/mixins";

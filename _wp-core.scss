@@ -2,17 +2,19 @@
 
 @use "../vars";
 @use "mixins" as mx;
-@import "bootstrap-required";
 
-$post-content-max-width: if($post-content-max-width, $post-content-max-width, false);
-$post-content-spacing-x: if($post-content-spacing-x, $post-content-spacing-x, 1rem);
-$post-content-spacing-y: if($post-content-spacing-y, $post-content-spacing-y, 0);
+@use "bootstrap-required";
+//@import "bootstrap-required";
+
+$post-content-max-width: if(vars.$post-content-max-width, vars.$post-content-max-width, false);
+$post-content-spacing-x: if(vars.$post-content-spacing-x, vars.$post-content-spacing-x, 1rem);
+$post-content-spacing-y: if(vars.$post-content-spacing-y, vars.$post-content-spacing-y, 0);
 
 $post-content-img-spacing-x: 1rem !default;
 $post-content-img-spacing-y: 0.5rem !default;
 
-$breakout-content-max-width: if($breakout-content-max-width, $breakout-content-max-width, $post-content-max-width);
-$breakout-content-spacing-x: if($breakout-content-spacing-x, $breakout-content-spacing-x, $post-content-spacing-x);
+$breakout-content-max-width: if(vars.$breakout-content-max-width, vars.$breakout-content-max-width, $post-content-max-width);
+$breakout-content-spacing-x: if(vars.$breakout-content-spacing-x, vars.$breakout-content-spacing-x, $post-content-spacing-x);
 
 $hr-separator-spacing-y: 2rem !default;
 $mobile-breakpoint: vars.$mobile;
@@ -46,11 +48,11 @@ $mobile-breakpoint: vars.$mobile;
         }
 
         .alignnone {
-            @include margin(1rem 1rem 1rem 0);
+            margin: 1rem 1rem 1rem 0;
         }
 
         .aligncenter {
-            @include margin($post-content-img-spacing-y auto);
+            margin: $post-content-img-spacing-y auto;
         }
 
         div.aligncenter {
@@ -59,12 +61,12 @@ $mobile-breakpoint: vars.$mobile;
 
         .alignright {
             float: right;
-            @include margin(0 0 $post-content-img-spacing-y $post-content-img-spacing-x);
+            margin: 0 0 $post-content-img-spacing-y $post-content-img-spacing-x;
         }
 
         .alignleft {
             float: left;
-            @include margin(0 $post-content-img-spacing-x $post-content-img-spacing-y 0);
+            margin: 0 $post-content-img-spacing-x $post-content-img-spacing-y 0;
         }
 
         .alignright,
@@ -76,16 +78,16 @@ $mobile-breakpoint: vars.$mobile;
         }
 
         .alignwide {
-            @include margin-left(calc((rfs-value($post-content-max-width) - rfs-value($breakout-content-max-width)) / 2));
-            @include margin-right(calc((rfs-value($post-content-max-width) - rfs-value($breakout-content-max-width)) / 2));
+            margin-left: calc((mx.nrfs-value($post-content-max-width) - mx.nrfs-value($breakout-content-max-width)) / 2);
+            margin-right: calc((mx.nrfs-value($post-content-max-width) - mx.nrfs-value($breakout-content-max-width)) / 2);
 
             $_actual-margin-x: calc($breakout-content-spacing-x * -1);
             //$_screen_width_bp: calc($breakout-content-max-width + #{$_actual-margin-x});
             $_screen_width_bp: calc($breakout-content-max-width + $breakout-content-spacing-x);
 
             @include mx.breakpoint-max($_screen_width_bp) { // When screen width is less than the breakout-content-max-width + margins.
-                @include mx.margin-left(calc(($post-content-max-width - var(--full-width)) / 2 + $_actual-margin-x));
-                @include mx.margin-right(calc(($post-content-max-width - var(--full-width)) / 2 + $_actual-margin-x));
+                margin-left: calc(($post-content-max-width - var(--full-width)) / 2 + $_actual-margin-x);
+                margin-right: calc(($post-content-max-width - var(--full-width)) / 2 + $_actual-margin-x);
             }
 
             @include mx.breakpoint-max($post-content-max-width) { /* Adjust based on the parent container's width */
@@ -136,16 +138,16 @@ $mobile-breakpoint: vars.$mobile;
             }
 
             &.alignright {
-                @include margin($post-content-img-spacing-y 0 $post-content-img-spacing-y $post-content-img-spacing-x);
+                margin: $post-content-img-spacing-y 0 $post-content-img-spacing-y $post-content-img-spacing-x;
             }
 
             &.alignleft {
-                @include margin($post-content-img-spacing-y $post-content-img-spacing-x $post-content-img-spacing-y 0);
+                margin: $post-content-img-spacing-y $post-content-img-spacing-x $post-content-img-spacing-y 0;
             }
 
             &.aligncenter {
                 display: block;
-                @include margin($post-content-img-spacing-y auto);
+                margin: $post-content-img-spacing-y auto;
             }
 
             &#wpstats {
@@ -171,7 +173,7 @@ $mobile-breakpoint: vars.$mobile;
         // Groups:
         .wp-block-group {
             &__inner-container {
-                max-width: rfs-value($post-content-max-width);
+                max-width: mx.nrfs-value($post-content-max-width);
                 margin: 0 auto;
                 //padding-right: calc(#{$container-padding-x} * .5);
                 //padding-left: calc(#{$container-padding-x} * .5);
@@ -181,7 +183,7 @@ $mobile-breakpoint: vars.$mobile;
 
                 @if vars.$wp-block-group-items-default-gap {
                     > * {
-                        @include margin-bottom($wp-block-group-items-default-gap);
+                        margin-bottom: vars.$wp-block-group-items-default-gap;
                     }
                 }
 
@@ -193,13 +195,13 @@ $mobile-breakpoint: vars.$mobile;
 
         // Custom containers.
         .wp-block-inner-container {
-            max-width: rfs-value($post-content-max-width);
+            max-width: mx.nrfs-value($post-content-max-width);
             margin: 0 auto;
             //padding-right: calc(#{$container-padding-x} * .5);
             //padding-left: calc(#{$container-padding-x} * .5);
             padding-right: vars.$post-content-spacing-x;
             padding-left: vars.$post-content-spacing-x;
-            @include clearfix();
+            @include mx.clearfix();
 
             > *:last-child {
                 margin-bottom: 0;
@@ -210,7 +212,7 @@ $mobile-breakpoint: vars.$mobile;
             display: flex;
 
             @if vars.$wp-block-buttons-gap {
-                @include margin-bottom($wp-block-buttons-gap);
+                margin-bottom: vars.$wp-block-buttons-gap;
             }
         }
 
@@ -218,7 +220,7 @@ $mobile-breakpoint: vars.$mobile;
             figcaption {
                 //caption-side: bottom;
                 //display: table-caption;
-                @include margin-bottom(0);
+                margin-bottom: 0;
                 //@include margin-top(0.5rem);
                 //text-align: center;
             }
@@ -231,11 +233,11 @@ $mobile-breakpoint: vars.$mobile;
         .posts-navigation {
             clear: both;
             text-align: center;
-            @include margin(1.5rem 0);
+            margin: 1.5rem 0;
 
             .nav-links > div {
                 display: inline-block;
-                @include margin(0 15px);
+                margin: 0 15px;
             }
         }
 
@@ -340,7 +342,7 @@ $mobile-breakpoint: vars.$mobile;
 
                 .comment-body {
                     padding: $commDm;
-                    @include margin(0 0 $commDm 0);
+                    margin: 0 0 $commDm 0;
                     border: 1px solid #eee;
                     background-color: #f7f7f7;
 
@@ -355,7 +357,9 @@ $mobile-breakpoint: vars.$mobile;
                             img {
                                 float: left;
                                 margin-right: 7px;
-                                @include avatar(32px, 100px, $radius: false);
+                                //@include avatar(32px, 100px, $radius: false);
+                                height: 6.25rem;
+                                width: 6.25rem;
                             }
                         }
 
@@ -388,7 +392,7 @@ $mobile-breakpoint: vars.$mobile;
             // comment body end
 
             .comment-respond {
-                @include margin(2rem 0);
+                margin: 2rem 0;
 
                 p {
                     margin-bottom: 7px;
@@ -424,17 +428,13 @@ $mobile-breakpoint: vars.$mobile;
                 input[type=url] {
                     width: 100%;
                     display: block;
-                    width: 100%;
                     height: calc(1.5em + .75rem + 2px);
                     padding: .375rem .75rem;
                     font-size: 1rem;
                     font-weight: 400;
                     line-height: 1.5;
                     background-clip: padding-box;
-                    -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-                    transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-                    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-                    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+                    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, box-shadow .15s ease-in-out;
                 }
 
                 textarea {
@@ -456,8 +456,8 @@ $mobile-breakpoint: vars.$mobile;
 
 @mixin enable-wp-editor-align-full() {
     > .alignwide {
-        @include margin-left(calc((rfs-value($post-content-max-width) - rfs-value(vars.$breakout-content-max-width)) / 2));
-        @include margin-right(calc((rfs-value($post-content-max-width) - rfs-value(vars.$breakout-content-max-width)) / 2));
+        margin-left: calc((mx.nrfs-value($post-content-max-width) - mx.nrfs-value(vars.$breakout-content-max-width)) / 2);
+        margin-right: calc((mx.nrfs-value($post-content-max-width) - mx.nrfs-value(vars.$breakout-content-max-width)) / 2);
     }
 
     > .alignfull {

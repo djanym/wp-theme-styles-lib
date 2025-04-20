@@ -7,7 +7,8 @@
 
 $use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true);
 
-@import "bootstrap-required";
+//@import "bootstrap-required";
+@use "bootstrap-required";
 
 :root {
     --theme-body-font-family: #{vars.$font-family-base};
@@ -23,128 +24,128 @@ $use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true
     // Generate palettes for full colors, grays, and theme colors.
 
     //@each $color, $value in $colors {
-    //    --#{$prefix}#{$color}: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}: #{$value};
     //}
     //
     //@each $color, $value in $grays {
-    //    --#{$prefix}gray-#{$color}: #{$value};
+    //    --#{vars.$variable-prefix}gray-#{$color}: #{$value};
     //}
     //
     //@each $color, $value in $theme-colors {
-    //    --#{$prefix}#{$color}: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}: #{$value};
     //}
     //
     //@each $color, $value in $theme-colors-rgb {
-    //    --#{$prefix}#{$color}-rgb: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}-rgb: #{$value};
     //}
     //
     //@each $color, $value in $theme-colors-text {
-    //    --#{$prefix}#{$color}-text-emphasis: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}-text-emphasis: #{$value};
     //}
     //
     //@each $color, $value in $theme-colors-bg-subtle {
-    //    --#{$prefix}#{$color}-bg-subtle: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}-bg-subtle: #{$value};
     //}
     //
     //@each $color, $value in $theme-colors-border-subtle {
-    //    --#{$prefix}#{$color}-border-subtle: #{$value};
+    //    --#{vars.$variable-prefix}#{$color}-border-subtle: #{$value};
     //}
 
-    //--#{$prefix}white-rgb: #{to-rgb($white)};
-    //--#{$prefix}black-rgb: #{to-rgb($black)};
+    //--#{vars.$variable-prefix}white-rgb: #{to-rgb($white)};
+    //--#{vars.$variable-prefix}black-rgb: #{to-rgb($black)};
 
     // Fonts
 
     // Note: Use `inspect` for lists so that quoted items keep the quotes.
     // See https://github.com/sass/sass/issues/2383#issuecomment-336349172
-    --#{$prefix}font-sans-serif: #{inspect($font-family-sans-serif)};
-    --#{$prefix}font-monospace: #{inspect($font-family-monospace)};
-    --#{$prefix}gradient: #{$gradient};
+    //--#{vars.$variable-prefix}font-sans-serif: #{inspect($font-family-sans-serif)};
+    //--#{vars.$variable-prefix}font-monospace: #{inspect($font-family-monospace)};
+    //--#{vars.$variable-prefix}gradient: #{$gradient};
 
     // Root and body
     // scss-docs-start root-body-variables
-    @if $font-size-root != null {
-        --#{$prefix}root-font-size: #{$font-size-root};
-    }
-    //--#{$prefix}body-font-family: #{inspect($font-family-base)};
+    //@if $font-size-root != null {
+    //    --#{vars.$variable-prefix}root-font-size: #{$font-size-root};
+    //}
+    //--#{vars.$variable-prefix}body-font-family: #{inspect($font-family-base)};
 
-    //@include rfs($font-size-base, --#{$prefix}body-font-size);
+    //@include rfs($font-size-base, --#{vars.$variable-prefix}body-font-size);
 
-    --#{$prefix}body-font-weight: #{$font-weight-base};
-    --#{$prefix}body-line-height: #{$line-height-base};
-    @if $body-text-align != null {
-        --#{$prefix}body-text-align: #{$body-text-align};
-    }
+    //--#{vars.$variable-prefix}body-font-weight: #{$font-weight-base};
+    //--#{vars.$variable-prefix}body-line-height: #{$line-height-base};
+    //@if $body-text-align != null {
+    //    --#{vars.$variable-prefix}body-text-align: #{$body-text-align};
+    //}
 
-    --#{$prefix}body-color: #{$body-color};
-    --#{$prefix}body-color-rgb: #{to-rgb($body-color)};
-    --#{$prefix}body-bg: #{$body-bg};
-    --#{$prefix}body-bg-rgb: #{to-rgb($body-bg)};
-
-    --#{$prefix}emphasis-color: #{$body-emphasis-color};
-    --#{$prefix}emphasis-color-rgb: #{to-rgb($body-emphasis-color)};
-
-    --#{$prefix}secondary-color: #{$body-secondary-color};
-    --#{$prefix}secondary-color-rgb: #{to-rgb($body-secondary-color)};
-    --#{$prefix}secondary-bg: #{$body-secondary-bg};
-    --#{$prefix}secondary-bg-rgb: #{to-rgb($body-secondary-bg)};
-
-    --#{$prefix}tertiary-color: #{$body-tertiary-color};
-    --#{$prefix}tertiary-color-rgb: #{to-rgb($body-tertiary-color)};
-    --#{$prefix}tertiary-bg: #{$body-tertiary-bg};
-    --#{$prefix}tertiary-bg-rgb: #{to-rgb($body-tertiary-bg)};
-    // scss-docs-end root-body-variables
-
-    --#{$prefix}heading-color: #{$headings-color};
-
-    --#{$prefix}link-color: #{$link-color};
-    --#{$prefix}link-color-rgb: #{to-rgb($link-color)};
-    --#{$prefix}link-decoration: #{$link-decoration};
-
-    --#{$prefix}link-hover-color: #{$link-hover-color};
-    --#{$prefix}link-hover-color-rgb: #{to-rgb($link-hover-color)};
-
-    @if $link-hover-decoration != null {
-        --#{$prefix}link-hover-decoration: #{$link-hover-decoration};
-    }
-
-    --#{$prefix}code-color: #{$code-color};
-    --#{$prefix}highlight-color: #{$mark-color};
-    --#{$prefix}highlight-bg: #{$mark-bg};
-
-    // scss-docs-start root-border-var
-    --#{$prefix}border-width: #{$border-width};
-    --#{$prefix}border-style: #{$border-style};
-    --#{$prefix}border-color: #{$border-color};
-    --#{$prefix}border-color-translucent: #{$border-color-translucent};
-
-    --#{$prefix}border-radius: #{$border-radius};
-    --#{$prefix}border-radius-sm: #{$border-radius-sm};
-    --#{$prefix}border-radius-lg: #{$border-radius-lg};
-    --#{$prefix}border-radius-xl: #{$border-radius-xl};
-    --#{$prefix}border-radius-xxl: #{$border-radius-xxl};
-    --#{$prefix}border-radius-2xl: var(--#{$prefix}border-radius-xxl); // Deprecated in v5.3.0 for consistency
-    --#{$prefix}border-radius-pill: #{$border-radius-pill};
-    // scss-docs-end root-border-var
-
-    --#{$prefix}box-shadow: #{$box-shadow};
-    --#{$prefix}box-shadow-sm: #{$box-shadow-sm};
-    --#{$prefix}box-shadow-lg: #{$box-shadow-lg};
-    --#{$prefix}box-shadow-inset: #{$box-shadow-inset};
-
-    // Focus styles
-    // scss-docs-start root-focus-variables
-    --#{$prefix}focus-ring-width: #{$focus-ring-width};
-    --#{$prefix}focus-ring-opacity: #{$focus-ring-opacity};
-    --#{$prefix}focus-ring-color: #{$focus-ring-color};
-    // scss-docs-end root-focus-variables
-
-    // scss-docs-start root-form-validation-variables
-    --#{$prefix}form-valid-color: #{$form-valid-color};
-    --#{$prefix}form-valid-border-color: #{$form-valid-border-color};
-    --#{$prefix}form-invalid-color: #{$form-invalid-color};
-    --#{$prefix}form-invalid-border-color: #{$form-invalid-border-color};
-    // scss-docs-end root-form-validation-variables
+    //--#{vars.$variable-prefix}body-color: #{$body-color};
+    //--#{vars.$variable-prefix}body-color-rgb: #{to-rgb($body-color)};
+    //--#{vars.$variable-prefix}body-bg: #{$body-bg};
+    //--#{vars.$variable-prefix}body-bg-rgb: #{to-rgb($body-bg)};
+    //
+    //--#{vars.$variable-prefix}emphasis-color: #{$body-emphasis-color};
+    //--#{vars.$variable-prefix}emphasis-color-rgb: #{to-rgb($body-emphasis-color)};
+    //
+    //--#{vars.$variable-prefix}secondary-color: #{$body-secondary-color};
+    //--#{vars.$variable-prefix}secondary-color-rgb: #{to-rgb($body-secondary-color)};
+    //--#{vars.$variable-prefix}secondary-bg: #{$body-secondary-bg};
+    //--#{vars.$variable-prefix}secondary-bg-rgb: #{to-rgb($body-secondary-bg)};
+    //
+    //--#{vars.$variable-prefix}tertiary-color: #{$body-tertiary-color};
+    //--#{vars.$variable-prefix}tertiary-color-rgb: #{to-rgb($body-tertiary-color)};
+    //--#{vars.$variable-prefix}tertiary-bg: #{$body-tertiary-bg};
+    //--#{vars.$variable-prefix}tertiary-bg-rgb: #{to-rgb($body-tertiary-bg)};
+    //// scss-docs-end root-body-variables
+    //
+    //--#{vars.$variable-prefix}heading-color: #{$headings-color};
+    //
+    //--#{vars.$variable-prefix}link-color: #{$link-color};
+    //--#{vars.$variable-prefix}link-color-rgb: #{to-rgb($link-color)};
+    //--#{vars.$variable-prefix}link-decoration: #{$link-decoration};
+    //
+    //--#{vars.$variable-prefix}link-hover-color: #{$link-hover-color};
+    //--#{vars.$variable-prefix}link-hover-color-rgb: #{to-rgb($link-hover-color)};
+    //
+    //@if $link-hover-decoration != null {
+    //    --#{vars.$variable-prefix}link-hover-decoration: #{$link-hover-decoration};
+    //}
+    //
+    //--#{vars.$variable-prefix}code-color: #{$code-color};
+    //--#{vars.$variable-prefix}highlight-color: #{$mark-color};
+    //--#{vars.$variable-prefix}highlight-bg: #{$mark-bg};
+    //
+    //// scss-docs-start root-border-var
+    //--#{vars.$variable-prefix}border-width: #{$border-width};
+    //--#{vars.$variable-prefix}border-style: #{$border-style};
+    //--#{vars.$variable-prefix}border-color: #{$border-color};
+    //--#{vars.$variable-prefix}border-color-translucent: #{$border-color-translucent};
+    //
+    //--#{vars.$variable-prefix}border-radius: #{$border-radius};
+    //--#{vars.$variable-prefix}border-radius-sm: #{$border-radius-sm};
+    //--#{vars.$variable-prefix}border-radius-lg: #{$border-radius-lg};
+    //--#{vars.$variable-prefix}border-radius-xl: #{$border-radius-xl};
+    //--#{vars.$variable-prefix}border-radius-xxl: #{$border-radius-xxl};
+    //--#{vars.$variable-prefix}border-radius-2xl: var(--#{vars.$variable-prefix}border-radius-xxl); // Deprecated in v5.3.0 for consistency
+    //--#{vars.$variable-prefix}border-radius-pill: #{$border-radius-pill};
+    //// scss-docs-end root-border-var
+    //
+    //--#{vars.$variable-prefix}box-shadow: #{$box-shadow};
+    //--#{vars.$variable-prefix}box-shadow-sm: #{$box-shadow-sm};
+    //--#{vars.$variable-prefix}box-shadow-lg: #{$box-shadow-lg};
+    //--#{vars.$variable-prefix}box-shadow-inset: #{$box-shadow-inset};
+    //
+    //// Focus styles
+    //// scss-docs-start root-focus-variables
+    //--#{vars.$variable-prefix}focus-ring-width: #{$focus-ring-width};
+    //--#{vars.$variable-prefix}focus-ring-opacity: #{$focus-ring-opacity};
+    //--#{vars.$variable-prefix}focus-ring-color: #{$focus-ring-color};
+    //// scss-docs-end root-focus-variables
+    //
+    //// scss-docs-start root-form-validation-variables
+    //--#{vars.$variable-prefix}form-valid-color: #{$form-valid-color};
+    //--#{vars.$variable-prefix}form-valid-border-color: #{$form-valid-border-color};
+    //--#{vars.$variable-prefix}form-invalid-color: #{$form-invalid-color};
+    //--#{vars.$variable-prefix}form-invalid-border-color: #{$form-invalid-border-color};
+    //// scss-docs-end root-form-validation-variables
 }
 
 // Normalize.
@@ -178,15 +179,15 @@ $use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true
 // null by default, thus nothing is generated.
 
 :root {
-    @if $font-size-root != null {
-        @include font-size(var(--#{$prefix}root-font-size));
-    }
-
-    @if $enable-smooth-scroll {
-        @media (prefers-reduced-motion: no-preference) {
-            scroll-behavior: smooth;
-        }
-    }
+    //@if $font-size-root != null {
+    //    @include font-size(var(--#{vars.$variable-prefix}root-font-size));
+    //}
+    //
+    //@if $enable-smooth-scroll {
+    //    @media (prefers-reduced-motion: no-preference) {
+    //        scroll-behavior: smooth;
+    //    }
+    //}
 }
 
 
@@ -201,18 +202,19 @@ $use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true
 body {
     margin: 0; // 1
     @if vars.$skip-theme-json-styles-duplicates == false {
-        //font-family: var(--#{$prefix}body-font-family);
+        //font-family: var(--#{vars.$variable-prefix}body-font-family);
         font-family: var(--theme-body-font-family);
-        @include font-size(var(--#{$prefix}body-font-size));
-        font-weight: var(--#{$prefix}body-font-weight);
-        line-height: var(--#{$prefix}body-line-height);
-        color: var(--#{$prefix}body-color);
+        @include font-size(var(--#{vars.$variable-prefix}body-font-size));
+        font-weight: var(--#{vars.$variable-prefix}body-font-weight);
+        line-height: var(--#{vars.$variable-prefix}body-line-height);
+        color: var(--#{vars.$variable-prefix}body-color);
     }
-    text-align: var(--#{$prefix}body-text-align);
-    background-color: var(--#{$prefix}body-bg); // 2
+    text-align: var(--#{vars.$variable-prefix}body-text-align);
+    background-color: var(--#{vars.$variable-prefix}body-bg); // 2
     //-webkit-text-size-adjust: 100%; // 3
     //-webkit-tap-highlight-color: rgba($black, 0); // 4
 }
+
 // scss-docs-end reboot-body-rules
 
 
@@ -221,11 +223,11 @@ body {
 // 1. Reset Firefox's gray color
 
 hr {
-    margin: $hr-margin-y 0;
-    color: $hr-color; // 1
+    margin: vars.$hr-margin-y 0;
+    color: vars.$hr-color; // 1
     border: 0;
-    border-top: $hr-border-width solid $hr-border-color;
-    opacity: $hr-opacity;
+    border-top: vars.$hr-border-width solid vars.$hr-border-color;
+    opacity: vars.$hr-opacity;
 }
 
 
@@ -236,13 +238,13 @@ hr {
 //    margin for easier control within type scales as it avoids margin collapsing.
 
 //%heading {
-    //margin-top: 0; // 1
-    //margin-bottom: $headings-margin-bottom;
-    //font-family: $headings-font-family;
-    //font-style: $headings-font-style;
-    //font-weight: $headings-font-weight;
-    //line-height: $headings-line-height;
-    //color: var(--#{$prefix}heading-color);
+//margin-top: 0; // 1
+//margin-bottom: $headings-margin-bottom;
+//font-family: $headings-font-family;
+//font-style: $headings-font-style;
+//font-weight: $headings-font-weight;
+//line-height: $headings-line-height;
+//color: var(--#{vars.$variable-prefix}heading-color);
 //}
 //
 //h1 {
@@ -282,7 +284,7 @@ hr {
 
 p {
     margin-top: 0;
-    margin-bottom: $paragraph-margin-bottom;
+    margin-bottom: vars.$p-margin-bottom;
 }
 
 
@@ -330,7 +332,7 @@ ul ol {
 }
 
 dt {
-    font-weight: $dt-font-weight;
+    font-weight: 700;
 }
 
 // 1. Undo browser default
@@ -354,7 +356,7 @@ blockquote {
 
 b,
 strong {
-    font-weight: $font-weight-bolder;
+    font-weight: bolder;
 }
 
 
@@ -363,16 +365,17 @@ strong {
 // Add the correct font size in all browsers
 
 small {
-    @include font-size($small-font-size);
+    //@include font-size($small-font-size);
+    font-size: 82%;
 }
 
 
 // Mark
 
 mark {
-    padding: $mark-padding;
-    color: var(--#{$prefix}highlight-color);
-    background-color: var(--#{$prefix}highlight-bg);
+    padding: vars.$mark-padding;
+    color: var(--#{vars.$variable-prefix}highlight-color);
+    background-color: var(--#{vars.$variable-prefix}highlight-bg);
 }
 
 
@@ -384,24 +387,29 @@ mark {
 sub,
 sup {
     position: relative;
-    @include font-size($sub-sup-font-size);
+    font-size: 75%;
     line-height: 0;
     vertical-align: baseline;
 }
 
-sub { bottom: -.25em; }
-sup { top: -.5em; }
+sub {
+    bottom: -.25em;
+}
+
+sup {
+    top: -.5em;
+}
 
 
 // Links
 
 a {
-    color: rgba(var(--#{$prefix}link-color-rgb), var(--#{$prefix}link-opacity, 1));
-    text-decoration: $link-decoration;
+    color: rgba(var(--#{vars.$variable-prefix}link-color-rgb), var(--#{vars.$variable-prefix}link-opacity, 1));
+    text-decoration: vars.$link-decoration;
 
     &:hover {
-        --#{$prefix}link-color-rgb: var(--#{$prefix}link-hover-color-rgb);
-        text-decoration: $link-hover-decoration;
+        --#{vars.$variable-prefix}link-color-rgb: var(--#{vars.$variable-prefix}link-hover-color-rgb);
+        text-decoration: vars.$link-hover-decoration;
     }
 }
 
@@ -425,8 +433,8 @@ pre,
 code,
 kbd,
 samp {
-    font-family: $font-family-code;
-    @include font-size(1em); // Correct the odd `em` font sizing in all browsers.
+    font-family: vars.$font-family-code;
+    font-size: vars.$font-smaller;
 }
 
 // 1. Remove browser default top margin
@@ -438,20 +446,19 @@ pre {
     margin-top: 0; // 1
     margin-bottom: 1rem; // 2
     overflow: auto; // 3
-    @include font-size($code-font-size);
-    color: $pre-color;
+    font-size: vars.$font-smaller;
 
     // Account for some code outputs that place code tags in pre tags
     code {
-        @include font-size(inherit);
+        font-size: inherit;
         color: inherit;
         word-break: normal;
     }
 }
 
 code {
-    @include font-size($code-font-size);
-    color: var(--#{$prefix}code-color);
+    font-size: vars.$font-smaller;
+    color: var(--#{vars.$variable-prefix}code-color);
     word-wrap: break-word;
 
     // Streamline the style when inside anchors to avoid broken underline and more
@@ -461,17 +468,11 @@ code {
 }
 
 kbd {
-    padding: $kbd-padding-y $kbd-padding-x;
-    @include font-size($kbd-font-size);
-    color: $kbd-color;
-    background-color: $kbd-bg;
-    @include border-radius($border-radius-sm);
-
-    kbd {
-        padding: 0;
-        @include font-size(1em);
-        font-weight: $nested-kbd-font-weight;
-    }
+    padding: vars.$kbd-padding-y vars.$kbd-padding-x;
+    font-size: vars.$kbd-font-size;
+    color: vars.$kbd-color;
+    background-color: vars.$kbd-bg;
+    border-radius: vars.$border-radius-sm;
 }
 
 
@@ -502,9 +503,9 @@ table {
 }
 
 caption {
-    padding-top: $table-cell-padding-y;
-    padding-bottom: $table-cell-padding-y;
-    color: $table-caption-color;
+    padding-top: vars.$table-cell-padding-y;
+    padding-bottom: vars.$table-cell-padding-y;
+    color: vars.$table-caption-color;
     text-align: left;
 }
 
@@ -513,7 +514,7 @@ caption {
 // 3. Fix alignment for Safari
 
 th {
-    font-weight: $table-th-font-weight; // 1
+    font-weight: vars.$table-th-font-weight; // 1
     text-align: inherit; // 2
     text-align: -webkit-match-parent; // 3
 }
@@ -564,7 +565,7 @@ optgroup,
 textarea {
     margin: 0; // 1
     font-family: inherit;
-    @include font-size(inherit);
+    font-size: inherit;
     line-height: inherit;
 }
 
@@ -573,6 +574,7 @@ button,
 select {
     text-transform: none;
 }
+
 // Set the cursor for non-`<button>` buttons
 //
 // Details at https://github.com/twbs/bootstrap/pull/30562
@@ -609,10 +611,8 @@ button,
 [type="submit"] {
     -webkit-appearance: button; // 2
 
-    @if $enable-button-pointers {
-        &:not(:disabled) {
-            cursor: pointer; // 3
-        }
+    &:not(:disabled) {
+        cursor: pointer; // 3
     }
 }
 
@@ -652,10 +652,10 @@ legend {
     float: left; // 1
     width: 100%;
     padding: 0;
-    margin-bottom: $legend-margin-bottom;
-    font-weight: $legend-font-weight;
+    margin-bottom: vars.$legend-margin-bottom;
+    font-weight: vars.$legend-font-weight;
     line-height: inherit;
-    @include font-size($legend-font-size);
+    font-size: vars.$legend-font-size;
 
     + * {
         clear: left; // 2
