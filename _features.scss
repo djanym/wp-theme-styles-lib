@@ -330,13 +330,13 @@
     .social-icons {
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        gap: vars.$social-icons-gap;
     }
 
     .icon {
         display: inline-block;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: vars.$social-icon-size;
+        height: vars.$social-icon-size;
         margin: 0;
         padding: 0;
         background-position: center;
@@ -346,6 +346,10 @@
 
     .facebook-icon {
         background-image: url('../images/icon-facebook.svg');
+    }
+
+    .instagram-icon {
+        background-image: url('../images/icon-instagram.svg');
     }
 }
 

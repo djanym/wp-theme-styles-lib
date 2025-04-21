@@ -404,11 +404,13 @@ sup {
 // Links
 
 a {
-    color: rgba(var(--#{vars.$variable-prefix}link-color-rgb), var(--#{vars.$variable-prefix}link-opacity, 1));
+    color: vars.$link-color;
     text-decoration: vars.$link-decoration;
 
     &:hover {
-        --#{vars.$variable-prefix}link-color-rgb: var(--#{vars.$variable-prefix}link-hover-color-rgb);
+        @if vars.$link-hover-color != false {
+            color: vars.$link-hover-color;
+        }
         text-decoration: vars.$link-hover-decoration;
     }
 }

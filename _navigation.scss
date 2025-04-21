@@ -294,9 +294,9 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                     background-color: $top-li-bg-color-hover;
                 }
 
-                //> a {
-                //    @extend %link-hover;
-                //}
+                > a {
+                    @extend %link-hover;
+                }
             }
 
             &:active {
