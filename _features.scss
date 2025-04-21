@@ -331,6 +331,16 @@
         display: flex;
         flex-direction: row;
         gap: vars.$social-icons-gap;
+
+        @if vars.$navbar-mobile-items-spacing-x {
+            padding-right: vars.$navbar-mobile-items-spacing-x;
+            padding-left: vars.$navbar-mobile-items-spacing-x;
+        }
+
+        @if vars.$navbar-mobile-items-spacing-y {
+            padding-top: vars.$navbar-mobile-items-spacing-y;
+            padding-bottom: vars.$navbar-mobile-items-spacing-y;
+        }
     }
 
     .icon {

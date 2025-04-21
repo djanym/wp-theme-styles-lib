@@ -48,7 +48,7 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
     width: mx.nrfs-value($container-with-sidebar-max-width);
     max-width: mx.nrfs-value($container-with-sidebar-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value($container-with-sidebar-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(mx.nrfs-value($container-with-sidebar-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
 
@@ -98,7 +98,7 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
     //max-width: 100vw;
     max-width: mx.nrfs-value($post-content-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value($post-content-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(mx.nrfs-value($post-content-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
 
@@ -130,7 +130,7 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
     width: mx.nrfs-value($post-content-max-width);
     max-width: mx.nrfs-value($post-content-max-width);
 
-    @include mx.breakpoint-max(calc(rfs-value($post-content-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
+    @include mx.breakpoint-max(calc(mx.nrfs-value($post-content-max-width) + mx.nrfs-value($post-content-spacing-x * 2))) {
         width: 100%;
     }
 

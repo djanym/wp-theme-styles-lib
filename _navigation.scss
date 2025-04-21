@@ -1026,6 +1026,8 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
         position: relative;
         width: mx.nrfs-value(vars.$navbar-mobile-closer-width);
         height: mx.nrfs-value(vars.$navbar-mobile-closer-height);
+        min-height: unset;
+        min-width: unset;
         background-color: transparent;
         border: none;
         cursor: pointer;
