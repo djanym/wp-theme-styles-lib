@@ -144,10 +144,10 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 
             @if $unit == px {
                 // Convert to rem if needed
-                $val: $val + " " + if($rfs-unit == rem, #{divide($value, $value * 0 + $rfs-rem-value)}rem, $value);
+                $val: $val + " " + if($rfs-unit == rem, #{fn.divide($value, $value * 0 + $rfs-rem-value)}rem, $value);
             } @else if $unit == rem {
                 // Convert to px if needed
-                $val: $val + " " + if($rfs-unit == px, #{divide($value, $value * 0 + 1) * $rfs-rem-value}px, $value);
+                $val: $val + " " + if($rfs-unit == px, #{fn.divide($value, $value * 0 + 1) * $rfs-rem-value}px, $value);
             } @else {
                 // If $value isn't a number (like inherit) or $value has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
                 $val: $val + " " + $value;
@@ -182,7 +182,7 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
         @include font-size($size);
     }
     @if $line-height {
-        line-height: mx.nrfs-value($line-height);
+        line-height: nrfs-value($line-height);
     }
     @if $weight {
         font-weight: $weight;
@@ -270,7 +270,7 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
             } @else if $property == 'typography-mobile' {
                 @include generate-rfs-properties-from($typography-mobile, #{$property-value}, $important);
             } @else if $property == 'font-size' or $property == 'line-height' {
-                #{$property}: mx.nrfs-value($property-value) $_important;
+                #{$property}: nrfs-value($property-value) $_important;
             } @else if ($property == 'padding') {
                 @include padding($property-value);
             } @else if ($property == 'padding-right') {

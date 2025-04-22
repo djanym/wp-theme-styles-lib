@@ -27,6 +27,10 @@
     font-size: vars.$input-font-size;
     line-height: vars.$input-line-height;
 
+    @if vars.$input-min-height {
+        min-height: vars.$input-min-height;
+    }
+
     &::placeholder {
         color: vars.$input-placeholder-color;
     }
@@ -77,6 +81,15 @@
     }
 }
 
+// WP search form.
+.searchform {
+    div {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
 .wpcf7 {
     .wpcf7-form {
         display: flex;
@@ -120,6 +133,30 @@
         .wpcf7-spinner {
             vertical-align: middle;
             margin: 0 -24px 0 24px;
+        }
+
+        .wpcf7-checkbox {
+            .wpcf7-list-item {
+                margin: 0 0 0 1rem;
+            }
+
+            .wpcf7-list-item-label::before {
+                margin-right: 0.25rem;
+            }
+        }
+
+        .v-dir-cb {
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+        }
+
+        input[type="checkbox"] {
+            vertical-align: middle;
+
+            + span {
+                vertical-align: middle;
+            }
         }
     }
 }
