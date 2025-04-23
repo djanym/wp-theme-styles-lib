@@ -83,13 +83,16 @@ $container-narrow-max-width: if(vars.$container-narrow-max-width, vars.$containe
 
     @if $post-content-spacing-y {
         padding-top: $post-content-spacing-y;
-        padding-bottom: $post-content-spacing-y;
-    }
 
-    @if $post-content-spacing-bottom {
+        @if $post-content-spacing-bottom {
+            padding-bottom: $post-content-spacing-bottom;
+        } @else {
+            // If no bottom spacing is defined, use the same as top.
+            padding-bottom: $post-content-spacing-y;
+        }
+
+    } @else if $post-content-spacing-bottom {
         padding-bottom: $post-content-spacing-bottom;
-    } @else if $post-content-spacing-y {
-        padding-bottom: $post-content-spacing-y;
     }
 
     margin-right: auto;

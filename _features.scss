@@ -363,7 +363,7 @@
     }
 }
 
-@mixin enable-pagination-styles ($items-gap: 0.5rem, $item-link-padding: 0.25rem 0.5rem, $margin-top: 2rem) {
+@mixin enable-pagination-styles ($items-gap: 0.5rem, $item-link-padding: 0.25rem 0.5rem 0, $margin-top: 2rem) {
     .pagination {
         display: flex;
         align-items: center;
@@ -373,6 +373,7 @@
         > ul {
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             gap: $items-gap;
             list-style: none;
             padding: 0;
