@@ -2,6 +2,13 @@
 @use "sass:math";
 @use "sass:map";
 
+/*!
+ * WP Theme Styles Library - Functions Module
+ * Version: 2.0
+ * Description: Utility functions for SVG encoding, string manipulation, and mathematical operations.
+ */
+
+// Characters that need URL encoding in SVG data URIs
 $escaped-characters: (
                 ("<", "%3c"),
                 (">", "%3e"),
@@ -10,10 +17,18 @@ $escaped-characters: (
                 (")", "%29"),
 );
 
-// See https://codepen.io/kevinweber/pen/dXWoRw
-//
-// Requires the use of quotes around data URIs.
+// =============================================================================
+// SVG & String Utilities
+// =============================================================================
 
+/// Escapes special characters in SVG data URIs for cross-browser compatibility.
+/// Required for using inline SVG in CSS background images.
+/// See https://codepen.io/kevinweber/pen/dXWoRw
+/// @group SVG
+/// @param {String} $string - The SVG string to escape
+/// @return {String} - URL-encoded SVG string safe for CSS
+/// @example scss
+///   background-image: escape-svg("data:image/svg+xml,<svg>...</svg>");
 @function escape-svg($string) {
     @if string.index($string, "data:image/svg+xml") {
         @each $char, $encoded in $escaped-characters {
@@ -29,14 +44,16 @@ $escaped-characters: (
     @return $string;
 }
 
-// Replace `$search` with `$replace` in `$string`
-// Used on our SVG icon backgrounds for custom forms.
-//
-// @author Kitty Giraudel
-// @param {String} $string - Initial string
-// @param {String} $search - Substring to replace
-// @param {String} $replace ('') - New value
-// @return {String} - Updated string
+/// Replaces all occurrences of a substring within a string.
+/// Used for SVG icon backgrounds and custom form styling.
+/// @author Kitty Giraudel
+/// @group String
+/// @param {String} $string - The original string
+/// @param {String} $search - The substring to find
+/// @param {String} $replace [""] - The replacement string
+/// @return {String} - The modified string with replacements
+/// @example scss
+///   $new-string: str-replace("hello world", "world", "universe");
 @function str-replace($string, $search, $replace: "") {
     $index: string.index($string, $search);
 
@@ -47,6 +64,21 @@ $escaped-characters: (
     @return $string;
 }
 
+// =============================================================================
+// Mathematical Operations
+// =============================================================================
+
+/// Performs division with support for unit conversion and precision control.
+/// Handles edge cases like division by zero and preserves units appropriately.
+/// @group Math
+/// @param {Number} $dividend - The number to be divided
+/// @param {Number} $divisor - The number to divide by
+/// @param {Number} $precision [10] - Decimal precision for the result
+/// @return {Number} - The quotient with appropriate units
+/// @throws Error if attempting to divide by zero
+/// @example scss
+///   $result: divide(100px, 2); // Returns 50px
+///   $result: divide(16px, 16);  // Returns 1px
 @function divide($dividend, $divisor, $precision: 10) {
     $sign: if($dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0, 1, -1);
     $dividend: abs($dividend);

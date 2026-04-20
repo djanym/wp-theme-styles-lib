@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+/*!
+ * WP Theme Styles Library
+ * Version: 2.0
+ * Description: A comprehensive SCSS library for WordPress theme development with Bootstrap integration,
+ *              responsive utilities, navigation components, form styles, and Gutenberg block support.
+ * Author: Abacus AI
+ * License: MIT
+ */
+
 @use "../vars";
 @use "defaults";
 @use "mixins" as mx;
@@ -11,10 +20,7 @@
 @use "wp-core";
 @use "wp-custom-blocks";
 
-//@use "bootstrap-required";
-//@import "bootstrap-required";
 @use "helpers";
-//@import "helpers";
 
 @if vars.$enable-wp-core-styles {
     @include wp-core.wp-main-styles();

@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+/*!
+ * WP Theme Styles Library - Mixins Module
+ * Version: 2.0
+ * Description: Comprehensive collection of SCSS mixins and functions for WordPress theme development.
+ *              Includes typography utilities, layout helpers, positioning, visual effects, and breakpoint management.
+ */
+
 @use "sass:math";
 @use "sass:list";
 @use "sass:meta";
@@ -62,8 +69,16 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 //^^^
 
 
-//********** hidden text
+// =============================================================================
+// Accessibility & Visibility Mixins
+// =============================================================================
 
+/// Hides text visually while keeping it accessible to screen readers.
+/// Uses the visually hidden pattern (formerly screen-reader-only).
+/// @group Accessibility
+/// @output Sets width, height, overflow, clip, and positioning to hide element visually
+/// @example scss
+///   .sr-only { @include textHidden; }
 @mixin textHidden {
     width: 1px !important;
     height: 1px !important;
@@ -82,8 +97,16 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
-//********** Clearfix mixin.
+// =============================================================================
+// Layout & Clearfix Utilities
+// =============================================================================
 
+/// Clearfix placeholder - clears floated elements within a container.
+/// Uses the micro clearfix hack with zoom for IE support.
+/// @group Layout
+/// @output Adds pseudo-elements with clear:both
+/// @example scss
+///   .container { @extend %clearfix; }
 %clearfix {
     zoom: 1;
 
@@ -107,8 +130,16 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 //^^^
 
 
-//********** Define default font size.
+// =============================================================================
+// Typography & Font Utilities
+// =============================================================================
 
+/// Converts pixel values to rem units.
+/// @group Typography
+/// @param {Number} $value - The pixel value to convert
+/// @return {Number} - The value in rem units
+/// @example scss
+///   font-size: calculateRem(16px); // Returns 1rem
 @function calculateRem($value) {
     // Check if the value contains "px" as a unit
     @if unit($value) == 'px' {
@@ -119,6 +150,12 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Removes the unit from a number value.
+/// @group Typography
+/// @param {Number} $number - The value with unit
+/// @return {Number} - The value without unit
+/// @example scss
+///   strip-unit(16px); // Returns 16
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
         @return math.div($number, $number * 0 + 1);
@@ -127,7 +164,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     @return $number;
 }
 
-// Helper function to get the formatted non-responsive value
+/// Converts values to non-responsive font-size (nrfs) format.
+/// Handles px to rem conversion and vice versa based on $rfs-unit setting.
+/// @group Typography
+/// @param {Number|List} $values - Single value or list of values to convert
+/// @return {String} - Formatted CSS value string
+/// @example scss
+///   margin: nrfs-value(16px); // Returns 1rem (if $rfs-unit is rem)
 @function nrfs-value($values) {
     // Convert to list
     $values: if(meta.type-of($values) != list, ($values,), $values);
@@ -159,6 +202,16 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     @return string.unquote(string.slice($val, 2));
 }
 
+/// Comprehensive font styling mixin.
+/// Sets font-size, line-height, weight, style, and family in one declaration.
+/// @group Typography
+/// @param {Number} $size - Font size (supports px/rem)
+/// @param {Number} $line-height [false] - Line height value
+/// @param {Number|String} $weight [false] - Font weight (e.g., 400, bold)
+/// @param {String} $style [false] - Font style (e.g., italic)
+/// @param {String} $font-family [false] - Font family name
+/// @example scss
+///   @include font(16px, 1.5, 400, normal, 'Arial');
 @mixin font($size, $line-height: false, $weight: false, $style: false, $font-family: false) {
     @if $size {
         font-size: nrfs-value($size);
@@ -177,6 +230,16 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Font mixin with RFS (Responsive Font Size) support.
+/// Uses Bootstrap's RFS for fluid typography scaling.
+/// @group Typography
+/// @param {Number} $size - Base font size
+/// @param {Number} $line-height [false] - Line height value
+/// @param {Number|String} $weight [false] - Font weight
+/// @param {String} $style [false] - Font style
+/// @param {String} $font-family [false] - Font family name
+/// @example scss
+///   @include font-rfs(2rem, 1.2, 700);
 @mixin font-rfs($size, $line-height: false, $weight: false, $style: false, $font-family: false) {
     @if $size {
         @include font-size($size);
@@ -195,6 +258,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Sets line-height with optional !important flag and nrfs conversion.
+/// @group Typography
+/// @param {Number} $size - Line height value
+/// @param {Boolean} $important [false] - Whether to add !important
+/// @example scss
+///   @include line-height(1.5);
+///   @include line-height(24px, true);
 @mixin line-height($size, $important: false) {
     @if $important {
         line-height: $size !important;
@@ -205,6 +275,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Combines font-size and line-height in one mixin.
+/// @group Typography
+/// @param {Number} $size - Font size value
+/// @param {Number} $height - Line height value
+/// @param {Boolean} $important [false] - Whether to add !important
+/// @example scss
+///   @include text-size(16px, 1.5);
 @mixin text-size($size, $height, $important: false) {
     @if $important {
         @include font-size($size, '!important');
@@ -213,13 +290,19 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
         @include font-size($size);
         @include line-height($height);
     }
-
 }
 
-//^^^
-// Usage: @include font-size(14px);
-//^^^
+// =============================================================================
+// Property Generation Utilities
+// =============================================================================
 
+/// Generates CSS properties from a map, handling typography, spacing, and border-radius.
+/// Supports nrfs conversion for spacing values.
+/// @group Properties
+/// @param {Map} $properties - Map of property names and values
+/// @param {Boolean} $important [false] - Whether to add !important to all properties
+/// @example scss
+///   @include generate-properties((font-size: 16px, padding: 20px));
 @mixin generate-properties($properties, $important: false) {
     $_important: if($important, !important, null);
 
@@ -260,6 +343,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Generates CSS properties with RFS (Responsive Font Size) support.
+/// Similar to generate-properties but uses Bootstrap RFS mixins for fluid spacing.
+/// @group Properties
+/// @param {Map} $properties - Map of property names and values
+/// @param {Boolean} $important [false] - Whether to add !important
+/// @example scss
+///   @include generate-rfs-properties((margin: 2rem, padding: 1rem));
 @mixin generate-rfs-properties($properties, $important: false) {
     $_important: if($important, !important, null);
 
@@ -300,12 +390,26 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
+/// Generates properties from a nested map structure using a key lookup.
+/// @group Properties
+/// @param {Map} $array - The parent map containing property sets
+/// @param {String} $key - The key to look up in the map
+/// @param {Boolean} $important [false] - Whether to add !important
+/// @example scss
+///   @include generate-properties-from($typography, 'heading-1');
 @mixin generate-properties-from($array, $key, $important: false) {
     $properties: map.get($array, $key);
 
     @include generate-properties($properties, $important);
 }
 
+/// Generates RFS properties from a nested map structure using a key lookup.
+/// @group Properties
+/// @param {Map} $array - The parent map containing property sets
+/// @param {String} $key - The key to look up in the map
+/// @param {Boolean} $important [false] - Whether to add !important
+/// @example scss
+///   @include generate-rfs-properties-from($spacing, 'large');
 @mixin generate-rfs-properties-from($array, $key, $important: false) {
     $properties: map.get($array, $key);
 
@@ -313,8 +417,18 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 }
 
 
-//********** A list of all HTML button elements.
+// =============================================================================
+// Input & Form Utilities
+// =============================================================================
 
+/// Assigns pseudo-classes to a list of input selectors.
+/// Creates comma-separated selector list with optional pseudo-state.
+/// @group Forms
+/// @param {List} $inputs - List of input selectors
+/// @param {String} $pseudo [null] - Optional pseudo-class to append (e.g., 'hover', 'focus')
+/// @return {String} - Comma-separated selector string
+/// @example scss
+///   #{$all-buttons-focus} { outline: 2px solid blue; }
 @function _assign-inputs(
     $inputs,
     $pseudo: null
@@ -331,6 +445,11 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     //@return $list;
 }
 
+/// Modern clearfix mixin using ::after pseudo-element.
+/// @group Layout
+/// @output Adds clearfix via ::after pseudo-element
+/// @example scss
+///   .container { @include clearfix; }
 @mixin clearfix() {
     &::after {
         display: block;
@@ -339,8 +458,17 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     }
 }
 
-//********** Truncates text and adds an ellipsis to represent overflow.
+// =============================================================================
+// Text & Content Utilities
+// =============================================================================
 
+/// Truncates text with ellipsis when it overflows its container.
+/// @group Text
+/// @param {Length} $width [100%] - Maximum width of the container
+/// @param {String} $display [inline-block] - Display property value
+/// @output Sets overflow, text-overflow, and white-space properties
+/// @example scss
+///   .truncate { @include ellipsis(300px, block); }
 @mixin ellipsis(
     $width: 100%,
     $display: inline-block
@@ -409,8 +537,19 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 // Usage: @include margin(10px 3em 20vh null);
 //^^^
 
-//********** Generates vendor prefixes.
+// =============================================================================
+// Vendor Prefixing & Container Utilities
+// =============================================================================
 
+/// Generates vendor-prefixed CSS properties for cross-browser compatibility.
+/// @group Vendor
+/// @param {String} $property - CSS property name
+/// @param {*} $value - Property value
+/// @param {List} $vendors [webkit moz ms o] - List of vendor prefixes
+/// @param {Boolean} $default [true] - Whether to include unprefixed property
+/// @output Prefixed and standard CSS properties
+/// @example scss
+///   @include prefix('box-sizing', 'border-box', moz webkit);
 @mixin prefix($property, $value, $vendors: webkit moz ms o, $default: true) {
     @if $vendors {
         @each $vendor in $vendors {
@@ -426,6 +565,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 // Usage: @include prefix('box-sizing', 'border-box', moz webkit);
 //^^^
 
+/// Creates a Bootstrap-style container with auto margins and padding.
+/// Centers content horizontally with consistent side padding.
+/// @group Layout
+/// @param {Length} $gutter-x - Horizontal gutter/padding value
+/// @output Width, padding, and margin properties
+/// @example scss
+///   @include make-container(1.5rem);
 @mixin make-container($gutter-x) {
     width: 100%;
     padding-right: calc($gutter-x * .5);
@@ -435,8 +581,17 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 }
 
 
-//********** sticky/absolute/fixed block.
+// =============================================================================
+// Positioning Utilities
+// =============================================================================
 
+/// Sets absolute positioning with top and z-index.
+/// @group Positioning
+/// @param {Length} $top [0] - Top offset value
+/// @param {Number} $index [1000] - Z-index value
+/// @output Position, top, and z-index properties
+/// @example scss
+///   @include absolute(10px, 100);
 @mixin absolute(
     $top: 0,
     $index: 1000
@@ -446,6 +601,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     z-index: $index;
 }
 
+/// Sets fixed positioning with top and z-index.
+/// @group Positioning
+/// @param {Length} $top [0] - Top offset value
+/// @param {Number} $index [1000] - Z-index value
+/// @output Position, top, and z-index properties
+/// @example scss
+///   @include fixed(0, 100);
 @mixin fixed(
     $top: 0,
     $index: 1000
@@ -455,6 +617,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     z-index: $index;
 }
 
+/// Sets sticky positioning with top and z-index.
+/// @group Positioning
+/// @param {Length} $top [0] - Top offset value
+/// @param {Number} $index [1000] - Z-index value
+/// @output Position, top, and z-index properties
+/// @example scss
+///   @include sticky(0, 100);
 @mixin sticky(
     $top: 0,
     $index: 1000
@@ -464,15 +633,17 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     z-index: $index;
 }
 
-//^^^
-// Usage: @include fixed(0, 100);
-// Usage: @include absolute(0, 100);
-// Usage: @include sticky(0, 100);
-//^^^
 
+// =============================================================================
+// Image & Background Utilities
+// =============================================================================
 
-//********** Full Width/Height and Centered Image.
-
+/// Makes an image cover its container using object-fit.
+/// Ensures the image fills the container while maintaining aspect ratio.
+/// @group Images
+/// @output Sets object-fit, width, height, and min-height
+/// @example scss
+///   .hero-image { @include img-cover; }
 @mixin img-cover {
     min-height: 100%;
     width: 100%;
@@ -482,13 +653,15 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
     color: #ffffff;
 }
 
-//^^^
-// Usage: @include img-cover;
-//^^^
-
-
-//********** Fullscreen Background Image.
-
+/// Creates a full-screen background image with customizable properties.
+/// @group Background
+/// @param {String|Boolean} $url [false] - Background image URL
+/// @param {String|Boolean} $positions [false] - Background position (default: center center)
+/// @param {String|Boolean} $attachment [false] - Background attachment (default: fixed)
+/// @param {String|Boolean} $size [false] - Background size (default: cover)
+/// @output Background properties for fullscreen effect
+/// @example scss
+///   @include bg-cover('../images/hero.jpg', top center, scroll, 100% auto);
 @mixin bg-cover(
     $url: false,
     $positions: false,
@@ -725,6 +898,18 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 // Font Face
 // =============================================================================
 
+/// Generates @font-face declarations with multiple font format support.
+/// Automatically handles different font file extensions and formats.
+/// @group Typography
+/// @param {String} $name - Font family name
+/// @param {String} $path - Path to font files (without extension)
+/// @param {Number|String} $weight [null] - Font weight (e.g., 400, bold)
+/// @param {String} $style [null] - Font style (e.g., italic, normal)
+/// @param {List} $exts [eot woff2 woff ttf svg] - List of font file extensions to include
+/// @param {String} $display [swap] - Font display strategy
+/// @output Complete @font-face rule with src URLs
+/// @example scss
+///   @include font-face('MyFont', '../fonts/myfont', 400, normal, woff2 woff);
 @mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg, $display: swap) {
     $src: null;
 
@@ -755,9 +940,17 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 }
 
 // =============================================================================
-// Reusable
+// Reusable Component Mixins
 // =============================================================================
 
+/// Applies typography styles to all heading elements (h1-h6).
+/// Uses a typography map with keys like 'h-1', 'h-2', etc.
+/// @group Components
+/// @param {Map} $typography - Map containing typography definitions for headings
+/// @param {Boolean} $rfs [false] - Whether to use Responsive Font Size
+/// @output Typography styles for h1 through h6 elements
+/// @example scss
+///   @include headings-typography($my-typography-map, true);
 @mixin headings-typography($typography, $rfs: false) {
     @for $i from 1 through 6 {
         h#{$i} {
@@ -771,39 +964,78 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 }
 
 // =============================================================================
-// Breakpoints
+// Breakpoint Media Query Mixins
 // =============================================================================
 
+/// Media query for minimum width breakpoint.
+/// @group Breakpoints
+/// @param {Length} $bp - Breakpoint value
+/// @content Styles to apply at this breakpoint and above
+/// @example scss
+///   @include breakpoint-min(768px) { ... }
 @mixin breakpoint-min($bp) {
     @media (min-width: $bp) {
         @content;
     }
 }
 
+/// Media query for maximum width breakpoint.
+/// @group Breakpoints
+/// @param {Length} $bp - Breakpoint value
+/// @content Styles to apply below this breakpoint
+/// @example scss
+///   @include breakpoint-max(767px) { ... }
 @mixin breakpoint-max($bp) {
     @media (max-width: $bp) {
         @content;
     }
 }
 
+/// Media query for a range between two breakpoints.
+/// @group Breakpoints
+/// @param {Length} $bp1 - Minimum breakpoint value
+/// @param {Length} $bp2 - Maximum breakpoint value
+/// @content Styles to apply within this range
+/// @example scss
+///   @include breakpoint-min-max(768px, 1024px) { ... }
 @mixin breakpoint-min-max($bp1, $bp2) {
     @media (min-width: $bp1) and (max-width: $bp2) {
         @content;
     }
 }
 
+/// Media query for screens wider than the breakpoint (exclusive).
+/// @group Breakpoints
+/// @param {Length} $bp - Breakpoint value
+/// @content Styles to apply above this breakpoint
+/// @example scss
+///   @include breakpoint-greater-than(768px) { ... }
 @mixin breakpoint-greater-than($bp) {
     @media (min-width: $bp+1) {
         @content;
     }
 }
 
+/// Media query for screens narrower than the breakpoint (exclusive).
+/// @group Breakpoints
+/// @param {Length} $bp - Breakpoint value
+/// @content Styles to apply below this breakpoint
+/// @example scss
+///   @include breakpoint-less-than(768px) { ... }
 @mixin breakpoint-less-than($bp) {
     @media (max-width: #{$bp - 1}) {
         @content;
     }
 }
 
+/// Retrieves a value from a nested map structure.
+/// @group Utilities
+/// @param {Map} $map - The parent map
+/// @param {String} $key1 - First level key
+/// @param {String} $key2 - Second level key
+/// @return {*} - The value at the nested key path
+/// @example scss
+///   $value: sub-map-get($theme, 'colors', 'primary');
 @function sub-map-get($map, $key1, $key2) {
     @return map.get(map-get($map, $key1), $key2);
 }
