@@ -5,7 +5,7 @@
 @use "../vars";
 @use "mixins" as mx;
 
-$use-rfs-typography: if(vars.$use-rfs-typography, vars.$use-rfs-typography, true);
+$use-rfs-typography: vars.$use-rfs-typography;
 
 //@import "bootstrap-required";
 @use "bootstrap-required";
@@ -404,14 +404,20 @@ sup {
 // Links
 
 a {
-    color: vars.$link-color;
-    text-decoration: vars.$link-decoration;
+    @if(vars.$link-color != false) {
+        color: vars.$link-color;
+    }
+    @if(vars.$link-decoration != false) {
+        text-decoration: vars.$link-decoration;
+    }
 
     &:hover {
         @if vars.$link-hover-color != false {
             color: vars.$link-hover-color;
         }
-        text-decoration: vars.$link-hover-decoration;
+        @if(vars.$link-hover-decoration != false) {
+            text-decoration: vars.$link-hover-decoration;
+        }
     }
 }
 

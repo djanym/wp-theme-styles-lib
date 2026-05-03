@@ -4,7 +4,6 @@
 @use "mixins" as mx;
 
 @use "bootstrap-required";
-//@import "bootstrap-required";
 
 $post-content-max-width: if(vars.$post-content-max-width, vars.$post-content-max-width, false);
 $post-content-spacing-x: if(vars.$post-content-spacing-x, vars.$post-content-spacing-x, 1rem);

@@ -200,7 +200,7 @@ $navbar-bg-color: if(vars.$navbar-bg-color, vars.$navbar-bg-color, false); // Ba
 $subm-bg-color: if(vars.$navbar-subm-bg-color, vars.$navbar-subm-bg-color, false);
 $mbl-subm-bg-color: if(vars.$navbar-mbl-subm-bg-color, vars.$navbar-mbl-subm-bg-color, false);
 
-$subm-items-gap: if(vars.$navbar-subm-items-gap, vars.$navbar-mbl-subm-items-gap, false);
+$subm-items-gap: if(vars.$navbar-subm-items-gap, vars.$navbar-subm-items-gap, false);
 $mbl-subm-items-gap: if(vars.$navbar-mbl-subm-items-gap, vars.$navbar-mbl-subm-items-gap, false);
 
 // Horizontal and Vertical spacing for the submenu container.
@@ -209,6 +209,7 @@ $mbl-subm-ul-spacing-y: if(vars.$navbar-mbl-subm-ul-spacing-y, vars.$navbar-mbl-
 $subm-ul-spacing-x: if(vars.$navbar-subm-ul-spacing-x, vars.$navbar-subm-ul-spacing-x, false);
 $mbl-subm-ul-spacing-x: if(vars.$navbar-mbl-subm-ul-spacing-x, vars.$navbar-mbl-subm-ul-spacing-x, false);
 $mbl-subm-ul-spacing-right: if(vars.$navbar-mbl-subm-ul-spacing-right, vars.$navbar-mbl-subm-ul-spacing-right, false);
+$subm-ul-left: if(vars.$navbar-subm-ul-left, vars.$navbar-subm-ul-left, 0);
 
 // Background color of the submenu <li> item.
 $subm-li-bg-color: if(vars.$navbar-subm-li-bg-color, vars.$navbar-subm-li-bg-color, false);
@@ -501,7 +502,7 @@ $mbl-dropdown-arrow-color: if(vars.$navbar-mbl-dropdown-arrow-color, vars.$navba
                 display: none;
                 position: absolute;
                 z-index: 99;
-                left: 0;
+                left: $subm-ul-left;
                 align-content: flex-start;
 
                 // Show sub menu on right on hover

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+/*!
+ * Bootstrap Required Imports
+ * Imports essential Bootstrap SCSS modules for RFS and utilities
+ */
+
+// Bootstrap functions first (needed by variables)
+// Bootstrap functions first (needed by variables)
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// Bootstrap variables
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+
+// Bootstrap maps
+@import "../../../node_modules/bootstrap/scss/maps";
+
+// Bootstrap mixins (includes RFS)
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+// Bootstrap utilities API
+@import "../../../node_modules/bootstrap/scss/utilities";
