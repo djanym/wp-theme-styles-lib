@@ -68,6 +68,21 @@
     }
 }
 
+select {
+    padding: vars.$input-padding-y vars.$input-padding-x;
+    border: vars.$input-border;
+    border-radius: vars.$input-border-radius;
+    background: vars.$input-bg;
+
+    color: vars.$input-color;
+    font-size: vars.$input-font-size;
+    line-height: vars.$input-line-height;
+
+    @if vars.$input-min-height {
+        min-height: vars.$input-min-height;
+    }
+}
+
 #{mx.$all-buttons} {
     @include mx.generate-properties-from(vars.$buttons, vars.$form-button-key);
 
@@ -144,6 +159,8 @@
                 margin-right: 0.25rem;
             }
         }
+
+        .wpcf7-select {}
 
         .v-dir-cb {
             display: flex;
