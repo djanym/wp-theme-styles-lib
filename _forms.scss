@@ -3,7 +3,7 @@
 
 .form-fields-container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: vars.$form-fields-gap;
 
     label {
@@ -13,6 +13,18 @@
 
     #{mx.$all-text-inputs} {
         width: 100%;
+    }
+
+    .form-row {
+        flex-basis: 100%;
+    }
+
+    .half-col {
+        flex-basis: calc(50% - #{vars.$form-fields-gap} / 2);
+
+        @include mx.breakpoint-max(vars.$tablet) {
+            flex-basis: 100%;
+        }
     }
 }
 
