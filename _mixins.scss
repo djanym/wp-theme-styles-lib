@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/*!
+/**
  * WP Theme Styles Library - Mixins Module
  * Version: 2.0
  * Description: Comprehensive collection of SCSS mixins and functions for WordPress theme development.
@@ -173,8 +173,7 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 ///   margin: nrfs-value(16px); // Returns 1rem (if $rfs-unit is rem)
 @function nrfs-value($values) {
     // Convert to list
-    $values: if(sass(meta.type-of($values) != list): ($values,); else: $values);
-
+    $values: if(meta.type-of($values) != list, ($values), $values);
     $val: "";
 
     // Loop over each value and calculate value
@@ -183,14 +182,13 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
             $val: $val + " 0";
         } @else {
             // Cache $value unit
-            $unit: if(sass(meta.type-of($value) == "number"): math.unit($value); else: false);
-
+            $unit: if(meta.type-of($value) == "number", math.unit($value), false);
             @if $unit == px {
                 // Convert to rem if needed
-                $val: $val + " " + if(sass($rfs-unit == rem): #{fn.divide($value, $value * 0 + $rfs-rem-value)}rem; else: $value);
+                $val: $val + " " + if($rfs-unit == rem, #{fn.divide($value, $value * 0 + $rfs-rem-value)}rem, $value);
             } @else if $unit == rem {
                 // Convert to px if needed
-                $val: $val + " " + if(sass($rfs-unit == px): #{fn.divide($value, $value * 0 + 1) * $rfs-rem-value}px; else: $value);
+                $val: $val + " " + if($rfs-unit == px, #{fn.divide($value, $value * 0 + 1) * $rfs-rem-value}px, $value);
             } @else {
                 // If $value isn't a number (like inherit) or $value has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
                 $val: $val + " " + $value;
@@ -304,8 +302,7 @@ $all-text-inputs: list.join($_text-inputs-list, ', ');
 /// @example scss
 ///   @include generate-properties((font-size: 16px, padding: 20px));
 @mixin generate-properties($properties, $important: false) {
-    $_important: if(sass($important): !important);
-
+    $_important: if($important, !important, null);
     @each $property, $property-value in $properties {
         @if $property-value {
             @if $property == 'typography' {

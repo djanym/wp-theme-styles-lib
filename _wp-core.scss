@@ -454,18 +454,16 @@ $mobile-breakpoint: vars.$mobile;
 }
 
 @mixin fix-aligns-if-is-layout-constrained() {
-    $width: var(--editor-width, var(--full-width));
-    
     .is-layout-constrained {
-        $_edge-margin: calc(($width - var(--wp--style--global--content-size)) / 2);
+        $_edge-margin: calc((var(--full-width) - var(--wp--style--global--content-size)) / 2);
 
         &:not(.has-global-padding) {
             > .alignleft {
-                margin-left: max(0px, $_edge-margin);
+                margin-left: max(.1px, $_edge-margin);
             }
 
             > .alignright {
-                margin-right: max(0px, $_edge-margin);
+                margin-right: max(.1px, $_edge-margin);
             }
         }
 
@@ -473,11 +471,41 @@ $mobile-breakpoint: vars.$mobile;
             $_edge-margin: calc($_edge-margin - var(--wp--style--root--padding-right));
 
             > .alignleft {
-                margin-left: max(0px, $_edge-margin);
+                margin-left: max(.1px, $_edge-margin);
             }
 
             > .alignright {
-                margin-right: max(0px, $_edge-margin);
+                margin-right: max(.1px, $_edge-margin);
+            }
+        }
+    }
+
+    // For admin editor, because it doesn't have .is-layout-constrained class.
+    // This is a fallback to prevent the content from overflowing when the editor width is less than the content width.
+    .editor-styles-wrapper  {
+        .is-layout-constrained.is-root-container {
+            $_edge-margin: calc((var(--editor-width) - var(--wp--style--global--content-size)) / 2);
+
+            &:not(.has-global-padding) {
+                > .alignleft {
+                    margin-left: max(.1px, $_edge-margin);
+                }
+
+                > .alignright {
+                    margin-right: max(.1px, $_edge-margin);
+                }
+            }
+
+            &.has-global-padding {
+                $_edge-margin: calc($_edge-margin - var(--wp--style--root--padding-right));
+
+                > .alignleft {
+                    margin-left: max(.1px, $_edge-margin);
+                }
+
+                > .alignright {
+                    margin-right: max(.1px, $_edge-margin);
+                }
             }
         }
     }
